@@ -35,7 +35,7 @@ struct _Tool {
         let code =
             """
             //generated on: \(dateString)
-            \(target == "FeatherOpenAPIKit" ? "" : "import FeatherOpenAPIKit")
+            \(target == "FeatherOpenAPI" ? "" : "import FeatherOpenAPI")
 
             extension Component {
 
@@ -146,7 +146,10 @@ struct _Tool {
                 }
                 else if fileURL.pathExtension == "swift" {
                     do {
-                        let fileContent = try String(contentsOf: fileURL)
+                        let fileContent = try String(
+                            contentsOf: fileURL,
+                            encoding: .utf8
+                        )
                         let list = collectTypes(
                             Parser.parse(source: fileContent)
                         )

@@ -1,0 +1,22 @@
+//
+//  File.swift
+//
+//
+//  Created by Tibor Bodecs on 20/01/2024.
+//
+
+import FeatherOpenAPI
+
+extension Example.Model {
+
+    static let tags: [Tag.Type] = [
+        Tags.Main.self
+    ]
+
+    enum Tags {
+
+        enum Main: Tag {
+            static let name = "Model"
+        }
+    }
+}
