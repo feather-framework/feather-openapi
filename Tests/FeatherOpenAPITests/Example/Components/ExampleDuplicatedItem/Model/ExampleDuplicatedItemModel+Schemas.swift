@@ -9,11 +9,13 @@ import FeatherOpenAPI
 
 extension ExampleDuplicatedItem.Model {
 
-    static let schemas: [Schema.Type] = [
-        Schemas.Id.self,
-        Schemas.Key.self,
-        Schemas.KeySecond.self,
-    ]
+    static var schemas: [Schema.Type] {
+        [
+            Schemas.Id.self,
+            Schemas.Key.self,
+            Schemas.KeySecond.self,
+        ]
+    }
 
     enum Schemas {
 

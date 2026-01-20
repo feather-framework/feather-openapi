@@ -7,6 +7,7 @@
 
 import FeatherOpenAPI
 import OpenAPIKit
+import Foundation
 
 struct ExampleDuplicatedItemDocument: Document {
 

@@ -15,12 +15,16 @@ public protocol Document {
     func openAPIDocument() throws -> OpenAPI.Document
 
     func schemas() throws -> OpenAPI.ComponentDictionary<JSONSchema>
-    func parameters() throws -> OpenAPI.ComponentDictionary<OpenAPI.Parameter>
-    func headers() throws -> OpenAPI.ComponentDictionary<OpenAPI.Header>
-    func requestBodies() throws -> OpenAPI.ComponentDictionary<OpenAPI.Request>
+    func parameters() throws
+        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Parameter>
+    func headers() throws
+        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Header>
+    func requestBodies() throws
+        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Request>
     func securitySchemes() throws
-        -> OpenAPI.ComponentDictionary<OpenAPI.SecurityScheme>
-    func responses() throws -> OpenAPI.ComponentDictionary<OpenAPI.Response>
+        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.SecurityScheme>
+    func responses() throws
+        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Response>
     func tags() throws -> [OpenAPI.Tag]
     func paths() throws -> OpenAPI.PathItem.Map
 

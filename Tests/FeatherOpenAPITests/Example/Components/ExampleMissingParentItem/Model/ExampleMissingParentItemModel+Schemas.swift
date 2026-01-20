@@ -9,10 +9,12 @@ import FeatherOpenAPI
 
 extension ExampleMissingParentItem.Model {
 
-    static let schemas: [Schema.Type] = [
-        Schemas.Id.self,
-        Schemas.Key.self,
-    ]
+    static var schemas: [Schema.Type] {
+        [
+            Schemas.Id.self,
+            Schemas.Key.self,
+        ]
+    }
 
     enum Schemas {
 

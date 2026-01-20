@@ -9,9 +9,11 @@ import FeatherOpenAPI
 
 extension Example.Model {
 
-    static let tags: [Tag.Type] = [
-        Tags.Main.self
-    ]
+    static var tags: [Tag.Type] {
+        [
+            Tags.Main.self
+        ]
+    }
 
     enum Tags {
 

@@ -9,26 +9,30 @@ import FeatherOpenAPI
 
 extension Example.Model {
 
-    static let pathItems: [PathItem.Type] = [
-        PathItems.Main.self,
-        PathItems.Identified.self,
-    ]
+    static var pathItems: [PathItem.Type] {
+        [
+            PathItems.Main.self,
+            PathItems.Identified.self,
+        ]
+    }
 
     enum PathItems {
 
         enum Main: PathItem {
-            static let path: Path = "/example/models"
+            static var path: Path { "/example/models" }
 
-            static let post: Operation.Type? = Operations.Create.self
+            static var post: Operation.Type? { Operations.Create.self }
         }
 
         enum Identified: PathItem {
-            static let path: Path = Main.path / Parameters.Id.path
-            static let parameters: [Parameter.Type] = [
-                Parameters.Id.self
-            ]
+            static var path: Path { Main.path / Parameters.Id.path }
+            static var parameters: [Parameter.Type] {
+                [
+                    Parameters.Id.self
+                ]
+            }
 
-            static let get: Operation.Type? = Operations.Get.self
+            static var get: Operation.Type? { Operations.Get.self }
         }
 
     }

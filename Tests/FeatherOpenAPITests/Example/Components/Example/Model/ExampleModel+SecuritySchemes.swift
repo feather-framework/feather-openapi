@@ -18,9 +18,11 @@ extension Operation {
 
 extension Example.Model {
 
-    static let securitySchemes: [SecurityScheme.Type] = [
-        SecuritySchemes.BearerToken.self
-    ]
+    static var securitySchemes: [SecurityScheme.Type] {
+        [
+            SecuritySchemes.BearerToken.self
+        ]
+    }
 
     enum SecuritySchemes {
 

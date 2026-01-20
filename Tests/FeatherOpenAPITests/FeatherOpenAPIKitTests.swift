@@ -9,17 +9,19 @@ import Foundation
 import OpenAPIKit
 import OpenAPIKitCore
 import Yams
-import XCTest
+import Testing
 
 @testable import FeatherOpenAPI
 
-final class FeatherOpenAPIKitTests: XCTestCase {
+@Suite
+struct FeatherOpenAPIKitTests {
 
-    func testRender() throws {
+    @Test
+    func render() throws {
 
         let document = ExampleDocument()
 
-        XCTAssert(
+        #expect(
             try document.schemas()
                 .contains {
                     $0.key.rawValue == "ExampleModelPatch"
@@ -33,22 +35,25 @@ final class FeatherOpenAPIKitTests: XCTestCase {
             _ = try openAPIDocument.locallyDereferenced()
         }
         catch {
-            return XCTFail("\(error)")
+            Issue.record("\(error)")
+            return
         }
 
         _ = try encoder.encode(openAPIDocument)
     }
 
-    func testSchemaDescription() throws {
+    @Test
+    func schemaDescription() throws {
 
         struct IDSchema: NanoIDSchema {}
         struct Foo: NanoIDSchema {}
 
-        XCTAssertEqual(IDSchema.description, "ID description")
-        XCTAssertEqual(Foo.description, "Foo description")
+        #expect(IDSchema.description == "ID description")
+        #expect(Foo.description == "Foo description")
     }
 
-    func testDuplicatedItem() throws {
+    @Test
+    func duplicatedItem() throws {
 
         let document = ExampleDuplicatedItemDocument()
         var errorMessage: String = "none"
@@ -60,13 +65,14 @@ final class FeatherOpenAPIKitTests: XCTestCase {
             errorMessage = error.message
         }
 
-        XCTAssertEqual(
-            errorMessage,
-            "Feather OpenAPI item id is duplicated: 'ExampleDuplicatedItemModelKey' (Did you forget to include override=true?)"
+        #expect(
+            errorMessage
+                == "Feather OpenAPI item id is duplicated: 'ExampleDuplicatedItemModelKey' (Did you forget to include override=true?)"
         )
     }
 
-    func testMissingParentItem() throws {
+    @Test
+    func missingParentItem() throws {
 
         let document = ExampleMissingParentItemItemDocument()
         var errorMessage: String = "none"
@@ -78,9 +84,9 @@ final class FeatherOpenAPIKitTests: XCTestCase {
             errorMessage = error.message
         }
 
-        XCTAssertEqual(
-            errorMessage,
-            "Feather OpenAPI item 'ExampleMissingParentItemModelKey' is set as override but has no parent. (Are the component orders correct? Or are the IDs the same?)"
+        #expect(
+            errorMessage
+                == "Feather OpenAPI item 'ExampleMissingParentItemModelKey' is set as override but has no parent. (Are the component orders correct? Or are the IDs the same?)"
         )
     }
 

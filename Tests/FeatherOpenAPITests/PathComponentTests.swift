@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 
 @testable import FeatherOpenAPI
 
@@ -33,75 +33,88 @@ fileprivate extension Path {
     }
 }
 
-final class PathComponentTests: XCTestCase {
+@Suite
+struct PathComponentTests {
 
-    func testDoesNotCompile() {
+    @Test
+    func doesNotCompile() {
         //        let test = "foo" / "part_second" / "part_third"
     }
 
-    func testStringLiteralInit() {
+    @Test
+    func stringLiteralInit() {
         let test: Path = .init("foo")
-        XCTAssertEqual(test.value, "foo")
+        #expect(test.value == "foo")
     }
 
-    func testExplicitPathComponent() {
+    @Test
+    func explicitPathComponent() {
         let test =
             Path("foo") / Path("part_second")
             / Path("part_third")
-        XCTAssertEqual(test.value, "foo/part_second/part_third")
+        #expect(test.value == "foo/part_second/part_third")
     }
 
-    func testExplicitPathComponentOp() {
+    @Test
+    func explicitPathComponentOp() {
         let test =
             Path("foo") / Path("part_second")
             / Path("part_third")
-        XCTAssertEqual(test.value, "foo/part_second/part_third")
+        #expect(test.value == "foo/part_second/part_third")
     }
 
-    func testPureStringLiteralOp() {
+    @Test
+    func pureStringLiteralOp() {
         let test: Path = .init("foo") / "part_second"
-        XCTAssertEqual(test.value, "foo/part_second")
+        #expect(test.value == "foo/part_second")
     }
 
-    func testDecorInit() {
+    @Test
+    func decorInit() {
         let test: Path = .parameter("param")
-        XCTAssertEqual(test.value, "{param}")
+        #expect(test.value == "{param}")
     }
 
-    func testDecorOp() {
+    @Test
+    func decorOp() {
         let test: Path =
             .init("foo") / "part_second" / .parameter("param") / .star("star")
-        XCTAssertEqual(test.value, "foo/part_second/{param}/*star*")
+        #expect(test.value == "foo/part_second/{param}/*star*")
     }
 
-    func testStringInit() {
+    @Test
+    func stringInit() {
         let strTest = "string"
         let test: Path = .init(strTest)
-        XCTAssertEqual(test.value, "string")
+        #expect(test.value == "string")
     }
 
-    func testStringOp_1() {
+    @Test
+    func stringOp_1() {
         let strTest = "string"
         let test: Path = Path("foo") / strTest
-        XCTAssertEqual(test.value, "foo/string")
+        #expect(test.value == "foo/string")
     }
 
-    func testStringOp_2() {
+    @Test
+    func stringOp_2() {
         let strTest = "string"
         let test: Path = strTest / Path("foo")
-        XCTAssertEqual(test.value, "string/foo")
+        #expect(test.value == "string/foo")
     }
 
-    func testParameterOp() {
+    @Test
+    func parameterOp() {
         let paramDummy = ParameterDummy(name: "param")
         let test: Path =
             .init("foo") / "part_second" / .parameter(paramDummy)
         // also works with explicit name:
         //let test: PathComponent = .init("foo") / "part_second" / .parameter(paramDummy.name)
-        XCTAssertEqual(test.value, "foo/part_second/{param}")
+        #expect(test.value == "foo/part_second/{param}")
     }
 
-    func testUltimate() {
+    @Test
+    func ultimate() {
         // utimate op test
         //TODO: may replace by freestanding macros like that:
         //  #let_path_comp("example")
@@ -112,6 +125,6 @@ final class PathComponentTests: XCTestCase {
 
         let test = example / model / .superstar() / .parameter(paramVariable)
 
-        XCTAssertEqual(test.value, "example/model/********/{variable-id}")
+        #expect(test.value == "example/model/********/{variable-id}")
     }
 }
