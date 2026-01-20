@@ -38,4 +38,4 @@ test:
 	swift test --parallel
 
 docker-test:
-	docker build -t feather-database-tests . -f ./docker/tests/Dockerfile && docker run --rm feather-database-tests
+	docker build -t feather-openapi-tests . -f ./docker/tests/Dockerfile && docker run --rm feather-openapi-tests

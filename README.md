@@ -44,7 +44,7 @@ Then add `FeatherOpenAPI` to your target dependencies:
  
 ![DocC API documentation](https://img.shields.io/badge/DocC-API_documentation-F05138)
 
-API documentation is available at the following link. Refer to the mock objects in the Tests directory if you want to build a custom database driver implementation.
+API documentation is available at the following link. 
 
 > [!WARNING]  
 > This repository is a work in progress, things can break until it reaches v1.0.0.
