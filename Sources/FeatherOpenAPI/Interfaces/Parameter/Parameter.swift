@@ -38,8 +38,8 @@ public extension Parameter {
     static func openAPIParameter() -> OpenAPI.Parameter {
         .init(
             name: name,
-            context: context, // TODO: fix me
-//            schema: schema.reference(),
+            context: context,  // TODO: fix me
+            //            schema: schema.reference(),
             description: description
         )
     }

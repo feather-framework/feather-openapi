@@ -3,7 +3,7 @@ import OpenAPIKit
 public protocol BinaryResponse: Response {}
 
 public extension BinaryResponse {
-    
+
     static func openAPIResponse() -> OpenAPI.Response {
         .init(
             summary: nil,

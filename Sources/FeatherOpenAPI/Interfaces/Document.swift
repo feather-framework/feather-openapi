@@ -81,7 +81,9 @@ public extension Document {
             }
     }
 
-    func parameters() throws -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Parameter> {
+    func parameters() throws
+        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Parameter>
+    {
         return
             try Self.filterIdentifiables(
                 lists: components.map {
@@ -93,7 +95,9 @@ public extension Document {
             }
     }
 
-    func headers() throws -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Header> {
+    func headers() throws
+        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Header>
+    {
         return
             try Self.filterIdentifiables(
                 lists: components.map {
@@ -105,7 +109,8 @@ public extension Document {
             }
     }
 
-    func requestBodies() throws -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Request>
+    func requestBodies() throws
+        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Request>
     {
         return
             try Self.filterIdentifiables(
@@ -132,8 +137,10 @@ public extension Document {
             }
     }
 
-    func responses() throws -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Response> {
-        
+    func responses() throws
+        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Response>
+    {
+
         return
             try Self.filterIdentifiables(
                 lists: components.map {

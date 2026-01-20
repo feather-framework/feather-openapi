@@ -1,71 +1,28 @@
+//
+//  File.swift
+//  feather-openapi
+//
+//  Created by Tibor Bödecs on 2026. 01. 20..
+//
+
+#if canImport(FoundationEssentials)
+import FoundationEssentials
+#else
 import Foundation
+#endif
+
 import SwiftParser
 import SwiftSyntax
 
-enum BuilderError: Error {
-    case wrongArgumentsNumber
-    case invalidOutputFormat
-    case errorReadingContent(String)
-    case errorAccessContent(String)
-}
+struct TypeCollector {
 
-@main
-struct _Tool {
-    static func main() async throws {
-        print("FeatherOpenAPIGenerator is running...")
-
-        guard CommandLine.arguments.count >= 3 else {
-            throw BuilderError.wrongArgumentsNumber
-        }
-
-        let input = URL(fileURLWithPath: CommandLine.arguments[1])
-        let output = URL(fileURLWithPath: CommandLine.arguments[2])
-        let target =
-            CommandLine.arguments.count > 3 ? CommandLine.arguments[3] : ""
-
-        let typeList = try collectTypes(input.path)
-        let collectedTypes = typeList.joined(separator: ",\n        ")
-
-        let dateString = DateFormatter.localizedString(
-            from: Date(),
-            dateStyle: .medium,
-            timeStyle: .medium
-        )
-
-        let code =
-            """
-            //generated on: \(dateString)
-            \(target == "FeatherOpenAPI" ? "" : "import FeatherOpenAPI")
-
-            extension Component {
-
-                public static func getComponentsOfType<T>() -> [T] {
-                    let prefixName = String(reflecting: self) + "."
-                    return [
-                        \(collectedTypes)
-                    ].compactMap { $0 as? T }.filter {
-                        String(reflecting: $0).hasPrefix(prefixName)
-                    }
-                }
-            }
-            """
-
-        print("Generated code path: \(output.path)")
-
-        guard let data = code.data(using: .utf8) else {
-            throw BuilderError.invalidOutputFormat
-        }
-
-        try data.write(to: output, options: .atomic)
-
-        print("FeatherOpenAPIGenerator finished.")
-    }
-
-    private static func getFullName(_ node: TypeSyntax) -> String {
+    func getFullName(
+        _ node: TypeSyntax
+    ) -> String {
         node.trimmedDescription
     }
 
-    private static func getNodeName(
+    func getNodeName(
         _ parentNodeName: String,
         _ nodeName: String
     ) -> String {
@@ -75,7 +32,7 @@ struct _Tool {
         return parentNodeName + "." + nodeName
     }
 
-    private static func collectTypes(
+    func collectTypes(
         _ parentNodeName: String,
         _ node: SyntaxProtocol
     ) -> [String] {
@@ -115,7 +72,9 @@ struct _Tool {
         return ret
     }
 
-    private static func collectTypes(_ root: SourceFileSyntax) -> [String] {
+    func collectTypes(
+        _ root: SourceFileSyntax
+    ) -> [String] {
         var ret: [String] = []
 
         for st in root.statements {
@@ -126,7 +85,9 @@ struct _Tool {
         return ret
     }
 
-    private static func collectTypes(_ dirPath: String) throws -> [String] {
+    func collectTypes(
+        _ dirPath: String
+    ) throws -> [String] {
         var ret: [String] = []
 
         let fileManager = FileManager.default
@@ -171,4 +132,5 @@ struct _Tool {
 
         return ret
     }
+
 }

@@ -21,10 +21,11 @@ extension Example.Model {
             static let tag: Tag.Type = Tags.Main.self
             static let summary = "Detail example"
             static let description = "Detail example detail"
-            static var parameters: [Parameter.Type] { [
-                //                Parameters.Id.self,
-                Parameters.CustomRequestHeader.self
-            ]
+            static var parameters: [Parameter.Type] {
+                [
+                    //                Parameters.Id.self,
+                    Parameters.CustomRequestHeader.self
+                ]
             }
             static let responses: [OperationResponse] = [
                 .init(200, Responses.Detail.self)

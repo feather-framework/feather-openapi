@@ -21,7 +21,7 @@ extension BinaryBody {
                         ),
                         examples: nil
                     )
-                ),
+                )
             ],
             required: required
         )
