@@ -64,11 +64,22 @@ let package = Package(
             name: "FeatherOpenAPI",
             dependencies: [
                 .product(name: "OpenAPIKit", package: "OpenAPIKit"),
+                .product(name: "OpenAPIKit30", package: "OpenAPIKit"),
+                .product(name: "OpenAPIKitCompat", package: "OpenAPIKit"),
+                .product(name: "Yams", package: "yams"),
             ],
             swiftSettings: defaultSwiftSettings,
             plugins: [
                 .plugin(name: "FeatherOpenAPIGenerator")
             ],
+        ),
+        .target(
+            name: "FeatherOpenAPI30",
+            dependencies: [
+                .product(name: "OpenAPIKit30", package: "OpenAPIKit"),
+                .product(name: "OpenAPIKitCompat", package: "OpenAPIKit"),
+            ],
+            swiftSettings: defaultSwiftSettings
         ),
         .executableTarget(
             name: "feather-openapi-generator",
@@ -82,6 +93,14 @@ let package = Package(
             dependencies: [
                 .product(name: "Yams", package: "Yams"),
                 .target(name: "FeatherOpenAPI"),
+            ],
+            swiftSettings: defaultSwiftSettings,
+        ),
+        .testTarget(
+            name: "FeatherOpenAPI30Tests",
+            dependencies: [
+                .product(name: "Yams", package: "Yams"),
+                .target(name: "FeatherOpenAPI30"),
             ],
             swiftSettings: defaultSwiftSettings,
         ),

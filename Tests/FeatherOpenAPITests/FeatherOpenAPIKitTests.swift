@@ -39,7 +39,9 @@ struct FeatherOpenAPIKitTests {
             return
         }
 
-        _ = try encoder.encode(openAPIDocument)
+        let output = try encoder.encode(openAPIDocument)
+
+        print(output)
     }
 
     @Test
