@@ -95,3 +95,84 @@ public struct StringSchema: SchemaRepresentable {
         )
     }
 }
+
+public struct ObjectSchema: SchemaRepresentable {
+ 
+    public var format: JSONTypeFormat.ObjectFormat
+    public var required: Bool
+    public var nullable: Bool?
+    //    public var permissions: Permissions?
+    public var deprecated: Bool?
+    public var title: String?
+    public var description: String?
+    public var discriminator: OpenAPI.Discriminator?
+    public var externalDocs: OpenAPI.ExternalDocumentation?
+    public var minProperties: Int?
+    public var maxProperties: Int?
+    public var properties: OrderedDictionary<String, SchemaRepresentable>
+//    public var properties: String?
+//    public var additionalProperties: String?
+    public var allowedValues: [AnyCodable]?
+    public var defaultValue: AnyCodable?
+    public var example: AnyCodable?
+    
+    public init(
+        format: JSONTypeFormat.ObjectFormat = .generic,
+        required: Bool = false,
+        nullable: Bool? = nil,
+        //        permissions: Permissions? = nil,
+        deprecated: Bool? = nil,
+        title: String? = nil,
+        description: String? = nil,
+        discriminator: OpenAPI.Discriminator? = nil,
+        externalDocs: OpenAPI.ExternalDocumentation? = nil,
+        minProperties: Int? = nil,
+        maxProperties: Int? = nil,
+        properties: OrderedDictionary<String, SchemaRepresentable>,
+        pattern: String? = nil,
+        allowedValues: [AnyCodable]? = nil,
+        defaultValue: AnyCodable? = nil,
+        example: AnyCodable? = nil
+    ) {
+        self.format = format
+        self.required = required
+        self.nullable = nullable
+        //        self.permissions = permissions
+        self.deprecated = deprecated
+        self.title = title
+        self.description = description
+        self.discriminator = discriminator
+        self.externalDocs = externalDocs
+        self.minProperties = minProperties
+        self.maxProperties = maxProperties
+        self.properties = properties
+//        self.pattern = pattern
+        self.allowedValues = allowedValues
+        self.defaultValue = defaultValue
+        self.example = example
+    }
+    
+    public func openAPISchema() -> JSONSchema {
+        .object(
+            format: format,
+            required: required,
+            nullable: nullable,
+            permissions: nil,
+            deprecated: deprecated,
+            title: title,
+            description: description,
+            discriminator: discriminator,
+            externalDocs: externalDocs,
+            minProperties: minProperties,
+            maxProperties: maxProperties,
+            properties: properties.mapValues { $0.openAPISchema() },
+//            properties: [
+//                "asf": .reference(.component(named: "")),
+//            ],
+            additionalProperties: nil,
+            allowedValues: allowedValues,
+            defaultValue: defaultValue,
+            example: example
+        )
+    }
+}

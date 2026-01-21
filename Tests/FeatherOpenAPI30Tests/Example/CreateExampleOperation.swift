@@ -9,7 +9,7 @@ import FeatherOpenAPI30
 import OpenAPIKit30
 
 
-func exampleGETOperation(
+func createExample(
     using builder: inout ComponentBuilder
 ) -> Operation {
 
@@ -42,7 +42,7 @@ func exampleGETOperation(
         )
     }
 
-    let response1 = builder.response(id: "foo") {
+    let okResponse = builder.response(id: "foo") {
         Response(
             description: "foo",
             headers: [
@@ -55,12 +55,15 @@ func exampleGETOperation(
     }
 
     return .init(
+        tags: ["main"],
+        summary: "Detail example",
+        description: "Detail example detail",
         parameters: [
             p1.id,
         ],
         requestBody: reqBody1.id,
         responses: [
-            200: response1.id
+            200: okResponse.id
         ]
     )
 }

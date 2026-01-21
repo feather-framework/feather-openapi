@@ -22,7 +22,8 @@ struct FeatherOpenAPIKitTests {
         
         var builder = ComponentBuilder()
         
-        let op1 = exampleGETOperation(using: &builder)
+        let getExampleOperation = getExample(using: &builder)
+//        let createExampleOperation = createExample(using: &builder)
 
         let doc = Document(
             info: Info(
@@ -30,9 +31,10 @@ struct FeatherOpenAPIKitTests {
                 version: "1.0.0"
             ),
             paths: [
-                "foo": PathItem(
-                    summary: "foo bar baz",
-                    get: op1
+                "examples": PathItem(
+                    summary: "Example related operations",
+                    get: getExampleOperation,
+//                    post: createExampleOperation
                 )
             ],
             components: builder.components

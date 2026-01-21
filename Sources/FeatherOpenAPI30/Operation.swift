@@ -92,7 +92,9 @@ public struct Operation: OperationRepresentable {
             parameters: parameters.map {
                 .reference(.component(named: $0.rawValue))
             },
-            responses: .init(),
+            responses: responses.mapValues {
+                .reference(.component(named: $0.rawValue))
+            },
             callbacks: .init(),
             deprecated: deprecated,
             security: security?.map { $0.openAPISecurityRequirement() },
