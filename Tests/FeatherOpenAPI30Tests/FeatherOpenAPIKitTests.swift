@@ -19,6 +19,10 @@ struct FeatherOpenAPIKitTests {
 
     @Test
     func example() throws {
+        
+        var builder = ComponentBuilder()
+        
+        let op1 = exampleGETOperation(using: &builder)
 
         let doc = Document(
             info: Info(
@@ -27,49 +31,13 @@ struct FeatherOpenAPIKitTests {
             ),
             paths: [
                 "foo": PathItem(
-                    get: Operation(
-                        parameters: [
-                            .foo
-                        ],
-                        requestBody: .foo,
-                        responses: [
-                            200: .foo
-                        ]
-                    )
+                    summary: "foo bar baz",
+                    get: op1
                 )
             ],
-            components: Components(
-                schemas: [
-                    .test: StringSchema(),
-                    .customResponseHeader: StringSchema.customResponseHeader,
-                ],
-                parameters: [
-                    .foo: Parameter.foo
-                ],
-                responses: [
-                    .foo: Response(
-                        description: "foo",
-                        headers: [
-                            "X-Custom-Response-Header": .customResponse
-                        ],
-                        content: [
-                            .aac: Content(schema: .test)
-                        ],
-                    )
-                ],
-                requestBodies: [
-                    .foo: RequestBody(
-                        content: [
-                            .any: Content(schema: .test)
-                        ]
-                    )
-                ],
-                headers: [
-                    .customResponse: Header.customResponse
-                ]
-            ),
+            components: builder.components
         )
-
+        
         let openAPIdoc = doc.openAPIDocument()
 
         let encoder = YAMLEncoder()
@@ -87,37 +55,11 @@ struct FeatherOpenAPIKitTests {
 
         let result = try encoder.encode(openAPIdoc)
         print(result)
-
+        
     }
 
-    func renderTest() throws {
 
-        let paths: OpenAPIKit30.OpenAPI.PathItem.Map = [
-            "foo": .init(
-                .init(
-                    summary: "foo",
-                    description: nil,
-                    servers: nil,
-                    parameters: [],
-                    get: .init(
-                        requestBody: .init(
-                            .component(
-                                named: "foo"
-                            )
-                        ),
-                        responses: [:]
-                    ),
-                    put: nil,
-                    post: nil,
-                    delete: nil,
-                    options: nil,
-                    head: nil,
-                    patch: nil,
-                    trace: nil,
-                    vendorExtensions: [:]
-                )
-            )
-        ]
+    func renderTest() throws {
 
         let doc = OpenAPIKit30.OpenAPI.Document(
             info: .init(
@@ -125,30 +67,28 @@ struct FeatherOpenAPIKitTests {
                 version: "3.0.0"
             ),
             servers: [],
-            paths: paths,
+            paths: [
+                "foo": .init(
+                    .init(
+                        summary: "foo",
+                        get: .init(
+                            requestBody: .init(
+                                .component(
+                                    named: "foo"
+                                )
+                            ),
+                            responses: [:]
+                        ),
+                    )
+                )
+            ],
             components: .init(
                 schemas: [
                     "schemaID": .string(
                         format: .dateTime,
-                        required: true,
-                        nullable: false,
-                        permissions: nil,
-                        deprecated: nil,
-                        title: nil,
-                        description: nil,
-                        discriminator: nil,
-                        externalDocs: nil,
-                        minLength: nil,
-                        maxLength: nil,
-                        pattern: nil,
-                        allowedValues: nil,
-                        defaultValue: nil,
                         example: "Foo"
-                    )
+                    ),
                 ],
-                responses: .init(),
-                parameters: .init(),
-                examples: .init(),
                 requestBodies: [
                     "foo": .init(
                         description: "foo",
@@ -156,16 +96,9 @@ struct FeatherOpenAPIKitTests {
                             .json: .init(
                                 schemaReference: .component(named: "schemaID")
                             )
-                        ],
-                        required: true,
-                        vendorExtensions: [:]
+                        ]
                     )
                 ],
-                headers: .init(),
-                securitySchemes: .init(),
-                links: .init(),
-                callbacks: .init(),
-                vendorExtensions: .init()
             )
         )
 
