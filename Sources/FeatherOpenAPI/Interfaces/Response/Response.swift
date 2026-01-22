@@ -11,16 +11,6 @@ public protocol OpenAPIResponse: Identifiable {
     static func openAPIResponse() -> OpenAPI.Response
 }
 
-public extension OpenAPIResponse {
-
-    //    static func reference() -> Either<
-    //        OpenAPI.Reference<OpenAPI.Response>,
-    //        OpenAPI.Response
-    //    > {
-    //        .reference(.component(named: id))
-    //    }
-}
-
 public protocol Response: OpenAPIResponse {
     static var description: String { get }
     static var headers: [Header.Type] { get }

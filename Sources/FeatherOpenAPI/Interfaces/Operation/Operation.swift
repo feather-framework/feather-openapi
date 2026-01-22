@@ -54,7 +54,6 @@ public extension Operation {
                 $0[.init(integerLiteral: $1.statusCode)] = .reference(
                     .component(named: $1.response.id)
                 )
-                //                    .reference()
             },
             security: security.map { [$0.reference(): []] }
         )

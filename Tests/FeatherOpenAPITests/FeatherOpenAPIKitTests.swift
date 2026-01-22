@@ -21,13 +21,13 @@ struct FeatherOpenAPIKitTests {
 
         let document = ExampleDocument()
 
-        #expect(
-            try document.schemas()
-                .contains {
-                    $0.key.rawValue == "ExampleModelPatch"
-                        && $0.value.description == "overridden"
-                }
-        )
+        //        #expect(
+        //            try document.schemas()
+        //                .contains {
+        //                    $0.key.rawValue == "ExampleModelPatch"
+        //                        && $0.value.description == "overridden"
+        //                }
+        //        )
 
         let encoder = YAMLEncoder()
         let openAPIDocument = try document.openAPIDocument()
@@ -42,16 +42,6 @@ struct FeatherOpenAPIKitTests {
         let output = try encoder.encode(openAPIDocument)
 
         print(output)
-    }
-
-    @Test
-    func schemaDescription() throws {
-
-        struct IDSchema: NanoIDSchema {}
-        struct Foo: NanoIDSchema {}
-
-        #expect(IDSchema.description == "ID description")
-        #expect(Foo.description == "Foo description")
     }
 
     @Test

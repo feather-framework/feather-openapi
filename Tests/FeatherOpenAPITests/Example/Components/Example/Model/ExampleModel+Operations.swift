@@ -40,9 +40,9 @@ extension Example.Model {
             static var tag: Tag.Type { Tags.Main.self }
             static var summary: String { "Create example" }
             static var description: String { "Create example detail" }
-            static var requestBody: RequestBody.Type? {
-                RequestBodies.Create.self
-            }
+            static let requestBody: RequestBody.Type? = RequestBodies.Create
+                .self
+
             static var responses: [OperationResponse] {
                 [
                     .init(200, Responses.Detail.self)

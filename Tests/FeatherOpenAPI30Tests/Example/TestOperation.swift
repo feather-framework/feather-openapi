@@ -12,23 +12,19 @@ func testOperation(
     using builder: inout ComponentBuilder
 ) -> Operation {
 
-    let sch1 = builder.schema(id: "TestSchema") {
+    let testSchemaID = builder.schema(id: "TestSchema") {
         StringSchema()
     }
 
-    //        let sch2 = builder.schema(id: "todo.id") {
-    //            StringSchema()
-    //        }
-
-    let header = builder.header(id: "header") {
-        Header(schema: sch1.id)
+    let headerID = builder.header(id: "header") {
+        Header(schema: testSchemaID)
     }
 
     let p1 = builder.parameter(id: "foo") {
         Parameter(
             name: "foo",
             context: .path,
-            schema: sch1.id
+            schema: testSchemaID
         )
         .openAPIParameter()
     }
@@ -37,7 +33,7 @@ func testOperation(
         RequestBody(
             description: "This is a proper request body",
             content: [
-                .json: Content(schema: sch1.id)
+                .json: Content(schema: testSchemaID)
             ]
         )
     }
@@ -46,21 +42,21 @@ func testOperation(
         Response(
             description: "foo",
             headers: [
-                "X-Custom-Response-Header": header.id
+                "X-Custom-Response-Header": headerID
             ],
             content: [
-                .aac: Content(schema: sch1.id)
+                .aac: Content(schema: testSchemaID)
             ]
         )
     }
 
     return .init(
         parameters: [
-            p1.id
+            p1
         ],
-        requestBody: reqBody1.id,
+        requestBody: reqBody1,
         responses: [
-            200: response1.id
+            200: response1
         ]
     )
 }

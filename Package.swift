@@ -68,10 +68,7 @@ let package = Package(
                 .product(name: "OpenAPIKitCompat", package: "OpenAPIKit"),
                 .product(name: "Yams", package: "yams"),
             ],
-            swiftSettings: defaultSwiftSettings,
-            plugins: [
-                .plugin(name: "FeatherOpenAPIGenerator")
-            ],
+            swiftSettings: defaultSwiftSettings
         ),
         .target(
             name: "FeatherOpenAPI30",
@@ -95,6 +92,17 @@ let package = Package(
                 .target(name: "FeatherOpenAPI"),
             ],
             swiftSettings: defaultSwiftSettings,
+        ),
+        .testTarget(
+            name: "FeatherOpenAPIPluginTests",
+            dependencies: [
+                .product(name: "Yams", package: "Yams"),
+                .target(name: "FeatherOpenAPI"),
+            ],
+            swiftSettings: defaultSwiftSettings,
+            plugins: [
+                .plugin(name: "FeatherOpenAPIGenerator"),
+            ]
         ),
         .testTarget(
             name: "FeatherOpenAPI30Tests",

@@ -10,7 +10,7 @@ import OpenAPIKit30
 public extension JSONSchema {
 
     static func enumeration(
-        description: String,
+        description: String?,
         allowedValues: [AnyCodable],
         defaultValue: AnyCodable? = nil,
         example: AnyCodable? = nil

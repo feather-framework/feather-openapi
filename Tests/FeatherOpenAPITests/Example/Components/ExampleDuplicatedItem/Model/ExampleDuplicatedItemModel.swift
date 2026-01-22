@@ -9,5 +9,17 @@ import FeatherOpenAPI
 
 extension ExampleDuplicatedItem {
 
-    enum Model: Component {}
+    enum Model: Component {
+
+        static func getComponentsOfType<T>() -> [T] {
+            let prefixName = String(reflecting: self) + "."
+            return [
+                Schemas.self
+            ]
+            .compactMap { $0 as? T }
+            .filter {
+                String(reflecting: $0).hasPrefix(prefixName)
+            }
+        }
+    }
 }

@@ -11,16 +11,6 @@ public protocol OpenAPIParameter: Identifiable {
     static func openAPIParameter() -> OpenAPI.Parameter
 }
 
-public extension OpenAPIParameter {
-
-    //    static func reference() -> Either<
-    //        OpenAPI.Reference<OpenAPI.Parameter>,
-    //        OpenAPI.Parameter
-    //    > {
-    //        .reference(.component(named: id))
-    //    }
-}
-
 public protocol Parameter: OpenAPIParameter {
     static var name: String { get }
     static var context: OpenAPI.Parameter.Context { get }

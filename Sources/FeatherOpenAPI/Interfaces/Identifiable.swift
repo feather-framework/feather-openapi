@@ -7,7 +7,7 @@
 
 import OpenAPIKit30
 
-public protocol Identifiable {
+public protocol Identifiable: Sendable {
     static var id: String { get }
     static var override: Bool { get }
 }

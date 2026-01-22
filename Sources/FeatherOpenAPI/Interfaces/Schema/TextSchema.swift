@@ -12,6 +12,10 @@ public protocol TextSchema: Schema {
 }
 
 public extension TextSchema {
+    static var example: String? { nil }
+}
+
+public extension TextSchema {
 
     static func openAPISchema() -> JSONSchema {
         .text(

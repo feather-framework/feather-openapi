@@ -19,15 +19,6 @@ public protocol Header: OpenAPIHeader {
 
 public extension Header {
 
-    //    static func reference() -> Either<
-    //        OpenAPI.Reference<OpenAPI.Header>, OpenAPI.Header
-    //    > {
-    //        .reference(.component(named: id))
-    //    }
-}
-
-public extension Header {
-
     static var id: String { name }
 
     static func openAPIHeader() -> OpenAPI.Header {

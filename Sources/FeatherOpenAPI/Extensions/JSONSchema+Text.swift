@@ -10,7 +10,7 @@ import OpenAPIKit30
 public extension JSONSchema {
 
     static func text(
-        description: String,
+        description: String?,
         example: AnyCodable? = nil
     ) -> Self {
         .string(

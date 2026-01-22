@@ -8,35 +8,23 @@
 import FeatherOpenAPI30
 import OpenAPIKit30
 
-extension SchemaID {
-    static var exampleID: Self { .init(#function) }
-}
-
-func registerSchemes(
-    using builder: inout ComponentBuilder
-) {
-    let idSchema = builder.schema(id: "ExampleId") {
-        StringSchema()
-    }
-}
-
 func getExample(
     using builder: inout ComponentBuilder
 ) -> Operation {
 
-    registerSchemes(using: &builder)
+    let exampleID = builder.schema(id: "ExampleId") {
+        StringSchema()
+    }
 
-    let exampleId = try! builder.getSchemaID("ExampleId")
-
-    let titleSchema = builder.schema(id: "ExampleTitle") {
+    let titleSchemaID = builder.schema(id: "ExampleTitle") {
         StringSchema()
     }
 
     let detailSchema = builder.schema(id: "ExampleDetail") {
         return JSONSchema.object(
             properties: [
-                "id": .reference(.component(named: exampleId.rawValue)),
-                "title": .reference(.component(named: titleSchema.id.rawValue)),
+                "id": .reference(.component(named: exampleID.rawValue)),
+                "title": .reference(.component(named: titleSchemaID.rawValue)),
             ]
         )
         //        ObjectSchema(
@@ -51,7 +39,7 @@ func getExample(
         Parameter(
             name: "id",
             context: .path,
-            schema: exampleId
+            schema: exampleID
         )
         .openAPIParameter()
     }
@@ -63,7 +51,7 @@ func getExample(
             //                "X-Custom-Response-Header": header.id
             //            ],
             content: [
-                .aac: Content(schema: detailSchema.id)
+                .aac: Content(schema: detailSchema)
             ]
         )
     }
@@ -73,10 +61,10 @@ func getExample(
         summary: "Detail example",
         description: "Detail example detail",
         parameters: [
-            idParameter.id
+            idParameter
         ],
         responses: [
-            200: okResponse.id
+            200: okResponse
         ]
     )
 }

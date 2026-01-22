@@ -8,67 +8,39 @@
 import FeatherOpenAPI30
 import OpenAPIKit30
 
-extension ComponentBuilder {
-
-    mutating func todoTitle() -> SchemaID {
-        let sch1 = schema(id: #function) {
-            StringSchema()
-        }
-        return sch1.id
-    }
-}
-
-enum Model {
-    struct PetSchemaBuilder {
-
-        var builder: ComponentBuilder
-
-        mutating func title() -> SchemaID {
-            let sch1 = builder.schema(id: #function) {
-                StringSchema()
-            }
-            return sch1.id
-        }
-    }
-}
-
 func createExample(
     using builder: inout ComponentBuilder
 ) -> Operation {
 
-    let sch1 = builder.schema(id: "TestSchema") {
+    let testSchemaID = builder.schema(id: "TestSchema") {
         StringSchema()
     }
 
-    //        let sch2 = builder.schema(id: "todo.id") {
-    //            StringSchema()
-    //        }
-
-    let header = builder.header(id: "header") {
-        Header(schema: sch1.id)
+    let headerID = builder.header(id: "header") {
+        Header(schema: testSchemaID)
     }
 
     let p1 = builder.parameter(id: "foo") {
         .init(name: "foo", context: .path, schema: .string)
     }
 
-    let reqBody1 = builder.requestBody(id: "foo") {
+    let requestBodyID = builder.requestBody(id: "foo") {
         RequestBody(
             description: "This is a proper request body",
             content: [
-                .json: Content(schema: sch1.id)
+                .json: Content(schema: testSchemaID)
             ]
         )
     }
 
-    let okResponse = builder.response(id: "foo") {
+    let okResponseID = builder.response(id: "foo") {
         Response(
             description: "foo",
             headers: [
-                "X-Custom-Response-Header": header.id
+                "X-Custom-Response-Header": headerID
             ],
             content: [
-                .aac: Content(schema: sch1.id)
+                .aac: Content(schema: testSchemaID)
             ]
         )
     }
@@ -78,11 +50,11 @@ func createExample(
         summary: "Detail example",
         description: "Detail example detail",
         parameters: [
-            p1.id
+            p1
         ],
-        requestBody: reqBody1.id,
+        requestBody: requestBodyID,
         responses: [
-            200: okResponse.id
+            200: okResponseID
         ]
     )
 }

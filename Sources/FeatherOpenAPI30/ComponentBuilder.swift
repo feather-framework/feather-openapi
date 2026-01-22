@@ -20,94 +20,61 @@ public struct ComponentBuilder {
     public mutating func header(
         id: String,
         builder: (() -> HeaderRepresentable)
-    ) -> (id: HeaderID, value: HeaderRepresentable) {
+    ) -> HeaderID {
+        let id = HeaderID(id)
         let header = builder()
 
-        components.headers[.init(id)] = header
+        components.headers[id] = header
 
-        return (id: .init(id), value: header)
+        return id
     }
 
     public mutating func parameter(
         id: String,
         builder: (() -> OpenAPI.Parameter)
-    ) -> (id: ParameterID, value: OpenAPI.Parameter) {
+    ) -> ParameterID {
+        let id = ParameterID(id)
         let parameter = builder()
 
-        components.parameters[.init(id)] = parameter
+        components.parameters[id] = parameter
 
-        return (id: .init(id), value: parameter)
+        return id
     }
 
     public mutating func schema(
         id: String,
         builder: (() -> SchemaRepresentable)
-    ) -> (id: SchemaID, value: SchemaRepresentable) {
+    ) -> SchemaID {
+        let id = SchemaID(id)
         let schema = builder()
 
-        if components.schemas[.init(id)] != nil {
-            print("Schema `\(id)` is already registered...")
-        }
+        components.schemas[id] = schema
 
-        components.schemas[.init(id)] = schema
-
-        return (id: .init(id), value: schema)
+        return id
     }
 
     public mutating func response(
         id: String,
         builder: (() -> ResponseRepresentable)
-    ) -> (id: ResponseID, value: ResponseRepresentable) {
+    ) -> ResponseID {
+        let id = ResponseID(id)
         let response = builder()
 
-        components.responses[.init(id)] = response
+        components.responses[id] = response
 
-        return (id: .init(id), value: response)
+        return id
     }
 
     public mutating func requestBody(
         id: String,
         builder: (() -> RequestBodyRepresentable)
-    ) -> (id: RequestBodyID, value: RequestBodyRepresentable) {
+    ) -> RequestBodyID {
+        let id = RequestBodyID(id)
         let requestBody = builder()
 
-        components.requestBodies[.init(id)] = requestBody
+        components.requestBodies[id] = requestBody
 
-        return (id: .init(id), value: requestBody)
+        return id
     }
 
-    public mutating func addSchema(
-        id: String,
-        builder: (() -> SchemaRepresentable)
-    ) -> (id: SchemaID, value: SchemaRepresentable) {
-        let schema = builder()
-
-        components.schemas[.init(id)] = schema
-
-        return (id: .init(id), value: schema)
-    }
-
-    public mutating func getSchema(
-        id: String
-    ) throws(ComponentBuilderError) -> (
-        id: SchemaID, value: SchemaRepresentable
-    ) {
-        guard let schema = components.schemas[.init(id)] else {
-            throw .missingSchema(id)
-        }
-        return (id: .init(id), value: schema)
-    }
-
-    public mutating func getSchemaID(
-        _ id: String
-    ) throws(ComponentBuilderError) -> SchemaID {
-        guard components.schemas[.init(id)] != nil else {
-            throw .missingSchema(id)
-        }
-        return .init(id)
-    }
-}
-
-public enum ComponentBuilderError: Error {
-    case missingSchema(String)
 }
