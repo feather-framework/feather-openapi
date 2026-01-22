@@ -31,7 +31,7 @@ struct CommandBuilder {
         return [
             .buildCommand(
                 displayName: "Generate component extension code",
-                executable: try tool("feather-openapi-generator").url,
+                executable: try tool("feather-openapikit-generator").url,
                 arguments: [sourceDir, output.path(), targetName],
                 environment: [:],
                 inputFiles: [],

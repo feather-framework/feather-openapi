@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import OpenAPIKit
 import OpenAPIKit30
-import OpenAPIKitCore
+import OpenAPIKitCompat
 import Yams
 import Testing
 
@@ -17,69 +18,138 @@ import Testing
 struct FeatherOpenAPIKitTests {
 
     @Test
-    func render() throws {
+    func ref() throws {
 
-        let document = ExampleDocument()
+        struct UserId: SchemaRepresentable {
 
-        //        #expect(
-        //            try document.schemas()
-        //                .contains {
-        //                    $0.key.rawValue == "ExampleModelPatch"
-        //                        && $0.value.description == "overridden"
-        //                }
-        //        )
+            func openAPISchema() -> OpenAPIKit30.JSONSchema {
+                fatalError()
+            }
+        }
+
+        struct Reference<T> {
+
+            static func toSchemaRef() {
+                print(T.self)
+            }
+        }
+
+        Reference<UserId>.self.toSchemaRef()
+    }
+
+    @Test
+    func example() throws {
+
+        var builder = ComponentBuilder()
+
+        let getExampleOperation = getExample(using: &builder)
+        //        let createExampleOperation = createExample(using: &builder)
+
+        let doc = Document(
+            info: Info(
+                title: "foo",
+                version: "1.0.0"
+            ),
+            paths: [
+                "examples": PathItem(
+                    summary: "Example related operations",
+                    get: getExampleOperation,
+                    //                    post: createExampleOperation
+                )
+            ],
+            components: builder.components
+        )
+
+        let openAPIdoc = doc.openAPIDocument()
 
         let encoder = YAMLEncoder()
-        let openAPIDocument = try document.openAPIDocument()
+
         do {
-            _ = try openAPIDocument.locallyDereferenced()
+            _ =
+                try openAPIdoc
+                .locallyDereferenced()
+                .resolved()
         }
         catch {
-            Issue.record("\(error)")
-            return
+            print(error)
+            throw error
         }
 
-        let output = try encoder.encode(openAPIDocument)
+        let result = try encoder.encode(openAPIdoc)
+        print(result)
 
-        print(output)
     }
 
-    @Test
-    func duplicatedItem() throws {
+    func renderTest() throws {
 
-        let document = ExampleDuplicatedItemDocument()
-        var errorMessage: String = "none"
+        let doc = OpenAPIKit30.OpenAPI.Document(
+            info: .init(
+                title: "foo",
+                version: "3.0.0"
+            ),
+            servers: [],
+            paths: [
+                "foo": .init(
+                    .init(
+                        summary: "foo",
+                        get: .init(
+                            requestBody: .init(
+                                .component(
+                                    named: "foo"
+                                )
+                            ),
+                            responses: [:]
+                        ),
+                    )
+                )
+            ],
+            components: .init(
+                schemas: [
+                    "schemaID": .string(
+                        format: .dateTime,
+                        example: "Foo"
+                    )
+                ],
+                requestBodies: [
+                    "foo": .init(
+                        description: "foo",
+                        content: [
+                            .json: .init(
+                                schemaReference: .component(named: "schemaID")
+                            )
+                        ]
+                    )
+                ],
+            )
+        )
+
+        let encoder = YAMLEncoder()
 
         do {
-            let _ = try document.openAPIDocument()
+            _ =
+                try doc
+                .locallyDereferenced()
+                .resolved()
         }
-        catch let error as ComposeDocumentError {
-            errorMessage = error.message
+        catch {
+            print(type(of: error))
+            print(error)
+            throw error
         }
 
-        #expect(
-            errorMessage
-                == "Feather OpenAPI item id is duplicated: 'ExampleDuplicatedItemModelKey' (Did you forget to include override=true?)"
-        )
+        let result = try encoder.encode(doc)
+        print("---- 3.0 ----")
+        print(result)
+
+        let doc31 = doc.convert(to: .v3_1_0)
+        let result31 = try encoder.encode(doc31)
+        print("---- 3.1 ----")
+        print(result31)
+
+        let doc32 = doc.convert(to: .v3_2_0)
+        let result32 = try encoder.encode(doc32)
+        print("---- 3.2 ----")
+        print(result32)
+
     }
-
-    @Test
-    func missingParentItem() throws {
-
-        let document = ExampleMissingParentItemItemDocument()
-        var errorMessage: String = "none"
-
-        do {
-            let _ = try document.openAPIDocument()
-        }
-        catch let error as ComposeDocumentError {
-            errorMessage = error.message
-        }
-
-        #expect(
-            errorMessage
-                == "Feather OpenAPI item 'ExampleMissingParentItemModelKey' is set as override but has no parent. (Are the component orders correct? Or are the IDs the same?)"
-        )
-    }
-
 }
