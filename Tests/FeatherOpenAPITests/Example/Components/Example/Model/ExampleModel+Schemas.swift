@@ -31,16 +31,12 @@ extension Example.Model {
 
         enum CustomHeader: TextSchema {
             static let description = "Custom header"
-            static let examples = [
-                "my-example-key"
-            ]
+            static let example: String? = "my-example-key"
         }
 
         enum Key: TextSchema {
             static let description = "Key of the example model"
-            static let examples = [
-                "my-example-key"
-            ]
+            static let example: String? = "my-example-key"
         }
 
         enum Create: ObjectSchema {

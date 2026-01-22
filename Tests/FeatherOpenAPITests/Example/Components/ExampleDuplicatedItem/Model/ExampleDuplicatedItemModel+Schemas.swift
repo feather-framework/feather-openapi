@@ -25,18 +25,15 @@ extension ExampleDuplicatedItem.Model {
 
         enum Key: TextSchema {
             static let description = "Key of the example model"
-            static let examples = [
-                "my-example-key"
-            ]
+            static let example: String? = "my-example-key"
+
         }
 
         enum KeySecond: TextSchema {
             static let id = Key.id
 
             static let description = "Key of the example model"
-            static let examples = [
-                "my-example-key"
-            ]
+            static let example: String? = "my-example-key"
         }
     }
 }

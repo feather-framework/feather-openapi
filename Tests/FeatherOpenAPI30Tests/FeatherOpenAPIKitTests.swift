@@ -18,12 +18,32 @@ import Testing
 struct FeatherOpenAPIKitTests {
 
     @Test
+    func ref() throws {
+
+        struct UserId: SchemaRepresentable {
+
+            func openAPISchema() -> OpenAPIKit30.JSONSchema {
+                fatalError()
+            }
+        }
+
+        struct Reference<T> {
+
+            static func toSchemaRef() {
+                print(T.self)
+            }
+        }
+
+        Reference<UserId>.self.toSchemaRef()
+    }
+
+    @Test
     func example() throws {
-        
+
         var builder = ComponentBuilder()
-        
+
         let getExampleOperation = getExample(using: &builder)
-//        let createExampleOperation = createExample(using: &builder)
+        //        let createExampleOperation = createExample(using: &builder)
 
         let doc = Document(
             info: Info(
@@ -34,12 +54,12 @@ struct FeatherOpenAPIKitTests {
                 "examples": PathItem(
                     summary: "Example related operations",
                     get: getExampleOperation,
-//                    post: createExampleOperation
+                    //                    post: createExampleOperation
                 )
             ],
             components: builder.components
         )
-        
+
         let openAPIdoc = doc.openAPIDocument()
 
         let encoder = YAMLEncoder()
@@ -57,9 +77,8 @@ struct FeatherOpenAPIKitTests {
 
         let result = try encoder.encode(openAPIdoc)
         print(result)
-        
-    }
 
+    }
 
     func renderTest() throws {
 
@@ -89,7 +108,7 @@ struct FeatherOpenAPIKitTests {
                     "schemaID": .string(
                         format: .dateTime,
                         example: "Foo"
-                    ),
+                    )
                 ],
                 requestBodies: [
                     "foo": .init(

@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 20/01/2024.
 //
 
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol OpenAPITag: Identifiable {
     static func openAPITag() -> OpenAPI.Tag

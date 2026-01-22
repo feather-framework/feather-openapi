@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 10/01/2024.
 //
 
-import OpenAPIKit
+import OpenAPIKit30
 
 public extension JSONSchema {
 
@@ -13,14 +13,14 @@ public extension JSONSchema {
         description: String,
         allowedValues: [AnyCodable],
         defaultValue: AnyCodable? = nil,
-        examples: [AnyCodable] = []
+        example: AnyCodable? = nil
     ) -> JSONSchema {
         .string(
             format: .generic,
             description: description,
             allowedValues: allowedValues,
             defaultValue: defaultValue,
-            examples: examples
+            example: example
         )
     }
 }

@@ -8,44 +8,60 @@
 import FeatherOpenAPI30
 import OpenAPIKit30
 
+extension SchemaID {
+    static var exampleID: Self { .init(#function) }
+}
+
+func registerSchemes(
+    using builder: inout ComponentBuilder
+) {
+    let idSchema = builder.schema(id: "ExampleId") {
+        StringSchema()
+    }
+}
 
 func getExample(
     using builder: inout ComponentBuilder
 ) -> Operation {
 
-    let idSchema = builder.schema(id: "ExampleId") {
-        StringSchema()
-    }
-    
+    registerSchemes(using: &builder)
+
+    let exampleId = try! builder.getSchemaID("ExampleId")
+
     let titleSchema = builder.schema(id: "ExampleTitle") {
         StringSchema()
     }
 
     let detailSchema = builder.schema(id: "ExampleDetail") {
-        ObjectSchema(
+        return JSONSchema.object(
             properties: [
-                "id": StringSchema(),
-                "title": StringSchema(),
+                "id": .reference(.component(named: exampleId.rawValue)),
+                "title": .reference(.component(named: titleSchema.id.rawValue)),
             ]
         )
+        //        ObjectSchema(
+        //            properties: [
+        //                "id": StringSchema(),
+        //                "title": StringSchema(),
+        //            ]
+        //        )
     }
-    
-   
-    
+
     let idParameter = builder.parameter(id: "ExampleId") {
         Parameter(
             name: "id",
             context: .path,
-            schema: idSchema.id
+            schema: exampleId
         )
+        .openAPIParameter()
     }
-    
+
     let okResponse = builder.response(id: "GetExampleResponse") {
-        Response(
+        return Response(
             description: "Example detail response",
-//            headers: [
-//                "X-Custom-Response-Header": header.id
-//            ],
+            //            headers: [
+            //                "X-Custom-Response-Header": header.id
+            //            ],
             content: [
                 .aac: Content(schema: detailSchema.id)
             ]
@@ -57,11 +73,10 @@ func getExample(
         summary: "Detail example",
         description: "Detail example detail",
         parameters: [
-            idParameter.id,
+            idParameter.id
         ],
         responses: [
             200: okResponse.id
         ]
     )
 }
-

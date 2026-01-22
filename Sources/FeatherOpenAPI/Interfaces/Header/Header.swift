@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 20/01/2024.
 //
 
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol OpenAPIHeader: Identifiable {
     static func openAPIHeader() -> OpenAPI.Header
@@ -19,11 +19,11 @@ public protocol Header: OpenAPIHeader {
 
 public extension Header {
 
-    static func reference() -> Either<
-        OpenAPI.Reference<OpenAPI.Header>, OpenAPI.Header
-    > {
-        .reference(.component(named: id))
-    }
+    //    static func reference() -> Either<
+    //        OpenAPI.Reference<OpenAPI.Header>, OpenAPI.Header
+    //    > {
+    //        .reference(.component(named: id))
+    //    }
 }
 
 public extension Header {

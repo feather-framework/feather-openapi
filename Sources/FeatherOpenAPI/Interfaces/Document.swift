@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 20/01/2024.
 //
 
-import OpenAPIKit
+import OpenAPIKit30
 import OpenAPIKitCore
 
 // https://spec.openapis.org/oas/latest.html
@@ -16,15 +16,15 @@ public protocol Document {
 
     func schemas() throws -> OpenAPI.ComponentDictionary<JSONSchema>
     func parameters() throws
-        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Parameter>
+        -> OpenAPI.ComponentDictionary<OpenAPI.Parameter>
     func headers() throws
-        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Header>
+        -> OpenAPI.ComponentDictionary<OpenAPI.Header>
     func requestBodies() throws
-        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Request>
+        -> OpenAPI.ComponentDictionary<OpenAPI.Request>
     func securitySchemes() throws
-        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.SecurityScheme>
+        -> OpenAPI.ComponentDictionary<OpenAPI.SecurityScheme>
     func responses() throws
-        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Response>
+        -> OpenAPI.ComponentDictionary<OpenAPI.Response>
     func tags() throws -> [OpenAPI.Tag]
     func paths() throws -> OpenAPI.PathItem.Map
 
@@ -86,7 +86,7 @@ public extension Document {
     }
 
     func parameters() throws
-        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Parameter>
+        -> OpenAPI.ComponentDictionary<OpenAPI.Parameter>
     {
         return
             try Self.filterIdentifiables(
@@ -100,7 +100,7 @@ public extension Document {
     }
 
     func headers() throws
-        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Header>
+        -> OpenAPI.ComponentDictionary<OpenAPI.Header>
     {
         return
             try Self.filterIdentifiables(
@@ -114,7 +114,7 @@ public extension Document {
     }
 
     func requestBodies() throws
-        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Request>
+        -> OpenAPI.ComponentDictionary<OpenAPI.Request>
     {
         return
             try Self.filterIdentifiables(
@@ -128,7 +128,7 @@ public extension Document {
     }
 
     func securitySchemes() throws
-        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.SecurityScheme>
+        -> OpenAPI.ComponentDictionary<OpenAPI.SecurityScheme>
     {
         return
             try Self.filterIdentifiables(
@@ -142,7 +142,7 @@ public extension Document {
     }
 
     func responses() throws
-        -> OpenAPI.ComponentReferenceDictionary<OpenAPI.Response>
+        -> OpenAPI.ComponentDictionary<OpenAPI.Response>
     {
 
         return

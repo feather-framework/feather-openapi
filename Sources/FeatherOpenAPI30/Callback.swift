@@ -26,13 +26,5 @@ public struct Callback: CallbackRepresentable {
 
     public func openAPICallback() -> Callback {
         fatalError()
-        //        .init(
-        //            operationId: <#T##String#>,
-        //            parameters: <#T##OrderedDictionary<String, Either<OpenAPI.RuntimeExpression, AnyCodable>>#>,
-        //            requestBody: <#T##Either<OpenAPI.RuntimeExpression, AnyCodable>?#>,
-        //            description: <#T##String?#>,
-        //            server: <#T##OpenAPI.Server?#>,
-        //            vendorExtensions: <#T##[String : AnyCodable]#>
-        //        )
     }
 }

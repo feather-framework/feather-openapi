@@ -5,18 +5,18 @@
 //  Created by Tibor Bodecs on 25/01/2024.
 //
 
-import OpenAPIKit
+import OpenAPIKit30
 
 public extension JSONSchema {
 
     static func text(
         description: String,
-        examples: [AnyCodable] = []
+        example: AnyCodable? = nil
     ) -> Self {
         .string(
             format: .generic,
             description: description,
-            examples: examples
+            example: example
         )
     }
 

@@ -25,9 +25,7 @@ extension ExampleMissingParentItem.Model {
         enum Key: TextSchema {
             static let override = true
             static let description = "Key of the example model"
-            static let examples = [
-                "my-example-key"
-            ]
+            static let example: String? = "my-example-key"
         }
 
     }

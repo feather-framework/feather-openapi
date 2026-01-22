@@ -1,16 +1,16 @@
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol PasswordSchema: Schema {
-    static var examples: [String] { get }
+    static var example: String? { get }
 }
 
 extension PasswordSchema {
-    public static func openAPISchema() -> OpenAPIKit.JSONSchema {
+    public static func openAPISchema() -> JSONSchema {
         .string(
             format: .password,
             required: true,
             description: description,
-            examples: examples.map { .init($0) }
+            example: example.map { .init($0) }
         )
     }
 }

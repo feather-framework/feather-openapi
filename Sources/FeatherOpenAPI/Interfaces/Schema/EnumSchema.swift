@@ -5,17 +5,17 @@
 //  Created by Tibor Bodecs on 25/01/2024.
 //
 
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol EnumSchema: Schema {
     static var allowedValues: [String] { get }
     static var defaultValue: String? { get }
-    static var examples: [String] { get }
+    static var example: String? { get }
 }
 
 public extension EnumSchema {
     static var defaultValue: String? { nil }
-    static var examples: [String] { [] }
+    static var example: String? { nil }
 }
 
 public extension EnumSchema {
@@ -29,7 +29,7 @@ public extension EnumSchema {
             description: description,
             allowedValues: allowedValues.map { .init(stringLiteral: $0) },
             defaultValue: anyDefault,
-            examples: examples.map { .init(stringLiteral: $0) }
+            example: example.map { .init(stringLiteral: $0) }
         )
     }
 }

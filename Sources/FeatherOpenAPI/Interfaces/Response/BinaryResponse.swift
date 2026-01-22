@@ -1,4 +1,4 @@
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol BinaryResponse: Response {}
 
@@ -6,21 +6,17 @@ public extension BinaryResponse {
 
     static func openAPIResponse() -> OpenAPI.Response {
         .init(
-            summary: nil,
             description: description,
             headers: openAPIHeaderMap(),
             content: openAPIContentMap() + [
                 .any: .init(
-                    .init(
-                        schema: .string(
-                            contentMediaType: .other("application/octet-stream")
-                        ),
-                        examples: nil
+                    schema: .string(
+                        format: .binary
+                            // contentMediaType: .other("application/octet-stream")
                     )
                 )
-            ],
-            links: .init(),
-            vendorExtensions: [:]
+            ]
+
         )
     }
 }

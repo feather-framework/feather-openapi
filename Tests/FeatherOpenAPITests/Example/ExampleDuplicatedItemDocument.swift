@@ -6,7 +6,7 @@
 //
 
 import FeatherOpenAPI
-import OpenAPIKit
+import OpenAPIKit30
 import Foundation
 
 struct ExampleDuplicatedItemDocument: Document {

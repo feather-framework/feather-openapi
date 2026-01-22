@@ -1,4 +1,4 @@
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol DoubleSchema: NumberSchema {
     associatedtype T = Double
@@ -6,7 +6,7 @@ public protocol DoubleSchema: NumberSchema {
 
 extension DoubleSchema where T == Double {
 
-    public static func openAPISchema() -> OpenAPIKit.JSONSchema {
+    public static func openAPISchema() -> JSONSchema {
         .number(
             format: .double,
             required: true,
@@ -14,7 +14,7 @@ extension DoubleSchema where T == Double {
             maximum: maximum,
             minimum: minimum,
             defaultValue: defaultValue.map { .init($0) },
-            examples: examples.map { .init($0) }
+            example: example.map { .init($0) }
         )
     }
 }

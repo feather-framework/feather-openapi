@@ -19,7 +19,6 @@ extension Example.Model {
     enum Operations {
 
         enum Get: Operation {
-            static let ffff: String = "asdf"
             static var tag: Tag.Type { Tags.Main.self }
             static let summary = "Detail example"
             static let description = "Detail example detail"

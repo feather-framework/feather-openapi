@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 25/01/2024.
 //
 
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol JSONBody: RequestBody {
     static var description: String { get }
@@ -21,7 +21,11 @@ public extension JSONBody {
         .init(
             description: description,
             content: [
-                .json: .init(schema.reference())
+                .json: .init(
+                    schemaReference: .component(
+                        named: schema.id
+                    )
+                )
             ],
             required: required
         )

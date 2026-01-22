@@ -97,7 +97,7 @@ public struct StringSchema: SchemaRepresentable {
 }
 
 public struct ObjectSchema: SchemaRepresentable {
- 
+
     public var format: JSONTypeFormat.ObjectFormat
     public var required: Bool
     public var nullable: Bool?
@@ -110,12 +110,12 @@ public struct ObjectSchema: SchemaRepresentable {
     public var minProperties: Int?
     public var maxProperties: Int?
     public var properties: OrderedDictionary<String, SchemaRepresentable>
-//    public var properties: String?
-//    public var additionalProperties: String?
+    //    public var properties: String?
+    //    public var additionalProperties: String?
     public var allowedValues: [AnyCodable]?
     public var defaultValue: AnyCodable?
     public var example: AnyCodable?
-    
+
     public init(
         format: JSONTypeFormat.ObjectFormat = .generic,
         required: Bool = false,
@@ -146,12 +146,12 @@ public struct ObjectSchema: SchemaRepresentable {
         self.minProperties = minProperties
         self.maxProperties = maxProperties
         self.properties = properties
-//        self.pattern = pattern
+        //        self.pattern = pattern
         self.allowedValues = allowedValues
         self.defaultValue = defaultValue
         self.example = example
     }
-    
+
     public func openAPISchema() -> JSONSchema {
         .object(
             format: format,
@@ -166,9 +166,9 @@ public struct ObjectSchema: SchemaRepresentable {
             minProperties: minProperties,
             maxProperties: maxProperties,
             properties: properties.mapValues { $0.openAPISchema() },
-//            properties: [
-//                "asf": .reference(.component(named: "")),
-//            ],
+            //            properties: [
+            //                "asf": .reference(.component(named: "")),
+            //            ],
             additionalProperties: nil,
             allowedValues: allowedValues,
             defaultValue: defaultValue,

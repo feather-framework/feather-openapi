@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 25/01/2024.
 //
 
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol OpenAPIOperation: Identifiable {
     static func openAPIOperation() -> OpenAPI.Operation
@@ -48,11 +48,13 @@ public extension Operation {
             summary: summary,
             description: description,
             operationId: operationId,
-            parameters: parameters.map { $0.reference() },
+            parameters: parameters.map { .reference(.component(named: $0.id)) },
             requestBody: requestBody?.openAPIRequestBody(),
             responses: responses.reduce(into: [:]) {
-                $0[.init(integerLiteral: $1.statusCode)] = $1.response
-                    .reference()
+                $0[.init(integerLiteral: $1.statusCode)] = .reference(
+                    .component(named: $1.response.id)
+                )
+                //                    .reference()
             },
             security: security.map { [$0.reference(): []] }
         )

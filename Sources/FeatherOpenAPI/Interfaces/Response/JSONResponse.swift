@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 25/01/2024.
 //
 
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol JSONResponse: Response {
 

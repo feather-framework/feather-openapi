@@ -8,6 +8,29 @@
 import FeatherOpenAPI30
 import OpenAPIKit30
 
+extension ComponentBuilder {
+
+    mutating func todoTitle() -> SchemaID {
+        let sch1 = schema(id: #function) {
+            StringSchema()
+        }
+        return sch1.id
+    }
+}
+
+enum Model {
+    struct PetSchemaBuilder {
+
+        var builder: ComponentBuilder
+
+        mutating func title() -> SchemaID {
+            let sch1 = builder.schema(id: #function) {
+                StringSchema()
+            }
+            return sch1.id
+        }
+    }
+}
 
 func createExample(
     using builder: inout ComponentBuilder
@@ -16,23 +39,19 @@ func createExample(
     let sch1 = builder.schema(id: "TestSchema") {
         StringSchema()
     }
-    
-//        let sch2 = builder.schema(id: "todo.id") {
-//            StringSchema()
-//        }
-    
+
+    //        let sch2 = builder.schema(id: "todo.id") {
+    //            StringSchema()
+    //        }
+
     let header = builder.header(id: "header") {
         Header(schema: sch1.id)
     }
-    
+
     let p1 = builder.parameter(id: "foo") {
-        Parameter(
-            name: "foo",
-            context: .path,
-            schema: sch1.id
-        )
+        .init(name: "foo", context: .path, schema: .string)
     }
-    
+
     let reqBody1 = builder.requestBody(id: "foo") {
         RequestBody(
             description: "This is a proper request body",
@@ -59,7 +78,7 @@ func createExample(
         summary: "Detail example",
         description: "Detail example detail",
         parameters: [
-            p1.id,
+            p1.id
         ],
         requestBody: reqBody1.id,
         responses: [
@@ -67,4 +86,3 @@ func createExample(
         ]
     )
 }
-

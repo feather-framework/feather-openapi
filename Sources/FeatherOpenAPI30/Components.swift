@@ -7,6 +7,11 @@
 
 import OpenAPIKit30
 
+extension JSONSchema: SchemaRepresentable {
+
+    public func openAPISchema() -> JSONSchema { self }
+}
+
 public protocol ComponentsRepresentable {
     func openAPIComponents() -> OpenAPI.Components
 }
@@ -14,24 +19,30 @@ public protocol ComponentsRepresentable {
 public struct Components: ComponentsRepresentable {
 
     public var schemas: OrderedDictionary<SchemaID, SchemaRepresentable>
-    public var parameters: OrderedDictionary<ParameterID, ParameterRepresentable>
+    public var parameters: OrderedDictionary<ParameterID, OpenAPI.Parameter>
     public var examples: OrderedDictionary<ExampleID, ExampleRepresentable>
     public var responses: OrderedDictionary<ResponseID, ResponseRepresentable>
-    public var requestBodies: OrderedDictionary<RequestBodyID, RequestBodyRepresentable>
+    public var requestBodies:
+        OrderedDictionary<RequestBodyID, RequestBodyRepresentable>
     public var headers: OrderedDictionary<HeaderID, HeaderRepresentable>
-    public var securitySchemes: OrderedDictionary<SecuritySchemeID, SecuritySchemeRepresentable>
+    public var securitySchemes:
+        OrderedDictionary<SecuritySchemeID, SecuritySchemeRepresentable>
     public var links: OrderedDictionary<LinkID, LinkRepresentable>
     //    public var callbacks: OrderedDictionary<CallbackID, CallbackRepresentable>
     public var vendorExtensions: [String: AnyCodable]
 
     public init(
         schemas: OrderedDictionary<SchemaID, SchemaRepresentable> = [:],
-        parameters: OrderedDictionary<ParameterID, ParameterRepresentable> = [:],
+        parameters: OrderedDictionary<ParameterID, OpenAPI.Parameter> = [:],
         examples: OrderedDictionary<ExampleID, ExampleRepresentable> = [:],
         responses: OrderedDictionary<ResponseID, ResponseRepresentable> = [:],
-        requestBodies: OrderedDictionary<RequestBodyID, RequestBodyRepresentable> = [:],
+        requestBodies: OrderedDictionary<
+            RequestBodyID, RequestBodyRepresentable
+        > = [:],
         headers: OrderedDictionary<HeaderID, HeaderRepresentable> = [:],
-        securitySchemes: OrderedDictionary<SecuritySchemeID, SecuritySchemeRepresentable> = [:],
+        securitySchemes: OrderedDictionary<
+            SecuritySchemeID, SecuritySchemeRepresentable
+        > = [:],
         links: OrderedDictionary<LinkID, LinkRepresentable> = [:],
         //        callbacks: OrderedDictionary<CallbackID, CallbackRepresentable> = [:],
         vendorExtensions: [String: AnyCodable] = [:]
@@ -48,9 +59,7 @@ public struct Components: ComponentsRepresentable {
         self.vendorExtensions = vendorExtensions
     }
 
-    func openAPISchemas(
-        
-    ) -> OpenAPI.ComponentDictionary<JSONSchema> {
+    func openAPISchemas() -> OpenAPI.ComponentDictionary<JSONSchema> {
         var result: OpenAPI.ComponentDictionary<JSONSchema> = [:]
 
         for (key, value) in schemas {
@@ -59,9 +68,7 @@ public struct Components: ComponentsRepresentable {
         return result
     }
 
-    func openAPIResponses(
-        
-    ) -> OpenAPI.ComponentDictionary<OpenAPI.Response> {
+    func openAPIResponses() -> OpenAPI.ComponentDictionary<OpenAPI.Response> {
         var result: OpenAPI.ComponentDictionary<OpenAPI.Response> = [:]
 
         for (key, value) in responses {
@@ -70,21 +77,16 @@ public struct Components: ComponentsRepresentable {
         return result
     }
 
-    func openAPIParameters(
-        
-    ) -> OpenAPI.ComponentDictionary<OpenAPI.Parameter> {
+    func openAPIParameters() -> OpenAPI.ComponentDictionary<OpenAPI.Parameter> {
         var result: OpenAPI.ComponentDictionary<OpenAPI.Parameter> = [:]
 
         for (key, value) in parameters {
-            result[.init(stringLiteral: key.rawValue)] =
-                value.openAPIParameter()
+            result[.init(stringLiteral: key.rawValue)] = value
         }
         return result
     }
 
-    func openAPIExamples(
-        
-    ) -> OpenAPI.ComponentDictionary<OpenAPI.Example> {
+    func openAPIExamples() -> OpenAPI.ComponentDictionary<OpenAPI.Example> {
         var result: OpenAPI.ComponentDictionary<OpenAPI.Example> = [:]
 
         for (key, value) in examples {
@@ -93,9 +95,8 @@ public struct Components: ComponentsRepresentable {
         return result
     }
 
-    func openAPIRequestBodies(
-        
-    ) -> OpenAPI.ComponentDictionary<OpenAPI.Request> {
+    func openAPIRequestBodies() -> OpenAPI.ComponentDictionary<OpenAPI.Request>
+    {
         var result: OpenAPI.ComponentDictionary<OpenAPI.Request> = [:]
 
         for (key, value) in requestBodies {
@@ -105,9 +106,7 @@ public struct Components: ComponentsRepresentable {
         return result
     }
 
-    func openAPIHeaders(
-        
-    ) -> OpenAPI.ComponentDictionary<OpenAPI.Header> {
+    func openAPIHeaders() -> OpenAPI.ComponentDictionary<OpenAPI.Header> {
         var result: OpenAPI.ComponentDictionary<OpenAPI.Header> = [:]
 
         for (key, value) in headers {
@@ -116,9 +115,9 @@ public struct Components: ComponentsRepresentable {
         return result
     }
 
-    func openAPISecuritySchemes(
-        
-    ) -> OpenAPI.ComponentDictionary<OpenAPI.SecurityScheme> {
+    func openAPISecuritySchemes()
+        -> OpenAPI.ComponentDictionary<OpenAPI.SecurityScheme>
+    {
         var result: OpenAPI.ComponentDictionary<OpenAPI.SecurityScheme> = [:]
 
         for (key, value) in securitySchemes {
@@ -128,9 +127,7 @@ public struct Components: ComponentsRepresentable {
         return result
     }
 
-    func openAPILinks(
-        
-    ) -> OpenAPI.ComponentDictionary<OpenAPI.Link> {
+    func openAPILinks() -> OpenAPI.ComponentDictionary<OpenAPI.Link> {
         var result: OpenAPI.ComponentDictionary<OpenAPI.Link> = [:]
 
         for (key, value) in links {
@@ -162,7 +159,5 @@ public struct Components: ComponentsRepresentable {
             vendorExtensions: vendorExtensions
         )
     }
-    
-    
-}
 
+}

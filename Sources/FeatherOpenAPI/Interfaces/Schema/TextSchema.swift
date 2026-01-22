@@ -5,18 +5,18 @@
 //  Created by Tibor Bodecs on 25/01/2024.
 //
 
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol TextSchema: Schema {
-    static var examples: [String] { get }
+    static var example: String? { get }
 }
 
 public extension TextSchema {
 
-    static func openAPISchema() -> OpenAPIKit.JSONSchema {
+    static func openAPISchema() -> JSONSchema {
         .text(
             description: description,
-            examples: examples.map { .init(stringLiteral: $0) }
+            example: example.map { .init(stringLiteral: $0) }
         )
     }
 }

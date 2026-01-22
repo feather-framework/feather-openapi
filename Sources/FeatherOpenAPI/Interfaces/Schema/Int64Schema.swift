@@ -1,4 +1,4 @@
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol Int64Schema: NumberSchema {
     //TODO: use int64, remove Int cast after openapi kit fixed
@@ -8,7 +8,7 @@ public protocol Int64Schema: NumberSchema {
 //TODO: use int64, remove Int cast after openapi kit fixed
 extension Int64Schema where T == Int {
 
-    public static func openAPISchema() -> OpenAPIKit.JSONSchema {
+    public static func openAPISchema() -> JSONSchema {
         .integer(
             format: .int64,
             required: true,
@@ -16,7 +16,7 @@ extension Int64Schema where T == Int {
             maximum: maximum,
             minimum: minimum,
             defaultValue: defaultValue.map { .init($0) },
-            examples: examples.map { .init($0) }
+            example: example.map { .init($0) }
         )
     }
 }

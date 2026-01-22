@@ -2,7 +2,7 @@ public protocol NumberSchema: Schema {
     associatedtype T
 
     static var defaultValue: T? { get }
-    static var examples: [T] { get }
+    static var example: T? { get }
 
     static var minimumValue: T? { get }
     static var minimumExclusive: Bool { get }
@@ -33,5 +33,5 @@ extension NumberSchema {
     }
 
     public static var defaultValue: T? { nil }
-    public static var examples: [T] { [] }
+    public static var example: T? { nil }
 }

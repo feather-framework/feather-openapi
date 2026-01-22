@@ -1,4 +1,4 @@
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol Int32Schema: NumberSchema {
     associatedtype T = Int32
@@ -6,7 +6,7 @@ public protocol Int32Schema: NumberSchema {
 
 extension Int32Schema where T == Int32 {
 
-    public static func openAPISchema() -> OpenAPIKit.JSONSchema {
+    public static func openAPISchema() -> JSONSchema {
         .integer(
             format: .int32,
             required: true,
@@ -17,7 +17,7 @@ extension Int32Schema where T == Int32 {
             minimum: maximum.map { (Int($0.0), exclusive: $0.exclusive) },
 
             defaultValue: defaultValue.map { .init($0) },
-            examples: examples.map { .init($0) }
+            example: example.map { .init($0) }
         )
     }
 }

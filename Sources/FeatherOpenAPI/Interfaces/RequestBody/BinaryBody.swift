@@ -1,4 +1,4 @@
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol BinaryBody: RequestBody {
     static var contentType: OpenAPI.ContentType { get }
@@ -15,11 +15,9 @@ extension BinaryBody {
             description: description,
             content: [
                 contentType: .init(
-                    .init(
-                        schema: .string(
-                            contentMediaType: .other("application/octet-stream")
-                        ),
-                        examples: nil
+                    schema: .string(
+                        format: .binary,
+                        // contentMediaType: .other("application/octet-stream")
                     )
                 )
             ],

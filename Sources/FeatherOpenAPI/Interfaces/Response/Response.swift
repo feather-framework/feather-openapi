@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 20/01/2024.
 //
 
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol OpenAPIResponse: Identifiable {
     static func openAPIResponse() -> OpenAPI.Response
@@ -13,12 +13,12 @@ public protocol OpenAPIResponse: Identifiable {
 
 public extension OpenAPIResponse {
 
-    static func reference() -> Either<
-        OpenAPI.Reference<OpenAPI.Response>,
-        OpenAPI.Response
-    > {
-        .reference(.component(named: id))
-    }
+    //    static func reference() -> Either<
+    //        OpenAPI.Reference<OpenAPI.Response>,
+    //        OpenAPI.Response
+    //    > {
+    //        .reference(.component(named: id))
+    //    }
 }
 
 public protocol Response: OpenAPIResponse {
@@ -31,9 +31,7 @@ public extension Response {
 
     static var headers: [Header.Type] { [] }
 
-    static var contents:
-        [OpenAPIKit.OpenAPI.ContentType: FeatherOpenAPI.Schema.Type]
-    {
+    static var contents: [OpenAPI.ContentType: FeatherOpenAPI.Schema.Type] {
         [:]
     }
 
@@ -59,7 +57,7 @@ public extension Response {
         }
         var result: OpenAPI.Header.Map = [:]
         for header in headers {
-            result[header.id] = header.reference()
+            result[header.id] = .reference(.component(named: header.id))
         }
         return result
     }

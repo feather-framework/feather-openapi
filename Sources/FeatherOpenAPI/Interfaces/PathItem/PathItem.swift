@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 20/01/2024.
 //
 
-import OpenAPIKit
+import OpenAPIKit30
 
 public protocol OpenAPIPathItem: Identifiable {
     static var openAPIPath: OpenAPI.Path { get }
@@ -52,7 +52,7 @@ public extension PathItem {
             summary: summary,
             description: description,
             servers: nil,
-            parameters: parameters.map { $0.reference() },
+            parameters: parameters.map { .reference(.component(named: $0.id)) },
             get: get?.openAPIOperation(),
             put: put?.openAPIOperation(),
             post: post?.openAPIOperation(),
