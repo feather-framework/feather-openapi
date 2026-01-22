@@ -13,11 +13,11 @@ func getExample(
 ) -> Operation {
 
     let exampleID = builder.schema(id: "ExampleId") {
-        StringSchema()
+        JSONSchema.string
     }
 
     let titleSchemaID = builder.schema(id: "ExampleTitle") {
-        StringSchema()
+        JSONSchema.string
     }
 
     let detailSchema = builder.schema(id: "ExampleDetail") {
@@ -45,13 +45,14 @@ func getExample(
     }
 
     let okResponse = builder.response(id: "GetExampleResponse") {
-        return Response(
+        OpenAPI.Response(
             description: "Example detail response",
             //            headers: [
             //                "X-Custom-Response-Header": header.id
             //            ],
             content: [
-                .aac: Content(schema: detailSchema)
+                :
+//                .aac: Content(schema: detailSchema)
             ]
         )
     }

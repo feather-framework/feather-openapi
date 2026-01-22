@@ -13,6 +13,15 @@ public protocol SecurityRequirementRepresentable {
     func openAPISecurityRequirement() -> OpenAPI.SecurityRequirement
 }
 
+extension OpenAPI.SecurityRequirement: SecurityRequirementRepresentable {
+
+    public func openAPISecurityRequirement() -> OpenAPI.SecurityRequirement {
+        self
+    }
+}
+
+// MARK: -
+
 public struct SecurityRequirement: SecurityRequirementRepresentable {
 
     public var requirements: [String: [String]]

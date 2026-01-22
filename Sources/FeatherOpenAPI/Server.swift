@@ -11,6 +11,15 @@ public protocol ServerRepresentable {
     func openAPIServer() -> OpenAPI.Server
 }
 
+extension OpenAPI.Server: ServerRepresentable {
+    
+    public func openAPIServer() -> OpenAPI.Server {
+        self
+    }
+}
+
+// MARK: -
+
 public struct Server: ServerRepresentable {
 
     public var url: URLRepresentable

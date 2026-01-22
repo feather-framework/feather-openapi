@@ -15,6 +15,15 @@ public protocol URLRepresentable {
     func url() -> URL
 }
 
+extension URL: URLRepresentable {
+
+    public func url() -> URL {
+        self
+    }
+}
+
+// MARK: -
+
 public struct Location: URLRepresentable {
 
     public var string: String

@@ -11,6 +11,16 @@ public protocol OperationRepresentable {
     func openAPIOperation() -> OpenAPI.Operation
 }
 
+
+extension OpenAPI.Operation: OperationRepresentable {
+
+    public func openAPIOperation() -> OpenAPI.Operation {
+        self
+    }
+}
+
+// MARK: -
+
 public struct Operation: OperationRepresentable {
 
     public var tags: [String]?

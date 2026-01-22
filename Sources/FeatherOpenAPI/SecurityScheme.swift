@@ -22,6 +22,15 @@ public protocol SecuritySchemeRepresentable {
     func openAPISecurityScheme() -> OpenAPI.SecurityScheme
 }
 
+extension OpenAPI.SecurityScheme: SecuritySchemeRepresentable {
+    
+    public func openAPISecurityScheme() -> OpenAPI.SecurityScheme {
+        self
+    }
+}
+
+// MARK: -
+
 public struct SecurityScheme: SecuritySchemeRepresentable {
 
     public var type: OpenAPI.SecurityScheme.SecurityType

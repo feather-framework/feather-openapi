@@ -11,6 +11,16 @@ public protocol PathItemRepresentable {
     func openAPIPathItem() -> OpenAPI.PathItem
 }
 
+extension OpenAPI.PathItem: PathItemRepresentable {
+    
+    public func openAPIPathItem() -> OpenAPI.PathItem {
+        self
+    }
+}
+
+// MARK: -
+
+
 public struct PathItem: PathItemRepresentable {
 
     public var summary: String?

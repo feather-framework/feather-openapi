@@ -13,7 +13,7 @@ func createExample(
 ) -> Operation {
 
     let testSchemaID = builder.schema(id: "TestSchema") {
-        StringSchema()
+        JSONSchema.string
     }
 
     let headerID = builder.header(id: "header") {
@@ -25,22 +25,24 @@ func createExample(
     }
 
     let requestBodyID = builder.requestBody(id: "foo") {
-        RequestBody(
+        OpenAPI.Request(
             description: "This is a proper request body",
             content: [
-                .json: Content(schema: testSchemaID)
+                :
+//                .json: Content(schema: testSchemaID).openAPIContent(),
             ]
         )
     }
 
     let okResponseID = builder.response(id: "foo") {
-        Response(
+        OpenAPI.Response(
             description: "foo",
             headers: [
-                "X-Custom-Response-Header": headerID
+                "X-Custom-Response-Header": .reference(.component(named: ""))
             ],
             content: [
-                .aac: Content(schema: testSchemaID)
+                :
+//                .aac: Content(schema: testSchemaID)
             ]
         )
     }

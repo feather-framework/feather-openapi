@@ -12,6 +12,16 @@ public protocol InfoRepresentable {
     func openAPIInfo() -> OpenAPI.Document.Info
 }
 
+extension OpenAPI.Document.Info: InfoRepresentable {
+
+    public func openAPIInfo() -> OpenAPI.Document.Info {
+        self
+    }
+}
+
+// MARK: -
+
+
 public struct Info: InfoRepresentable {
     public var title: String
     public var description: String?

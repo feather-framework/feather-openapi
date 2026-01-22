@@ -22,6 +22,15 @@ public protocol HeaderRepresentable {
     func openAPIHeader() -> OpenAPI.Header
 }
 
+extension OpenAPI.Header: HeaderRepresentable {
+
+    public func openAPIHeader() -> OpenAPI.Header {
+        self
+    }
+}
+
+// MARK: -
+
 public struct Header: HeaderRepresentable {
 
     public var schema: SchemaID

@@ -11,6 +11,17 @@ public protocol LicenseRepresentable {
     func openAPILicense() -> OpenAPI.Document.Info.License
 }
 
+extension OpenAPI.Document.Info.License: LicenseRepresentable {
+
+    public func openAPILicense() -> OpenAPI.Document.Info.License {
+        self
+    }
+}
+
+// MARK: -
+
+
+
 public struct License: LicenseRepresentable {
     public let name: String
     public let url: URLRepresentable?

@@ -11,6 +11,15 @@ public protocol ServerVariableRepresentable {
     func openAPIServerVariable() -> OpenAPI.Server.Variable
 }
 
+extension OpenAPI.Server.Variable: ServerVariableRepresentable {
+    
+    public func openAPIServerVariable() -> OpenAPI.Server.Variable {
+        self
+    }
+}
+
+// MARK: -
+
 public struct ServerVariable: ServerVariableRepresentable {
     public var `enum`: [String]
     public var `default`: String

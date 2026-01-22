@@ -12,6 +12,15 @@ public protocol ContactRepresentable {
     func openAPIContact() -> OpenAPI.Document.Info.Contact
 }
 
+extension OpenAPI.Document.Info.Contact: ContactRepresentable {
+
+    public func openAPIContact() -> OpenAPI.Document.Info.Contact {
+        self
+    }
+}
+
+// MARK: -
+
 public struct Contact: ContactRepresentable {
 
     public let name: String?

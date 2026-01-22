@@ -43,7 +43,7 @@ public struct ComponentBuilder {
 
     public mutating func schema(
         id: String,
-        builder: (() -> SchemaRepresentable)
+        builder: (() -> OpenAPISchemaRepresentable)
     ) -> SchemaID {
         let id = SchemaID(id)
         let schema = builder()
@@ -55,7 +55,7 @@ public struct ComponentBuilder {
 
     public mutating func response(
         id: String,
-        builder: (() -> ResponseRepresentable)
+        builder: (() -> OpenAPIResponseRepresentable)
     ) -> ResponseID {
         let id = ResponseID(id)
         let response = builder()
@@ -67,7 +67,7 @@ public struct ComponentBuilder {
 
     public mutating func requestBody(
         id: String,
-        builder: (() -> RequestBodyRepresentable)
+        builder: (() -> OpenAPIRequestBodyRepresentable)
     ) -> RequestBodyID {
         let id = RequestBodyID(id)
         let requestBody = builder()

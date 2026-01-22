@@ -22,6 +22,15 @@ public protocol LinkRepresentable {
     func openAPILink() -> OpenAPI.Link
 }
 
+extension OpenAPI.Link: LinkRepresentable {
+
+    public func openAPILink() -> OpenAPI.Link {
+        self
+    }
+}
+
+// MARK: -
+
 public struct Link: LinkRepresentable {
 
     public func openAPILink() -> OpenAPI.Link {

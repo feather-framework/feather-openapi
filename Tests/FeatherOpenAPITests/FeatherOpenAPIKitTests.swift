@@ -18,9 +18,16 @@ import Testing
 struct FeatherOpenAPIKitTests {
 
     @Test
+    func ttt() {
+        let schema = ExampleFieldId()
+        print(schema.openAPIIdentifier)
+    }
+
+    
+    @Test
     func ref() throws {
 
-        struct UserId: SchemaRepresentable {
+        struct UserId: OpenAPISchemaRepresentable {
 
             func openAPISchema() -> OpenAPIKit30.JSONSchema {
                 fatalError()

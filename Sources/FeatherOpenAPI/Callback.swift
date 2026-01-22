@@ -22,6 +22,15 @@ public protocol CallbackRepresentable {
     func openAPICallback() -> Callback
 }
 
+//extension OpenAPI.Components: ComponentsRepresentable {
+//
+//    public func openAPIComponents() -> OpenAPI.Components {
+//        self
+//    }
+//}
+
+// MARK: -
+
 public struct Callback: CallbackRepresentable {
 
     public func openAPICallback() -> Callback {

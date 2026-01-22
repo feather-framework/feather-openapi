@@ -22,6 +22,16 @@ public protocol ParameterRepresentable {
     func openAPIParameter() -> OpenAPI.Parameter
 }
 
+extension OpenAPI.Parameter: ParameterRepresentable {
+    
+    public func openAPIParameter() -> OpenAPI.Parameter {
+        self
+    }
+}
+
+// MARK: -
+
+
 public struct Parameter: ParameterRepresentable {
 
     public var name: String
@@ -51,7 +61,7 @@ public struct Parameter: ParameterRepresentable {
         .init(
             name: name,
             context: context,
-            schemaReference: .component(named: schema.rawValue),
+            schema: .reference(.component(named: schema.rawValue), required: true),
             description: description,
             deprecated: deprecated,
             vendorExtensions: vendorExtensions

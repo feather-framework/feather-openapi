@@ -22,6 +22,15 @@ public protocol ExampleRepresentable {
     func openAPIExample() -> OpenAPI.Example
 }
 
+extension OpenAPI.Example: ExampleRepresentable {
+
+    public func openAPIExample() -> OpenAPI.Example {
+        self
+    }
+}
+
+// MARK: -
+
 public struct Example: ExampleRepresentable {
 
     public var summary: String?

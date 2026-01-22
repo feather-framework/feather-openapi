@@ -7,23 +7,29 @@
 
 import OpenAPIKit30
 
-extension JSONSchema: SchemaRepresentable {
-
-    public func openAPISchema() -> JSONSchema { self }
-}
 
 public protocol ComponentsRepresentable {
     func openAPIComponents() -> OpenAPI.Components
 }
 
+extension OpenAPI.Components: ComponentsRepresentable {
+
+    public func openAPIComponents() -> OpenAPI.Components {
+        self
+    }
+}
+
+// MARK: -
+
+
 public struct Components: ComponentsRepresentable {
 
-    public var schemas: OrderedDictionary<SchemaID, SchemaRepresentable>
+    public var schemas: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
     public var parameters: OrderedDictionary<ParameterID, OpenAPI.Parameter>
     public var examples: OrderedDictionary<ExampleID, ExampleRepresentable>
-    public var responses: OrderedDictionary<ResponseID, ResponseRepresentable>
+    public var responses: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable>
     public var requestBodies:
-        OrderedDictionary<RequestBodyID, RequestBodyRepresentable>
+        OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable>
     public var headers: OrderedDictionary<HeaderID, HeaderRepresentable>
     public var securitySchemes:
         OrderedDictionary<SecuritySchemeID, SecuritySchemeRepresentable>
@@ -32,12 +38,12 @@ public struct Components: ComponentsRepresentable {
     public var vendorExtensions: [String: AnyCodable]
 
     public init(
-        schemas: OrderedDictionary<SchemaID, SchemaRepresentable> = [:],
+        schemas: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> = [:],
         parameters: OrderedDictionary<ParameterID, OpenAPI.Parameter> = [:],
         examples: OrderedDictionary<ExampleID, ExampleRepresentable> = [:],
-        responses: OrderedDictionary<ResponseID, ResponseRepresentable> = [:],
+        responses: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable> = [:],
         requestBodies: OrderedDictionary<
-            RequestBodyID, RequestBodyRepresentable
+            RequestBodyID, OpenAPIRequestBodyRepresentable
         > = [:],
         headers: OrderedDictionary<HeaderID, HeaderRepresentable> = [:],
         securitySchemes: OrderedDictionary<

@@ -11,6 +11,15 @@ public protocol DocumentRepresentable {
     func openAPIDocument() -> OpenAPI.Document
 }
 
+extension OpenAPI.Document: DocumentRepresentable {
+
+    public func openAPIDocument() -> OpenAPI.Document {
+        self
+    }
+}
+
+// MARK: -
+
 public struct Document: DocumentRepresentable {
 
     public var info: InfoRepresentable

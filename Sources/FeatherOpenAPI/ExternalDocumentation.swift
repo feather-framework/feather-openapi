@@ -17,6 +17,15 @@ public protocol ExternalDocumentationRepresentable {
     func openAPIExternalDocumentation() -> OpenAPI.ExternalDocumentation
 }
 
+extension OpenAPI.ExternalDocumentation: ExternalDocumentationRepresentable {
+
+    public func openAPIExternalDocumentation() -> OpenAPI.ExternalDocumentation {
+        self
+    }
+}
+
+// MARK: -
+
 public struct ExternalDocumentation: ExternalDocumentationRepresentable {
     public var url: String
     public var description: String?
