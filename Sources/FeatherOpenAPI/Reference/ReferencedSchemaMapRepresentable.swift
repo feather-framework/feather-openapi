@@ -10,3 +10,8 @@ import OpenAPIKit30
 public protocol ReferencedSchemaMapRepresentable {
     var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> { get }
 }
+
+
+public protocol ReferencedParameterMapRepresentable {
+    var referencedParameterMap: OrderedDictionary<ParameterID, OpenAPIParameterRepresentable> { get }
+}

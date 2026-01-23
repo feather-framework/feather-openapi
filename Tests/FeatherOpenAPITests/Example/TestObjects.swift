@@ -59,7 +59,7 @@ struct TodoDetailObject: ObjectSchemaRepresentable {
             "title": TodoTitleField(),
             "isComplete": TodoIsCompleteField(),
             // TODO: move required to schema -> use that to reference
-            "bar": SchemaReference(TodoIDField(), required: false),
+//            "bar": SchemaReference(TodoIDField(), required: false),
 //            "foo": TodoIDField(example: 12).referenced(id: ""),
 //            "unsafe": UnsafeSchemaReference("asdf"),
         ]
@@ -81,8 +81,22 @@ struct TodoCreateResponse: JSONResponseRepresentable {
     var schema = TodoDetailObject()
 }
 
+struct TodoIdParameter: ParameterRepresentable {
+    
+    var name: String { "todoId" }
+    var context: OpenAPIKit30.OpenAPI.Parameter.Context { .path }
+    var schema: any FeatherOpenAPI.OpenAPISchemaRepresentable { SchemaReference(TodoIDField()) }
+}
+
 
 struct TodoCreateOperation: OperationRepresentable {
+
+    var parameters: [ParameterRepresentable] {
+        [
+//            TodoIdParameter(),
+            ParameterReference(TodoIdParameter()),
+        ]
+    }
 
     var requestBody = TodoCreateRequestBody()
     var responseMap: ResponseMap {

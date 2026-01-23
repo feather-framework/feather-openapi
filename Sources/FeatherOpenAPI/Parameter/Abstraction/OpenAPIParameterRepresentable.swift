@@ -8,12 +8,12 @@
 import OpenAPIKit30
 
 public protocol OpenAPIParameterRepresentable {
-    func openAPIParameter() -> OpenAPI.Parameter
+    func openAPIParameter() -> Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>
 }
 
 extension OpenAPI.Parameter: OpenAPIParameterRepresentable {
     
-    public func openAPIParameter() -> OpenAPI.Parameter {
-        self
+    public func openAPIParameter() -> Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter> {
+        .init(self)
     }
 }

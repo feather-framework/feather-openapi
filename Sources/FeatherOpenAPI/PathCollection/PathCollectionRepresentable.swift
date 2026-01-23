@@ -8,7 +8,8 @@
 import OpenAPIKit30
 
 public protocol PathCollectionRepresentable:
-    ReferencedSchemaMapRepresentable
+    ReferencedSchemaMapRepresentable,
+    ReferencedParameterMapRepresentable
 {
     var pathMap: PathMap { get }
     var components: Components { get }
@@ -28,10 +29,24 @@ extension PathCollectionRepresentable {
         }
         return results
     }
+    
+    var referencedParameterMap: OrderedDictionary<ParameterID, OpenAPIParameterRepresentable> {
+        var results = OrderedDictionary<ParameterID, OpenAPIParameterRepresentable>()
+        
+        let parameterMaps = pathMap.values
+            .map { $0.referencedParameterMap }
+            .flatMap { $0 }
+
+        for (k, v) in parameterMaps {
+            results[k] = v
+        }
+        return results
+    }
 
     var components: Components {
         .init(
             schemas: referencedSchemaMap.mapValues { $0.openAPISchema() },
+            parameters: referencedParameterMap.mapValues { $0.openAPIParameter().b }.compactMapValues { $0 }
         )
     }
 }

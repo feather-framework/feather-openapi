@@ -9,9 +9,12 @@ import OpenAPIKit30
 
 public protocol PathItemRepresentable:
     OpenAPIPathItemRepresentable,
-    ReferencedSchemaMapRepresentable,
+    // properties
     DescriptionProperty,
-    VendorExtensionsProperty
+    VendorExtensionsProperty,
+    // reference
+    ReferencedSchemaMapRepresentable,
+    ReferencedParameterMapRepresentable
 {
     var summary: String? { get }
     
@@ -58,10 +61,8 @@ public extension PathItemRepresentable {
         )
     }
     
-    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
-        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
-        
-        let schemaMaps = [
+    var allOperations: [OperationRepresentable] {
+        [
             get,
             put,
             post,
@@ -69,10 +70,28 @@ public extension PathItemRepresentable {
             options,
             head,
             patch,
-            trace
-        ].compactMap { $0 }.map { $0.referencedSchemaMap }.flatMap { $0 }
+            trace,
+        ]
+        .compactMap { $0 }
+    }
+    
+    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
         
-        for (k, v) in schemaMaps {
+        let maps = allOperations.map { $0.referencedSchemaMap }.flatMap { $0 }
+        
+        for (k, v) in maps {
+            results[k] = v
+        }
+        return results
+    }
+    
+    var referencedParameterMap: OrderedDictionary<ParameterID, OpenAPIParameterRepresentable> {
+        var results = OrderedDictionary<ParameterID, OpenAPIParameterRepresentable>()
+        
+        let maps = allOperations.map { $0.referencedParameterMap }.flatMap { $0 }
+        
+        for (k, v) in maps {
             results[k] = v
         }
         return results

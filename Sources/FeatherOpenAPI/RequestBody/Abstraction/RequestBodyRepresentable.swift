@@ -12,19 +12,31 @@ public protocol RequestBodyRepresentable:
     OpenAPIRequestBodyRepresentable,
     DescriptionProperty,
     RequiredProperty,
-    VendorExtensionsProperty
+    VendorExtensionsProperty,
+    // reference
+    ReferencedSchemaMapRepresentable
 {
     var contentMap: ContentMap { get }
 }
 
-extension RequestBodyRepresentable {
+public extension RequestBodyRepresentable {
 
-    public func openAPIRequestBody() -> OpenAPI.Request {
+    func openAPIRequestBody() -> OpenAPI.Request {
         .init(
             description: description,
             content: contentMap.mapValues { $0.openAPIContent() },
             required: `required`,
             vendorExtensions: vendorExtensions
         )
+    }
+    
+    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
+        for content in contentMap.values {
+            if let ref = content.schema as? SchemaReferenceRepresentable {
+                results[ref.id] = ref.object
+            }
+        }
+        return results
     }
 }

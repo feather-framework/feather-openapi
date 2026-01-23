@@ -10,10 +10,12 @@ import OpenAPIKit30
 
 public protocol OperationRepresentable:
     OpenAPIOperationRepresentable,
-    ReferencedSchemaMapRepresentable,
+    // properties
     DescriptionProperty,
     DeprecatedProperty,
-    VendorExtensionsProperty
+    VendorExtensionsProperty,
+    // references
+    ReferencedSchemaMapRepresentable
 {
 //    associatedtype RequestBodyType: RequestBodyRepresentable
     
@@ -45,7 +47,7 @@ public extension OperationRepresentable {
             description: description,
             externalDocs: nil,
             operationId: operationId,
-            parameters: parameters.map { .init($0.openAPIParameter()) },
+            parameters: parameters.map { $0.openAPIParameter() },
             requestBody: requestBody?.openAPIRequestBody(),
             responses: responseMap.mapValues { .init($0.openAPIResponse()) },
             callbacks: [:],
@@ -56,33 +58,44 @@ public extension OperationRepresentable {
         )
     }
     
+    var referencedParameterMap: OrderedDictionary<ParameterID, OpenAPIParameterRepresentable> {
+        var results = OrderedDictionary<ParameterID, OpenAPIParameterRepresentable>()
+        
+        for parameter in parameters {
+            if let ref = parameter as? ParameterReferenceRepresentable {
+                if case let .b(parameter) = ref.object.openAPIParameter() {
+                    results[ref.id] = parameter
+                }
+            }
+        }
+        return results
+    }
+        
     var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
         var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
         
         for parameter in parameters {
-            if let ref = parameter.schema as? SchemaReferenceRepresentable {
-                results[ref.id] = ref.object
-            }
+            results.merge(parameter.referencedSchemaMap)
         }
         
-        for content in requestBody?.contentMap.values ?? [] {
-            if let ref = content.schema as? SchemaReferenceRepresentable {
-                results[ref.id] = ref.object
-            }
+        if let schemaMap = requestBody?.referencedSchemaMap {
+            results.merge(schemaMap)
         }
 
         let headers = responseMap.values
             .map { $0.headerMap.values }
             .flatMap { $0 }
         
+        for header in headers {
+            results.merge(header.referencedSchemaMap)
+        }
+        
         let contents = responseMap.values
             .map { $0.contentMap.values }
             .flatMap { $0 }
 
         for content in contents {
-            for (k, v) in content.referencedSchemaMap {
-                results[k] = v
-            }
+            results.merge(content.referencedSchemaMap)
         }
 
         return results

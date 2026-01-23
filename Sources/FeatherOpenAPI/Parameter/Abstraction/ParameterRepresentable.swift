@@ -9,9 +9,13 @@ import OpenAPIKit30
 
 public protocol ParameterRepresentable:
     OpenAPIParameterRepresentable,
+    Identifiable,
+    // property
     DescriptionProperty,
     DeprecatedProperty,
-    VendorExtensionsProperty
+    VendorExtensionsProperty,
+    // reference
+    ReferencedSchemaMapRepresentable
 {
     var name: String { get }
     var context: OpenAPI.Parameter.Context { get }
@@ -21,14 +25,24 @@ public protocol ParameterRepresentable:
 
 public extension ParameterRepresentable {
     
-    func openAPIParameter() -> OpenAPI.Parameter {
+    func openAPIParameter() -> Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter> {
         .init(
-            name: name,
-            context: context,
-            schema: schema.openAPISchema(),
-            description: description,
-            deprecated: deprecated,
-            vendorExtensions: vendorExtensions
+            .init(
+                name: name,
+                context: context,
+                schema: schema.openAPISchema(),
+                description: description,
+                deprecated: deprecated,
+                vendorExtensions: vendorExtensions
+            )
         )
+    }
+    
+    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
+        if let ref = schema as? SchemaReferenceRepresentable {
+            results[ref.id] = ref.object
+        }
+        return results
     }
 }

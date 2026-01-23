@@ -10,6 +10,6 @@ import OpenAPIKit30
 public typealias HeaderMap = OrderedDictionary
 <
     String,
-    OpenAPIHeaderRepresentable
+    HeaderRepresentable
 >
 

@@ -57,7 +57,9 @@ public extension ComponentsRepresentable {
         var result: OpenAPI.ComponentDictionary<OpenAPI.Parameter> = [:]
 
         for (key, value) in parameters {
-            result[.init(stringLiteral: key.rawValue)] = value.openAPIParameter()
+            if let parameter = value.openAPIParameter().b {
+                result[.init(stringLiteral: key.rawValue)] = parameter
+            }
         }
         return result
     }

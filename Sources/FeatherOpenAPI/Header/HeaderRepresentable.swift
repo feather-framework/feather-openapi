@@ -12,7 +12,9 @@ public protocol HeaderRepresentable:
     DescriptionProperty,
     RequiredProperty,
     DeprecatedProperty,
-    VendorExtensionsProperty
+    VendorExtensionsProperty,
+    // reference
+    ReferencedSchemaMapRepresentable
 {
     var schema: OpenAPISchemaRepresentable { get }
 }
@@ -27,5 +29,13 @@ public extension HeaderRepresentable {
             deprecated: deprecated,
             vendorExtensions: vendorExtensions
         )
+    }
+    
+    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
+        if let ref = schema as? SchemaReferenceRepresentable {
+            results[ref.id] = ref.object
+        }
+        return results
     }
 }
