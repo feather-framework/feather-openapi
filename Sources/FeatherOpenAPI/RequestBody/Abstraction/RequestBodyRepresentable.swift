@@ -20,13 +20,19 @@ public protocol RequestBodyRepresentable:
 }
 
 public extension RequestBodyRepresentable {
+    
+    func reference() -> RequestBodyReference<Self> {
+        .init(self)
+    }
 
-    func openAPIRequestBody() -> OpenAPI.Request {
+    func openAPIRequestBody() -> Either<JSONReference<OpenAPI.Request>, OpenAPI.Request> {
         .init(
-            description: description,
-            content: contentMap.mapValues { $0.openAPIContent() },
-            required: `required`,
-            vendorExtensions: vendorExtensions
+            .init(
+                description: description,
+                content: contentMap.mapValues { $0.openAPIContent() },
+                required: `required`,
+                vendorExtensions: vendorExtensions
+            )
         )
     }
     

@@ -13,7 +13,7 @@ public protocol SchemaReferenceRepresentable {
 }
 
 public struct SchemaReference<T: SchemaRepresentable>:
-    OpenAPISchemaRepresentable,
+    SchemaRepresentable,
     SchemaReferenceRepresentable
 {
     public var object: any SchemaRepresentable {
@@ -24,7 +24,7 @@ public struct SchemaReference<T: SchemaRepresentable>:
     public var _object: T
     public var required: Bool
     
-    public init(
+    internal init(
         _ object: T,
         required: Bool = true
     ) {

@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 22..
 //
 
-public struct RequestBodyID: Hashable {
+public struct RequestBodyID: Sendable, Equatable, Hashable, Codable {
 
     public var rawValue: String
 

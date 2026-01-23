@@ -14,7 +14,8 @@ public protocol PathItemRepresentable:
     VendorExtensionsProperty,
     // reference
     ReferencedSchemaMapRepresentable,
-    ReferencedParameterMapRepresentable
+    ReferencedParameterMapRepresentable,
+    ReferencedRequestBodyMapRepresentable
 {
     var summary: String? { get }
     
@@ -91,6 +92,17 @@ public extension PathItemRepresentable {
         
         let maps = allOperations.map { $0.referencedParameterMap }.flatMap { $0 }
         
+        for (k, v) in maps {
+            results[k] = v
+        }
+        return results
+    }
+
+    var referencedRequestBodyMap: OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable> {
+        var results = OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable>()
+
+        let maps = allOperations.map { $0.referencedRequestBodyMap }.flatMap { $0 }
+
         for (k, v) in maps {
             results[k] = v
         }

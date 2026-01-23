@@ -27,7 +27,7 @@ public struct ParameterReference<T: ParameterRepresentable>:
     public var id: ParameterID
     public var _object: T
     
-    public init(
+    internal init(
         _ object: T
     ) {
         self.id = .init(object.openAPIIdentifier)

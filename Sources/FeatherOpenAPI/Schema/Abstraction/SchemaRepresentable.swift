@@ -22,6 +22,10 @@ public protocol SchemaRepresentable:
 
 public extension SchemaRepresentable {
     
+    func reference() -> SchemaReference<Self> {
+        .init(self)
+    }
+    
     var deprecated: Bool? { nil }
 
     var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {

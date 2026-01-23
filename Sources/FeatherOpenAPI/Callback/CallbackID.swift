@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 23..
 //
 
-public struct CallbackID: Hashable {
+public struct CallbackID: Sendable, Equatable, Hashable, Codable {
 
     public var rawValue: String
 

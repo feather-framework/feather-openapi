@@ -87,8 +87,9 @@ public extension ComponentsRepresentable {
         var result: OpenAPI.ComponentDictionary<OpenAPI.Request> = [:]
 
         for (key, value) in requestBodies {
-            result[.init(stringLiteral: key.rawValue)] =
-                value.openAPIRequestBody()
+            if let requestBody = value.openAPIRequestBody().b {
+                result[.init(stringLiteral: key.rawValue)] = requestBody
+            }
         }
         return result
     }

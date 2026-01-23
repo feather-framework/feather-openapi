@@ -41,14 +41,30 @@ public extension OperationRepresentable {
     var requestBody: RequestBodyRepresentable? { nil }
     
     func openAPIOperation() -> OpenAPI.Operation {
-        .init(
+        if let requestBody {
+            return .init(
+                tags: nil,
+                summary: summary,
+                description: description,
+                externalDocs: nil,
+                operationId: operationId,
+                parameters: parameters.map { $0.openAPIParameter() },
+                requestBody: requestBody.openAPIRequestBody(),
+                responses: responseMap.mapValues { .init($0.openAPIResponse()) },
+                callbacks: [:],
+                deprecated: deprecated,
+                security: nil,
+                servers: nil,
+                vendorExtensions: vendorExtensions
+            )
+        }
+        return .init(
             tags: nil,
             summary: summary,
             description: description,
             externalDocs: nil,
             operationId: operationId,
             parameters: parameters.map { $0.openAPIParameter() },
-            requestBody: requestBody?.openAPIRequestBody(),
             responses: responseMap.mapValues { .init($0.openAPIResponse()) },
             callbacks: [:],
             deprecated: deprecated,
@@ -67,6 +83,15 @@ public extension OperationRepresentable {
                     results[ref.id] = parameter
                 }
             }
+        }
+        return results
+    }
+
+    var referencedRequestBodyMap: OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable> {
+        var results = OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable>()
+
+        if let ref = requestBody as? RequestBodyReferenceRepresentable {
+            results[ref.id] = ref.object
         }
         return results
     }

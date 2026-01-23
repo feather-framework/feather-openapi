@@ -71,7 +71,7 @@ struct TodoCreateRequestBody: RequestBodyRepresentable {
     
     var contentMap: ContentMap {
         [
-            .json: Content(TodoDetailObject()),
+            .json: Content(TodoDetailObject().reference()),
         ]
     }
 }
@@ -85,7 +85,7 @@ struct TodoIdParameter: ParameterRepresentable {
     
     var name: String { "todoId" }
     var context: OpenAPIKit30.OpenAPI.Parameter.Context { .path }
-    var schema: any FeatherOpenAPI.OpenAPISchemaRepresentable { SchemaReference(TodoIDField()) }
+    var schema: any FeatherOpenAPI.OpenAPISchemaRepresentable { TodoIDField().reference() }
 }
 
 
@@ -94,11 +94,11 @@ struct TodoCreateOperation: OperationRepresentable {
     var parameters: [ParameterRepresentable] {
         [
 //            TodoIdParameter(),
-            ParameterReference(TodoIdParameter()),
+            TodoIdParameter().reference(),
         ]
     }
 
-    var requestBody = TodoCreateRequestBody()
+    var requestBody: RequestBodyRepresentable? = TodoCreateRequestBody().reference()
     var responseMap: ResponseMap {
         [
             200: TodoCreateResponse(),

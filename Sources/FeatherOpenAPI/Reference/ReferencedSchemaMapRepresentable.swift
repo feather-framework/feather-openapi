@@ -15,3 +15,7 @@ public protocol ReferencedSchemaMapRepresentable {
 public protocol ReferencedParameterMapRepresentable {
     var referencedParameterMap: OrderedDictionary<ParameterID, OpenAPIParameterRepresentable> { get }
 }
+
+public protocol ReferencedRequestBodyMapRepresentable {
+    var referencedRequestBodyMap: OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable> { get }
+}

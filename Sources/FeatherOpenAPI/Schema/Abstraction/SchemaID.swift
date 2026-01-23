@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 22..
 //
 
-public struct SchemaID: Hashable {
+public struct SchemaID: Sendable, Equatable, Hashable, Codable {
 
     public var rawValue: String
 

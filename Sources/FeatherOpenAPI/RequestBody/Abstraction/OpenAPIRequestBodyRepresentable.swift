@@ -8,13 +8,12 @@
 import OpenAPIKit30
 
 public protocol OpenAPIRequestBodyRepresentable {
-    func openAPIRequestBody() -> OpenAPI.Request
+    func openAPIRequestBody() -> Either<JSONReference<OpenAPI.Request>, OpenAPI.Request>
 }
 
 extension OpenAPI.Request: OpenAPIRequestBodyRepresentable {
     
-    public func openAPIRequestBody() -> OpenAPI.Request {
-        self
+    public func openAPIRequestBody() -> Either<JSONReference<OpenAPI.Request>, OpenAPI.Request> {
+        .init(self)
     }
 }
-

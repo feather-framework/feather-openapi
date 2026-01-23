@@ -25,6 +25,10 @@ public protocol ParameterRepresentable:
 
 public extension ParameterRepresentable {
     
+    func reference() -> ParameterReference<Self> {
+        .init(self)
+    }
+    
     func openAPIParameter() -> Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter> {
         .init(
             .init(
