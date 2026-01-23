@@ -9,12 +9,9 @@ import OpenAPIKit30
 
 public protocol ObjectSchemaRepresentable:
     SchemaRepresentable,
-    SchemaPropertyRequired,
-    SchemaPropertyTitle,
-    SchemaPropertyDescription,
-    SchemaPropertyDeprecated,
-    SchemaPropertyNullable,
-    SchemaPropertyExample where ExamplePropertyType == AnyCodable
+    ExampleProperty
+where
+    ExamplePropertyType == AnyCodable
 {
     var propertyMap: SchemaMap { get }
 }
@@ -24,7 +21,7 @@ public extension ObjectSchemaRepresentable {
     func openAPISchema() -> JSONSchema {
         .object(
             format: .generic,
-            required: required,
+            required: `required`,
             nullable: nullable,
             permissions: nil,
             deprecated: deprecated,

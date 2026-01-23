@@ -9,14 +9,9 @@ import OpenAPIKit30
 
 public protocol FloatSchemaRepresentable:
     SchemaRepresentable,
-    SchemaPropertyRequired,
-    SchemaPropertyTitle,
-    SchemaPropertyDescription,
-    SchemaPropertyDeprecated,
-    SchemaPropertyNullable,
-    SchemaPropertyExample,
-    SchemaPropertyDefaultValue,
-    SchemaPropertyAllowedValues
+    ExampleProperty,
+    DefaultValueProperty,
+    AllowedValuesProperty
 where
     ExamplePropertyType == Float,
     DefaultValuePropertyType == Float,
@@ -30,7 +25,7 @@ public extension FloatSchemaRepresentable {
     func openAPISchema() -> JSONSchema {
         .number(
             format: .float,
-            required: required,
+            required: `required`,
             nullable: nullable,
             permissions: nil,
             deprecated: deprecated,

@@ -8,28 +8,24 @@
 import OpenAPIKit30
 
 public protocol HeaderRepresentable:
-    OpenAPIHeaderRepresentable
+    OpenAPIHeaderRepresentable,
+    DescriptionProperty,
+    RequiredProperty,
+    DeprecatedProperty,
+    VendorExtensionsProperty
 {
     var schema: OpenAPISchemaRepresentable { get }
-    
-    var description: String? { get }
-    var required: Bool { get }
-    var deprecated: Bool { get }
 }
 
 public extension HeaderRepresentable {
-    
-    var description: String? { nil }
-    var required: Bool { false }
-    var deprecated: Bool { false }
-    
+
     func openAPIHeader() -> OpenAPI.Header {
         .init(
             schema: schema.openAPISchema(),
             description: description,
             required: required,
             deprecated: deprecated,
-            vendorExtensions: [:]
+            vendorExtensions: vendorExtensions
         )
     }
 }

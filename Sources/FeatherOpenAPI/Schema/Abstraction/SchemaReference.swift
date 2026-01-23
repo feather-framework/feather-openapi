@@ -12,8 +12,10 @@ public protocol SchemaReferenceRepresentable {
     var object: SchemaRepresentable { get }
 }
 
-public struct SchemaReference<T: SchemaRepresentable>: OpenAPISchemaRepresentable, SchemaReferenceRepresentable {
-    
+public struct SchemaReference<T: SchemaRepresentable>:
+    OpenAPISchemaRepresentable,
+    SchemaReferenceRepresentable
+{
     public var object: any SchemaRepresentable {
         _object
     }

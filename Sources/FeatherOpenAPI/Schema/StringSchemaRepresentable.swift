@@ -9,14 +9,9 @@ import OpenAPIKit30
 
 public protocol StringSchemaRepresentable:
     SchemaRepresentable,
-    SchemaPropertyRequired,
-    SchemaPropertyTitle,
-    SchemaPropertyDescription,
-    SchemaPropertyNullable,
-    SchemaPropertyDeprecated,
-    SchemaPropertyExample,
-    SchemaPropertyDefaultValue,
-    SchemaPropertyAllowedValues
+    ExampleProperty,
+    DefaultValueProperty,
+    AllowedValuesProperty
 where
     ExamplePropertyType == String,
     DefaultValuePropertyType == String,
@@ -30,7 +25,7 @@ public extension StringSchemaRepresentable {
     func openAPISchema() -> JSONSchema {
         .string(
             format: .generic,
-            required: required,
+            required: `required`,
             nullable: nullable,
             permissions: nil,
             deprecated: deprecated,

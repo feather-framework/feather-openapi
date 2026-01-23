@@ -9,14 +9,9 @@ import OpenAPIKit30
 
 public protocol DoubleSchemaRepresentable:
     SchemaRepresentable,
-    SchemaPropertyRequired,
-    SchemaPropertyTitle,
-    SchemaPropertyDescription,
-    SchemaPropertyDeprecated,
-    SchemaPropertyNullable,
-    SchemaPropertyExample,
-    SchemaPropertyDefaultValue,
-    SchemaPropertyAllowedValues
+    ExampleProperty,
+    DefaultValueProperty,
+    AllowedValuesProperty
 where
     ExamplePropertyType == Double,
     DefaultValuePropertyType == Double,
@@ -30,7 +25,7 @@ public extension DoubleSchemaRepresentable {
     func openAPISchema() -> JSONSchema {
         .number(
             format: .double,
-            required: required,
+            required: `required`,
             nullable: nullable,
             permissions: nil,
             deprecated: deprecated,

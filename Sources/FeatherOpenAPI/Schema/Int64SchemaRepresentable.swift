@@ -9,14 +9,9 @@ import OpenAPIKit30
 
 public protocol Int64SchemaRepresentable:
     SchemaRepresentable,
-    SchemaPropertyRequired,
-    SchemaPropertyTitle,
-    SchemaPropertyDescription,
-    SchemaPropertyDeprecated,
-    SchemaPropertyNullable,
-    SchemaPropertyExample,
-    SchemaPropertyDefaultValue,
-    SchemaPropertyAllowedValues
+    ExampleProperty,
+    DefaultValueProperty,
+    AllowedValuesProperty
 where
     ExamplePropertyType == Int64,
     DefaultValuePropertyType == Int64,
@@ -30,7 +25,7 @@ public extension Int64SchemaRepresentable {
     func openAPISchema() -> JSONSchema {
         .integer(
             format: .int64,
-            required: required,
+            required: `required`,
             nullable: nullable,
             permissions: nil,
             deprecated: deprecated,

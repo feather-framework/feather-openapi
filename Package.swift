@@ -1,8 +1,6 @@
 // swift-tools-version:6.1
 import PackageDescription
 
-import CompilerPluginSupport
-
 // NOTE: https://github.com/swift-server/swift-http-server/blob/main/Package.swift
 var defaultSwiftSettings: [SwiftSetting] =
 [
@@ -33,78 +31,19 @@ let package = Package(
         .visionOS(.v2),
     ],
     products: [
-        .executable(
-            name: "feather-openapikit-generator",
-            targets: ["feather-openapikit-generator"]
-        ),
-        .library(
-            name: "FeatherOpenAPI",
-            targets: ["FeatherOpenAPI"]
-        ),
-        .plugin(
-            name: "FeatherOpenAPIKitGenerator",
-            targets: ["FeatherOpenAPIKitGenerator"]
-        ),
+        .library(name: "FeatherOpenAPI", targets: ["FeatherOpenAPI"]),
     ],
     dependencies: [
         .package(url: "https://github.com/mattpolzin/OpenAPIKit", exact: "5.0.0-rc.2"),
-        .package(url: "https://github.com/apple/swift-syntax", exact: "602.0.0"),
         .package(url: "https://github.com/jpsim/Yams", from: "6.2.0"),
     ],
     targets: [
-        .plugin(
-            name: "FeatherOpenAPIKitGenerator",
-            capability: .buildTool(),
-            dependencies: [
-                .target(name: "feather-openapikit-generator")
-            ],
-        ),
-        // MARK: -
-        .executableTarget(
-            name: "feather-openapikit-generator",
-            dependencies: [
-                .product(name: "SwiftParser", package: "swift-syntax")
-            ],
-            swiftSettings: defaultSwiftSettings,
-        ),
-        .target(
-            name: "FeatherOpenAPIKit",
-            dependencies: [
-                .product(name: "OpenAPIKit30", package: "OpenAPIKit"),
-                
-            ],
-            swiftSettings: defaultSwiftSettings
-        ),
         .target(
             name: "FeatherOpenAPI",
             dependencies: [
                 .product(name: "OpenAPIKit30", package: "OpenAPIKit"),
             ],
             swiftSettings: defaultSwiftSettings
-        ),
-        // MARK: -
-        .testTarget(
-            name: "FeatherOpenAPIKitTests",
-            dependencies: [
-                .product(name: "Yams", package: "Yams"),
-                .product(name: "OpenAPIKit", package: "OpenAPIKit"),
-                .product(name: "OpenAPIKitCompat", package: "OpenAPIKit"),
-                .target(name: "FeatherOpenAPIKit"),
-            ],
-            swiftSettings: defaultSwiftSettings,
-        ),
-        .testTarget(
-            name: "FeatherOpenAPIKitPluginTests",
-            dependencies: [
-                .product(name: "Yams", package: "Yams"),
-                .product(name: "OpenAPIKit", package: "OpenAPIKit"),
-                .product(name: "OpenAPIKitCompat", package: "OpenAPIKit"),
-                .target(name: "FeatherOpenAPIKit"),
-            ],
-            swiftSettings: defaultSwiftSettings,
-            plugins: [
-                .plugin(name: "FeatherOpenAPIKitGenerator"),
-            ]
         ),
         .testTarget(
             name: "FeatherOpenAPITests",

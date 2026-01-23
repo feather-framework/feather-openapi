@@ -14,6 +14,28 @@ import Testing
 
 @testable import FeatherOpenAPI
 
+
+struct MyInfo: InfoRepresentable {
+    var title: String { "foo" }
+    var version: String { "1.0.0" }
+}
+
+struct MyDocument: DocumentRepresentable {
+    var info: OpenAPIInfoRepresentable
+    var paths: PathMap
+    var components: OpenAPIComponentsRepresentable
+    
+    init(
+        info: OpenAPIInfoRepresentable,
+        paths: PathMap,
+        components: OpenAPIComponentsRepresentable
+    ) {
+        self.info = info
+        self.paths = paths
+        self.components = components
+    }
+}
+
 @Suite
 struct FeatherOpenAPIKitTests {
 
@@ -24,19 +46,18 @@ struct FeatherOpenAPIKitTests {
             
             var pathMap: PathMap {
                 [
-                    "todos": TodoPathItems()
+                    "todos": TodoPathItems(),
+//                    "laci": LaciPathItems(),
                 ]
             }
         }
         
         let collection = MyPathCollection()
+//        collection.components.schemas.register(id: "", TodoFieldId())
         
-        let document = Document(
-            info: Info(
-                title: "foo",
-                version: "1.0.0"
-            ),
-            paths: collection.pathMap.mapValues { $0.openAPIPathItem() },
+        let document = MyDocument(
+            info: MyInfo(),
+            paths: collection.pathMap,
             components: collection.components
         )
 
@@ -52,15 +73,15 @@ struct FeatherOpenAPIKitTests {
         print("---- 3.0 ----")
         print(result)
 
-        let doc31 = openAPIdoc.convert(to: .v3_1_0)
-        let result31 = try encoder.encode(doc31)
-        print("---- 3.1 ----")
-        print(result31)
-
-        let doc32 = openAPIdoc.convert(to: .v3_2_0)
-        let result32 = try encoder.encode(doc32)
-        print("---- 3.2 ----")
-        print(result32)
+//        let doc31 = openAPIdoc.convert(to: .v3_1_0)
+//        let result31 = try encoder.encode(doc31)
+//        print("---- 3.1 ----")
+//        print(result31)
+//
+//        let doc32 = openAPIdoc.convert(to: .v3_2_0)
+//        let result32 = try encoder.encode(doc32)
+//        print("---- 3.2 ----")
+//        print(result32)
 
     }
 }

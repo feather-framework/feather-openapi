@@ -7,16 +7,16 @@
 
 import OpenAPIKit30
 
-public protocol CookieParameterRepresentable: ParameterRepresentable {
-    
-    var required: Bool { get }
+public protocol CookieParameterRepresentable:
+    ParameterRepresentable,
+    RequiredProperty
+{
+
 }
 
 public extension CookieParameterRepresentable {
-
-    var required: Bool { false }
     
     var context: OpenAPI.Parameter.Context {
-        .cookie(required: required)
+        .cookie(required: `required`)
     }
 }

@@ -7,16 +7,16 @@
 
 import OpenAPIKit30
 
-public protocol HeaderParameterRepresentable: ParameterRepresentable {
+public protocol HeaderParameterRepresentable:
+    ParameterRepresentable,
+    RequiredProperty
+{
     
-    var required: Bool { get }
 }
 
 public extension HeaderParameterRepresentable {
-
-    var required: Bool { false }
     
     var context: OpenAPI.Parameter.Context {
-        .header(required: required)
+        .header(required: `required`)
     }
 }

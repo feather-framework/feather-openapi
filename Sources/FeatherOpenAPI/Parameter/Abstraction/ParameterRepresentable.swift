@@ -8,19 +8,18 @@
 import OpenAPIKit30
 
 public protocol ParameterRepresentable:
-    OpenAPIParameterRepresentable
+    OpenAPIParameterRepresentable,
+    DescriptionProperty,
+    DeprecatedProperty,
+    VendorExtensionsProperty
 {
     var name: String { get }
     var context: OpenAPI.Parameter.Context { get }
     var schema: OpenAPISchemaRepresentable { get }
-    var description: String? { get }
-    var deprecated: Bool { get }
+    
 }
 
 public extension ParameterRepresentable {
- 
-    var description: String? { nil }
-    var deprecated: Bool { false }
     
     func openAPIParameter() -> OpenAPI.Parameter {
         .init(
@@ -29,7 +28,7 @@ public extension ParameterRepresentable {
             schema: schema.openAPISchema(),
             description: description,
             deprecated: deprecated,
-            vendorExtensions: [:]
+            vendorExtensions: vendorExtensions
         )
     }
 }

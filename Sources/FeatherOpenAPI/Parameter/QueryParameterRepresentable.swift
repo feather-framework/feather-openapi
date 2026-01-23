@@ -7,20 +7,20 @@
 
 import OpenAPIKit30
 
-public protocol QueryParameterRepresentable: ParameterRepresentable {
-    
-    var required: Bool { get }
+public protocol QueryParameterRepresentable:
+    ParameterRepresentable,
+    RequiredProperty
+{
     var allowEmptyValue: Bool { get }
 }
 
 public extension QueryParameterRepresentable {
 
-    var required: Bool { false }
     var allowEmptyValue: Bool { true }
     
     var context: OpenAPI.Parameter.Context {
         .query(
-            required: required,
+            required: `required`,
             allowEmptyValue: allowEmptyValue
         )
     }

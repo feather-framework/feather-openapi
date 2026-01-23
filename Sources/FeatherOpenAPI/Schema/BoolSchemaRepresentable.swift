@@ -9,13 +9,8 @@ import OpenAPIKit30
 
 public protocol BoolSchemaRepresentable:
     SchemaRepresentable,
-    SchemaPropertyRequired,
-    SchemaPropertyTitle,
-    SchemaPropertyDescription,
-    SchemaPropertyDeprecated,
-    SchemaPropertyNullable,
-    SchemaPropertyExample,
-    SchemaPropertyDefaultValue
+    ExampleProperty,
+    DefaultValueProperty
 where
     ExamplePropertyType == Bool,
     DefaultValuePropertyType == Bool
@@ -28,7 +23,7 @@ public extension BoolSchemaRepresentable {
     func openAPISchema() -> JSONSchema {
         .boolean(
             format: .generic,
-            required: required,
+            required: `required`,
             nullable: nullable,
             permissions: nil,
             deprecated: deprecated,

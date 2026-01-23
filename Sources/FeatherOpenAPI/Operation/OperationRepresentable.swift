@@ -10,20 +10,21 @@ import OpenAPIKit30
 
 public protocol OperationRepresentable:
     OpenAPIOperationRepresentable,
-    ReferencedSchemaMapRepresentable
+    ReferencedSchemaMapRepresentable,
+    DescriptionProperty,
+    DeprecatedProperty,
+    VendorExtensionsProperty
 {
 //    associatedtype RequestBodyType: RequestBodyRepresentable
     
 //    var tags: [String]?
     var summary: String? { get }
-    var description: String? { get }
     var operationId: String? { get }
 
     var parameters: [ParameterRepresentable] { get }
     var requestBody: RequestBodyRepresentable? { get }
     var responseMap: ResponseMap { get }
 
-    var deprecated: Bool { get }
 //    var security: [SecurityRequirementRepresentable]?
 //    var servers: [ServerRepresentable]?
 }
@@ -31,13 +32,11 @@ public protocol OperationRepresentable:
 public extension OperationRepresentable {
 
     var summary: String? { nil }
-    var description: String? { nil }
+    
     var operationId: String? { nil }
     var parameters: [ParameterRepresentable] { [] }
 
     var requestBody: RequestBodyRepresentable? { nil }
-    
-    var deprecated: Bool { false }
     
     func openAPIOperation() -> OpenAPI.Operation {
         .init(
@@ -53,7 +52,7 @@ public extension OperationRepresentable {
             deprecated: deprecated,
             security: nil,
             servers: nil,
-            vendorExtensions: [:]
+            vendorExtensions: vendorExtensions
         )
     }
     

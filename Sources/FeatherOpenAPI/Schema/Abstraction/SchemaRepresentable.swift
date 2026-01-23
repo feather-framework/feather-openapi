@@ -10,14 +10,21 @@ import OpenAPIKit30
 public protocol SchemaRepresentable:
     OpenAPISchemaRepresentable,
     Identifiable,
-    ReferencedSchemaMapRepresentable
+    ReferencedSchemaMapRepresentable,
+    // shared properties
+    RequiredProperty,
+    TitleProperty,
+    DescriptionProperty,
+    NullableProperty
 {
-    
+    var deprecated: Bool? { get }
 }
 
-extension SchemaRepresentable {
+public extension SchemaRepresentable {
+    
+    var deprecated: Bool? { nil }
 
-    public var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
         [:]
     }
 }

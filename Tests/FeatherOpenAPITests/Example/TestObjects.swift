@@ -27,10 +27,18 @@ public struct ExampleFieldName: StringSchemaRepresentable {
 
 struct TodoIDField: IntSchemaRepresentable {
     var example: Int? { 1 }
+//    var openAPIIdentifier: String { "foo_\(example)" }
+//    var openAPIIdentifierSuffix: String { String(example) }
+    
+//    init(example: Int? = 1) {
+//        self.example = example
+//    }
 }
 
 struct TodoTitleField: StringSchemaRepresentable {
-    var example: String? { "Buy milk" }
+    var example: String? = "Buy milk"
+    
+    
 }
 
 struct TodoIsCompleteField: BoolSchemaRepresentable {
@@ -41,12 +49,19 @@ struct TodoDetailObject: ObjectSchemaRepresentable {
     
     var propertyMap: SchemaMap {
         [
-            "id": TodoIDField(),
+//            "id1": TodoIDField(example: 1).referenced(id: "foo"),
+//            "id2": TodoIDField(example: 2).referenced(id: "bar"),
+//            "id3": TodoIDField()
+//                .inlined(example: 2)
+//                .inlined(example: 123)
+//                .inlined(), -> Self
+//                .referenced() -> .component(named: "")
             "title": TodoTitleField(),
             "isComplete": TodoIsCompleteField(),
             // TODO: move required to schema -> use that to reference
-            "foo": SchemaReference(TodoIDField(), required: false),
-//            "foo": TodoIDField().reference(id: "lorem"),
+            "bar": SchemaReference(TodoIDField(), required: false),
+//            "foo": TodoIDField(example: 12).referenced(id: ""),
+//            "unsafe": UnsafeSchemaReference("asdf"),
         ]
     }
 
@@ -56,8 +71,7 @@ struct TodoCreateRequestBody: RequestBodyRepresentable {
     
     var contentMap: ContentMap {
         [
-            :
-//            .json: TodoDetailObject()
+            .json: Content(TodoDetailObject()),
         ]
     }
 }

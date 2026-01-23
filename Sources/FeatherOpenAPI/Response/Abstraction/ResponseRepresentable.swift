@@ -8,7 +8,8 @@
 import OpenAPIKit30
 
 public protocol ResponseRepresentable:
-    OpenAPIResponseRepresentable
+    OpenAPIResponseRepresentable,
+    VendorExtensionsProperty
 {
     var description: String { get }
     var headerMap: HeaderMap { get }
@@ -25,7 +26,7 @@ public extension ResponseRepresentable {
             headers: headerMap.mapValues { .init($0.openAPIHeader()) },
             content: contentMap.mapValues { $0.openAPIContent() },
             links: [:],
-            vendorExtensions: [:]
+            vendorExtensions: vendorExtensions
         )
     }
 }
