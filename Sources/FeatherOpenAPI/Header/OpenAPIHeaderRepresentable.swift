@@ -8,12 +8,12 @@
 import OpenAPIKit30
 
 public protocol OpenAPIHeaderRepresentable {
-    func openAPIHeader() -> OpenAPI.Header
+    func openAPIHeader() -> Either<JSONReference<OpenAPI.Header>, OpenAPI.Header>
 }
 
 extension OpenAPI.Header: OpenAPIHeaderRepresentable {
 
-    public func openAPIHeader() -> OpenAPI.Header {
-        self
+    public func openAPIHeader() -> Either<JSONReference<OpenAPI.Header>, OpenAPI.Header> {
+        .init(self)
     }
 }

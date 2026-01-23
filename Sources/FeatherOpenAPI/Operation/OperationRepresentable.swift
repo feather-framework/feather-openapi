@@ -15,7 +15,10 @@ public protocol OperationRepresentable:
     DeprecatedProperty,
     VendorExtensionsProperty,
     // references
-    ReferencedSchemaMapRepresentable
+    ReferencedSchemaMapRepresentable,
+    ReferencedHeaderMapRepresentable,
+    ReferencedRequestBodyMapRepresentable,
+    ReferencedParameterMapRepresentable
 {
 //    associatedtype RequestBodyType: RequestBodyRepresentable
     
@@ -92,6 +95,23 @@ public extension OperationRepresentable {
 
         if let ref = requestBody as? RequestBodyReferenceRepresentable {
             results[ref.id] = ref.object
+        }
+        return results
+    }
+
+    var referencedHeaderMap: OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable> {
+        var results = OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable>()
+
+        let headers = responseMap.values
+            .map { $0.headerMap.values }
+            .flatMap { $0 }
+
+        for header in headers {
+            if let ref = header as? HeaderReferenceRepresentable {
+                if case let .b(header) = ref.object.openAPIHeader() {
+                    results[ref.id] = header
+                }
+            }
         }
         return results
     }

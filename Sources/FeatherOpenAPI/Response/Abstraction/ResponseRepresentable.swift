@@ -23,7 +23,7 @@ public extension ResponseRepresentable {
     func openAPIResponse() -> OpenAPI.Response {
         .init(
             description: description,
-            headers: headerMap.mapValues { .init($0.openAPIHeader()) },
+            headers: headerMap.mapValues { $0.openAPIHeader() },
             content: contentMap.mapValues { $0.openAPIContent() },
             links: [:],
             vendorExtensions: vendorExtensions

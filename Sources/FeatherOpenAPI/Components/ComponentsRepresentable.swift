@@ -98,7 +98,9 @@ public extension ComponentsRepresentable {
         var result: OpenAPI.ComponentDictionary<OpenAPI.Header> = [:]
 
         for (key, value) in headers {
-            result[.init(stringLiteral: key.rawValue)] = value.openAPIHeader()
+            if let header = value.openAPIHeader().b {
+                result[.init(stringLiteral: key.rawValue)] = header
+            }
         }
         return result
     }

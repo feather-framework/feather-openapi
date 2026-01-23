@@ -10,7 +10,8 @@ import OpenAPIKit30
 public protocol PathCollectionRepresentable:
     ReferencedSchemaMapRepresentable,
     ReferencedParameterMapRepresentable,
-    ReferencedRequestBodyMapRepresentable
+    ReferencedRequestBodyMapRepresentable,
+    ReferencedHeaderMapRepresentable
 {
     var pathMap: PathMap { get }
     var components: Components { get }
@@ -57,11 +58,25 @@ extension PathCollectionRepresentable {
         return results
     }
 
+    var referencedHeaderMap: OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable> {
+        var results = OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable>()
+
+        let headerMaps = pathMap.values
+            .map { $0.referencedHeaderMap }
+            .flatMap { $0 }
+
+        for (k, v) in headerMaps {
+            results[k] = v
+        }
+        return results
+    }
+
     var components: Components {
         .init(
             schemas: referencedSchemaMap.mapValues { $0.openAPISchema() },
             parameters: referencedParameterMap.mapValues { $0.openAPIParameter().b }.compactMapValues { $0 },
-            requestBodies: referencedRequestBodyMap.mapValues { $0.openAPIRequestBody().b }.compactMapValues { $0 }
+            requestBodies: referencedRequestBodyMap.mapValues { $0.openAPIRequestBody().b }.compactMapValues { $0 },
+            headers: referencedHeaderMap.mapValues { $0.openAPIHeader().b }.compactMapValues { $0 }
         )
     }
 }

@@ -79,6 +79,12 @@ struct TodoCreateRequestBody: RequestBodyRepresentable {
 struct TodoCreateResponse: JSONResponseRepresentable {
     var description: String = "Todo response"
     var schema = TodoDetailObject()
+
+    var headerMap: HeaderMap {
+        [
+            "x-custom-header": CustomHeader().reference()
+        ]
+    }
 }
 
 struct TodoIdParameter: ParameterRepresentable {
@@ -86,6 +92,10 @@ struct TodoIdParameter: ParameterRepresentable {
     var name: String { "todoId" }
     var context: OpenAPIKit30.OpenAPI.Parameter.Context { .path }
     var schema: any FeatherOpenAPI.OpenAPISchemaRepresentable { TodoIDField().reference() }
+}
+
+struct CustomHeader: HeaderRepresentable {
+    var schema: any OpenAPISchemaRepresentable { TodoIDField().reference() }
 }
 
 
@@ -97,6 +107,7 @@ struct TodoCreateOperation: OperationRepresentable {
             TodoIdParameter().reference(),
         ]
     }
+    
 
     var requestBody: RequestBodyRepresentable? = TodoCreateRequestBody().reference()
     var responseMap: ResponseMap {

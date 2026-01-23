@@ -15,7 +15,8 @@ public protocol PathItemRepresentable:
     // reference
     ReferencedSchemaMapRepresentable,
     ReferencedParameterMapRepresentable,
-    ReferencedRequestBodyMapRepresentable
+    ReferencedRequestBodyMapRepresentable,
+    ReferencedHeaderMapRepresentable
 {
     var summary: String? { get }
     
@@ -102,6 +103,17 @@ public extension PathItemRepresentable {
         var results = OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable>()
 
         let maps = allOperations.map { $0.referencedRequestBodyMap }.flatMap { $0 }
+
+        for (k, v) in maps {
+            results[k] = v
+        }
+        return results
+    }
+
+    var referencedHeaderMap: OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable> {
+        var results = OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable>()
+
+        let maps = allOperations.map { $0.referencedHeaderMap }.flatMap { $0 }
 
         for (k, v) in maps {
             results[k] = v

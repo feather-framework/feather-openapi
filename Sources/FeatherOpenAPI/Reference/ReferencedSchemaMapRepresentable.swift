@@ -19,3 +19,7 @@ public protocol ReferencedParameterMapRepresentable {
 public protocol ReferencedRequestBodyMapRepresentable {
     var referencedRequestBodyMap: OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable> { get }
 }
+
+public protocol ReferencedHeaderMapRepresentable {
+    var referencedHeaderMap: OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable> { get }
+}

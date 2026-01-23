@@ -9,6 +9,7 @@ import OpenAPIKit30
 
 public protocol HeaderRepresentable:
     OpenAPIHeaderRepresentable,
+    Identifiable,
     DescriptionProperty,
     RequiredProperty,
     DeprecatedProperty,
@@ -20,14 +21,20 @@ public protocol HeaderRepresentable:
 }
 
 public extension HeaderRepresentable {
+    
+    func reference() -> HeaderReference<Self> {
+        .init(self)
+    }
 
-    func openAPIHeader() -> OpenAPI.Header {
+    func openAPIHeader() -> Either<JSONReference<OpenAPI.Header>, OpenAPI.Header> {
         .init(
-            schema: schema.openAPISchema(),
-            description: description,
-            required: required,
-            deprecated: deprecated,
-            vendorExtensions: vendorExtensions
+            .init(
+                schema: schema.openAPISchema(),
+                description: description,
+                required: required,
+                deprecated: deprecated,
+                vendorExtensions: vendorExtensions
+            )
         )
     }
     
