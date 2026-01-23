@@ -2,22 +2,22 @@
 //  File.swift
 //  feather-openapi
 //
-//  Created by Tibor Bödecs on 2026. 01. 22..
+//  Created by Tibor Bödecs on 2026. 01. 23..
 //
 
 import OpenAPIKit30
 
-public protocol JSONRequestBodyRepresentable: RequestBodyRepresentable {
+public protocol FormResponseRepresentable: ResponseRepresentable {
     associatedtype SchemaType: SchemaRepresentable
     
     var schema: SchemaType { get }
 }
 
-public extension JSONRequestBodyRepresentable {
+public extension FormResponseRepresentable {
 
     var contentMap: ContentMap {
         [
-            .json: Content(schema)
+            .form: Content(schema)
         ]
     }
 }

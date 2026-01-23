@@ -7,9 +7,8 @@
 
 import OpenAPIKit30
 
-protocol DoubleSchemaRepresentable:
-    Identifiable,
-    OpenAPISchemaRepresentable,
+public protocol DoubleSchemaRepresentable:
+    SchemaRepresentable,
     SchemaPropertyRequired,
     SchemaPropertyTitle,
     SchemaPropertyDescription,
@@ -26,9 +25,9 @@ where
     
 }
 
-extension DoubleSchemaRepresentable {
+public extension DoubleSchemaRepresentable {
 
-    public func openAPISchema() -> JSONSchema {
+    func openAPISchema() -> JSONSchema {
         .number(
             format: .double,
             required: required,

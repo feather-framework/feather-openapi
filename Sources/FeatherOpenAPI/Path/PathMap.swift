@@ -7,8 +7,8 @@
 
 import OpenAPIKit30
 
-public typealias ContentMap = OrderedDictionary
+public typealias PathMap = OrderedDictionary
 <
-    OpenAPI.ContentType,
-    ContentRepresentable
+    OpenAPI.Path,
+    PathItemRepresentable
 >

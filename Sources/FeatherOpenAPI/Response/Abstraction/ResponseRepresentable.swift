@@ -7,11 +7,6 @@
 
 import OpenAPIKit30
 
-public typealias HeaderMap = OrderedDictionary<
-    String,
-    HeaderRepresentable
->
-
 public protocol ResponseRepresentable:
     OpenAPIResponseRepresentable
 {

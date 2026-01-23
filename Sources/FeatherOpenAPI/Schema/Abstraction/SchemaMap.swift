@@ -7,8 +7,8 @@
 
 import OpenAPIKit30
 
-public typealias ContentMap = OrderedDictionary
+public typealias SchemaMap = OrderedDictionary
 <
-    OpenAPI.ContentType,
-    ContentRepresentable
+    String,
+    OpenAPISchemaRepresentable
 >

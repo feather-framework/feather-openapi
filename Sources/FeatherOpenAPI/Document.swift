@@ -24,7 +24,7 @@ public struct Document: DocumentRepresentable {
 
     public var info: InfoRepresentable
     public var servers: [ServerRepresentable]
-    public var paths: OrderedDictionary<OpenAPI.Path, PathItemRepresentable>
+    public var paths: OrderedDictionary<OpenAPI.Path, OpenAPIPathItemRepresentable>
     public var components: ComponentsRepresentable
     public var security: [SecurityRequirementRepresentable]
     public var externalDocumentation: ExternalDocumentationRepresentable?
@@ -33,7 +33,7 @@ public struct Document: DocumentRepresentable {
     public init(
         info: InfoRepresentable,
         servers: [ServerRepresentable] = [],
-        paths: OrderedDictionary<OpenAPI.Path, PathItemRepresentable>,
+        paths: OrderedDictionary<OpenAPI.Path, OpenAPIPathItemRepresentable>,
         components: ComponentsRepresentable,
         security: [SecurityRequirementRepresentable] = [],
         externalDocumentation: ExternalDocumentationRepresentable? = nil,

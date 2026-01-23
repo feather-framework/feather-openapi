@@ -7,8 +7,9 @@
 
 import OpenAPIKit30
 
-public typealias ContentMap = OrderedDictionary
+public typealias HeaderMap = OrderedDictionary
 <
-    OpenAPI.ContentType,
-    ContentRepresentable
+    String,
+    OpenAPIHeaderRepresentable
 >
+

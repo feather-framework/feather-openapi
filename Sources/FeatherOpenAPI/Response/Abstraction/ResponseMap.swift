@@ -7,8 +7,8 @@
 
 import OpenAPIKit30
 
-public typealias ContentMap = OrderedDictionary
+public typealias ResponseMap = OrderedDictionary
 <
-    OpenAPI.ContentType,
-    ContentRepresentable
+    OpenAPI.Response.StatusCode,
+    ResponseRepresentable
 >

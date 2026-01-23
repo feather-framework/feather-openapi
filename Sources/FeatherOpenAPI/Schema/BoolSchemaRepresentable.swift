@@ -7,9 +7,8 @@
 
 import OpenAPIKit30
 
-protocol BoolSchemaRepresentable:
-    Identifiable,
-    OpenAPISchemaRepresentable,
+public protocol BoolSchemaRepresentable:
+    SchemaRepresentable,
     SchemaPropertyRequired,
     SchemaPropertyTitle,
     SchemaPropertyDescription,
@@ -24,9 +23,9 @@ where
     
 }
 
-extension BoolSchemaRepresentable {
+public extension BoolSchemaRepresentable {
 
-    public func openAPISchema() -> JSONSchema {
+    func openAPISchema() -> JSONSchema {
         .boolean(
             format: .generic,
             required: required,

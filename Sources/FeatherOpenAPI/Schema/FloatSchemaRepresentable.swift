@@ -7,9 +7,8 @@
 
 import OpenAPIKit30
 
-protocol FloatSchemaRepresentable:
-    Identifiable,
-    OpenAPISchemaRepresentable,
+public protocol FloatSchemaRepresentable:
+    SchemaRepresentable,
     SchemaPropertyRequired,
     SchemaPropertyTitle,
     SchemaPropertyDescription,
@@ -26,9 +25,9 @@ where
     
 }
 
-extension FloatSchemaRepresentable {
+public extension FloatSchemaRepresentable {
 
-    public func openAPISchema() -> JSONSchema {
+    func openAPISchema() -> JSONSchema {
         .number(
             format: .float,
             required: required,

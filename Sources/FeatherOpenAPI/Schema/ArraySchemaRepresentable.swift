@@ -7,9 +7,8 @@
 
 import OpenAPIKit30
 
-protocol ArraySchemaRepresentable:
-    Identifiable,
-    OpenAPISchemaRepresentable,
+public protocol ArraySchemaRepresentable:
+    SchemaRepresentable,
     SchemaPropertyRequired,
     SchemaPropertyTitle,
     SchemaPropertyDescription,
@@ -19,9 +18,9 @@ protocol ArraySchemaRepresentable:
     var items: JSONSchema? { get }
 }
 
-extension ArraySchemaRepresentable {
+public extension ArraySchemaRepresentable {
 
-    public func openAPISchema() -> JSONSchema {
+    func openAPISchema() -> JSONSchema {
         .array(
             format: .generic,
             required: required,

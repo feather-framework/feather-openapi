@@ -5,10 +5,12 @@
 //  Created by Tibor Bödecs on 2026. 01. 23..
 //
 
+import OpenAPIKit30
 
-public struct Content<T: OpenAPISchemaRepresentable>: ContentRepresentable {
-    
-    public var schema: any OpenAPISchemaRepresentable {
+public struct Content<T: SchemaRepresentable>:
+    ContentRepresentable
+{
+    public var schema: any SchemaRepresentable {
         _schema
     }
 
@@ -17,5 +19,4 @@ public struct Content<T: OpenAPISchemaRepresentable>: ContentRepresentable {
     public init(_ schema: T) {
         self._schema = schema
     }
-    
 }

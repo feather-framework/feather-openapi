@@ -7,9 +7,8 @@
 
 import OpenAPIKit30
 
-protocol ObjectSchemaRepresentable:
-    Identifiable,
-    OpenAPISchemaRepresentable,
+public protocol ObjectSchemaRepresentable:
+    SchemaRepresentable,
     SchemaPropertyRequired,
     SchemaPropertyTitle,
     SchemaPropertyDescription,
@@ -17,12 +16,12 @@ protocol ObjectSchemaRepresentable:
     SchemaPropertyNullable,
     SchemaPropertyExample where ExamplePropertyType == AnyCodable
 {
-    var properties: OrderedDictionary<String, OpenAPISchemaRepresentable> { get }
+    var propertyMap: SchemaMap { get }
 }
 
-extension ObjectSchemaRepresentable {
+public extension ObjectSchemaRepresentable {
 
-    public func openAPISchema() -> JSONSchema {
+    func openAPISchema() -> JSONSchema {
         .object(
             format: .generic,
             required: required,
@@ -35,12 +34,29 @@ extension ObjectSchemaRepresentable {
             externalDocs: nil,
             minProperties: nil,
             maxProperties: nil,
-            properties: properties.mapValues { $0.openAPISchema() },
+            properties: propertyMap.mapValues { $0.openAPISchema() },
             additionalProperties: nil,
             allowedValues: nil,
             defaultValue: nil,
             example: example
         )
+    }
+    
+    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
+//
+//        for property in propertyMap.values {
+//            if let ref = property as? SchemaReferenceRepresentable {
+//                results[ref.id] = ref.object
+//            }
+//        }
+
+        for (_, value) in propertyMap {
+            if let ref = value as? SchemaReferenceRepresentable {
+                results[ref.id] = ref.object
+            }
+        }
+        return results
     }
 }
 

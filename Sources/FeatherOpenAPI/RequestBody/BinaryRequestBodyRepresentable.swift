@@ -15,12 +15,21 @@ public extension BinaryRequestBodyRepresentable {
 
     var contentMap: ContentMap {
         [
-            .other("application/octet-stream"): Content(
-                JSONSchema.string(
-                    format: .binary
-                )
-            )
+            .other("application/octet-stream"): Content(BinarySchema())
         ]
     }
 }
 
+#warning("move this")
+struct BinarySchema: SchemaRepresentable {
+    
+    func openAPISchema() -> JSONSchema {
+        JSONSchema.string(
+            format: .binary
+        )
+    }
+
+    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+        [:]
+    }
+}

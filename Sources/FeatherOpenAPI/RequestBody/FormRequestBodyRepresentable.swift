@@ -8,7 +8,7 @@
 import OpenAPIKit30
 
 public protocol FormRequestBodyRepresentable: RequestBodyRepresentable {
-    associatedtype SchemaType: OpenAPISchemaRepresentable
+    associatedtype SchemaType: SchemaRepresentable
     
     var schema: SchemaType { get }
 }

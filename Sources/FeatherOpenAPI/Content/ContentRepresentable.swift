@@ -8,9 +8,10 @@
 import OpenAPIKit30
 
 public protocol ContentRepresentable:
-    OpenAPIContentRepresentable
+    OpenAPIContentRepresentable,
+    ReferencedSchemaMapRepresentable
 {
-    var schema: OpenAPISchemaRepresentable { get }
+    var schema: SchemaRepresentable { get }
 }
 
 public extension ContentRepresentable {
@@ -22,5 +23,9 @@ public extension ContentRepresentable {
             encoding: nil,
             vendorExtensions: [:]
         )
+    }
+    
+    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+        schema.referencedSchemaMap
     }
 }

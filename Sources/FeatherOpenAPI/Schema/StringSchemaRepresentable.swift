@@ -7,9 +7,8 @@
 
 import OpenAPIKit30
 
-protocol StringSchemaRepresentable:
-    Identifiable,
-    OpenAPISchemaRepresentable,
+public protocol StringSchemaRepresentable:
+    SchemaRepresentable,
     SchemaPropertyRequired,
     SchemaPropertyTitle,
     SchemaPropertyDescription,
@@ -26,9 +25,9 @@ where
     
 }
 
-extension StringSchemaRepresentable {
+public extension StringSchemaRepresentable {
 
-    public func openAPISchema() -> JSONSchema {
+    func openAPISchema() -> JSONSchema {
         .string(
             format: .generic,
             required: required,

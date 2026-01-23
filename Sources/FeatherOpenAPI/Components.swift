@@ -30,7 +30,7 @@ public struct Components: ComponentsRepresentable {
     public var responses: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable>
     public var requestBodies:
         OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable>
-    public var headers: OrderedDictionary<HeaderID, HeaderRepresentable>
+    public var headers: OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable>
     public var securitySchemes:
         OrderedDictionary<SecuritySchemeID, SecuritySchemeRepresentable>
     public var links: OrderedDictionary<LinkID, LinkRepresentable>
@@ -45,7 +45,7 @@ public struct Components: ComponentsRepresentable {
         requestBodies: OrderedDictionary<
             RequestBodyID, OpenAPIRequestBodyRepresentable
         > = [:],
-        headers: OrderedDictionary<HeaderID, HeaderRepresentable> = [:],
+        headers: OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable> = [:],
         securitySchemes: OrderedDictionary<
             SecuritySchemeID, SecuritySchemeRepresentable
         > = [:],

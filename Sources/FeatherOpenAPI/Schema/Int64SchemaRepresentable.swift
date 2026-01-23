@@ -7,9 +7,8 @@
 
 import OpenAPIKit30
 
-protocol Int64SchemaRepresentable:
-    Identifiable,
-    OpenAPISchemaRepresentable,
+public protocol Int64SchemaRepresentable:
+    SchemaRepresentable,
     SchemaPropertyRequired,
     SchemaPropertyTitle,
     SchemaPropertyDescription,
@@ -26,9 +25,9 @@ where
     
 }
 
-extension Int64SchemaRepresentable {
+public extension Int64SchemaRepresentable {
 
-    public func openAPISchema() -> JSONSchema {
+    func openAPISchema() -> JSONSchema {
         .integer(
             format: .int64,
             required: required,

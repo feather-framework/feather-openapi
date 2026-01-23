@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 22..
 //
 
-public protocol Identifiable {
+public protocol Identifiable: Sendable {
     var openAPIIdentifier: String { get }
 }
 

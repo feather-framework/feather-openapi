@@ -2,10 +2,12 @@
 //  File.swift
 //  feather-openapi
 //
-//  Created by Tibor Bödecs on 2026. 01. 22..
+//  Created by Tibor Bödecs on 2026. 01. 21..
 //
 
+import FeatherOpenAPI
 import OpenAPIKit30
+
 
 struct ExampleFieldId: StringSchemaRepresentable {
 
@@ -32,18 +34,22 @@ struct TodoTitleField: StringSchemaRepresentable {
 }
 
 struct TodoIsCompleteField: BoolSchemaRepresentable {
+
 }
 
 struct TodoDetailObject: ObjectSchemaRepresentable {
     
-    var properties: OrderedDictionary<String, OpenAPISchemaRepresentable> {
+    var propertyMap: SchemaMap {
         [
             "id": TodoIDField(),
             "title": TodoTitleField(),
             "isComplete": TodoIsCompleteField(),
+            // TODO: move required to schema -> use that to reference
             "foo": SchemaReference(TodoIDField(), required: false),
+//            "foo": TodoIDField().reference(id: "lorem"),
         ]
     }
+
 }
 
 struct TodoCreateRequestBody: RequestBodyRepresentable {
@@ -54,4 +60,25 @@ struct TodoCreateRequestBody: RequestBodyRepresentable {
 //            .json: TodoDetailObject()
         ]
     }
+}
+
+struct TodoCreateResponse: JSONResponseRepresentable {
+    var description: String = "Todo response"
+    var schema = TodoDetailObject()
+}
+
+
+struct TodoCreateOperation: OperationRepresentable {
+
+    var requestBody = TodoCreateRequestBody()
+    var responseMap: ResponseMap {
+        [
+            200: TodoCreateResponse(),
+        ]
+    }
+}
+
+
+struct TodoPathItems: PathItemRepresentable {
+    var post: OperationRepresentable? = TodoCreateOperation()
 }
