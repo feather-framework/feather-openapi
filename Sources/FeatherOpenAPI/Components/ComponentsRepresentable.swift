@@ -77,7 +77,9 @@ public extension ComponentsRepresentable {
         var result: OpenAPI.ComponentDictionary<OpenAPI.Response> = [:]
 
         for (key, value) in responses {
-            result[.init(stringLiteral: key.rawValue)] = value.openAPIResponse()
+            if let response = value.openAPIResponse().b {
+                result[.init(stringLiteral: key.rawValue)] = response
+            }
         }
         return result
     }

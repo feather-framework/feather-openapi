@@ -23,3 +23,7 @@ public protocol ReferencedRequestBodyMapRepresentable {
 public protocol ReferencedHeaderMapRepresentable {
     var referencedHeaderMap: OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable> { get }
 }
+
+public protocol ReferencedResponseMapRepresentable {
+    var referencedResponseMap: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable> { get }
+}

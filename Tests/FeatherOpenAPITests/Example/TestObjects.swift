@@ -9,36 +9,12 @@ import FeatherOpenAPI
 import OpenAPIKit30
 
 
-struct ExampleFieldId: StringSchemaRepresentable {
-
-    var title: String? { "foo" }
-}
-
-public struct ExampleFieldName: StringSchemaRepresentable {
-    
-    public var example: String?
-    
-    public init(
-        example: String? = "John Doe"
-    ) {
-        self.example = example
-    }
-}
-
 struct TodoIDField: IntSchemaRepresentable {
     var example: Int? { 1 }
-//    var openAPIIdentifier: String { "foo_\(example)" }
-//    var openAPIIdentifierSuffix: String { String(example) }
-    
-//    init(example: Int? = 1) {
-//        self.example = example
-//    }
 }
 
 struct TodoTitleField: StringSchemaRepresentable {
     var example: String? = "Buy milk"
-    
-    
 }
 
 struct TodoIsCompleteField: BoolSchemaRepresentable {
@@ -49,18 +25,9 @@ struct TodoDetailObject: ObjectSchemaRepresentable {
     
     var propertyMap: SchemaMap {
         [
-//            "id1": TodoIDField(example: 1).referenced(id: "foo"),
-//            "id2": TodoIDField(example: 2).referenced(id: "bar"),
-//            "id3": TodoIDField()
-//                .inlined(example: 2)
-//                .inlined(example: 123)
-//                .inlined(), -> Self
-//                .referenced() -> .component(named: "")
+            "id": TodoIDField().reference(),
             "title": TodoTitleField(),
             "isComplete": TodoIsCompleteField(),
-            // TODO: move required to schema -> use that to reference
-//            "bar": SchemaReference(TodoIDField(), required: false),
-//            "foo": TodoIDField(example: 12).referenced(id: ""),
 //            "unsafe": UnsafeSchemaReference("asdf"),
         ]
     }
@@ -78,7 +45,7 @@ struct TodoCreateRequestBody: RequestBodyRepresentable {
 
 struct TodoCreateResponse: JSONResponseRepresentable {
     var description: String = "Todo response"
-    var schema = TodoDetailObject()
+    var schema = TodoDetailObject().reference()
 
     var headerMap: HeaderMap {
         [
@@ -90,12 +57,18 @@ struct TodoCreateResponse: JSONResponseRepresentable {
 struct TodoIdParameter: ParameterRepresentable {
     
     var name: String { "todoId" }
-    var context: OpenAPIKit30.OpenAPI.Parameter.Context { .path }
-    var schema: any FeatherOpenAPI.OpenAPISchemaRepresentable { TodoIDField().reference() }
+    var context: OpenAPIKit30.OpenAPI.Parameter.Context {
+        .path
+    }
+    var schema: any OpenAPISchemaRepresentable {
+        TodoIDField().reference()
+    }
 }
 
 struct CustomHeader: HeaderRepresentable {
-    var schema: any OpenAPISchemaRepresentable { TodoIDField().reference() }
+    var schema: any OpenAPISchemaRepresentable {
+        TodoIDField().reference()
+    }
 }
 
 
@@ -103,16 +76,17 @@ struct TodoCreateOperation: OperationRepresentable {
 
     var parameters: [ParameterRepresentable] {
         [
-//            TodoIdParameter(),
             TodoIdParameter().reference(),
         ]
     }
-    
 
-    var requestBody: RequestBodyRepresentable? = TodoCreateRequestBody().reference()
+    var requestBody: RequestBodyRepresentable? {
+        TodoCreateRequestBody().reference()
+    }
+
     var responseMap: ResponseMap {
         [
-            200: TodoCreateResponse(),
+            200: TodoCreateResponse().reference(),
         ]
     }
 }

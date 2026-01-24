@@ -18,7 +18,8 @@ public protocol OperationRepresentable:
     ReferencedSchemaMapRepresentable,
     ReferencedHeaderMapRepresentable,
     ReferencedRequestBodyMapRepresentable,
-    ReferencedParameterMapRepresentable
+    ReferencedParameterMapRepresentable,
+    ReferencedResponseMapRepresentable
 {
 //    associatedtype RequestBodyType: RequestBodyRepresentable
     
@@ -53,7 +54,7 @@ public extension OperationRepresentable {
                 operationId: operationId,
                 parameters: parameters.map { $0.openAPIParameter() },
                 requestBody: requestBody.openAPIRequestBody(),
-                responses: responseMap.mapValues { .init($0.openAPIResponse()) },
+                responses: responseMap.mapValues { $0.openAPIResponse() },
                 callbacks: [:],
                 deprecated: deprecated,
                 security: nil,
@@ -68,7 +69,7 @@ public extension OperationRepresentable {
             externalDocs: nil,
             operationId: operationId,
             parameters: parameters.map { $0.openAPIParameter() },
-            responses: responseMap.mapValues { .init($0.openAPIResponse()) },
+            responses: responseMap.mapValues { $0.openAPIResponse() },
             callbacks: [:],
             deprecated: deprecated,
             security: nil,
@@ -110,6 +111,19 @@ public extension OperationRepresentable {
             if let ref = header as? HeaderReferenceRepresentable {
                 if case let .b(header) = ref.object.openAPIHeader() {
                     results[ref.id] = header
+                }
+            }
+        }
+        return results
+    }
+
+    var referencedResponseMap: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable> {
+        var results = OrderedDictionary<ResponseID, OpenAPIResponseRepresentable>()
+
+        for response in responseMap.values {
+            if let ref = response as? ResponseReferenceRepresentable {
+                if case let .b(response) = ref.object.openAPIResponse() {
+                    results[ref.id] = response
                 }
             }
         }

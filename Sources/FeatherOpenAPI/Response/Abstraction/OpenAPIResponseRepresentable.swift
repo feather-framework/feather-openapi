@@ -8,12 +8,12 @@
 import OpenAPIKit30
 
 public protocol OpenAPIResponseRepresentable {
-    func openAPIResponse() -> OpenAPI.Response
+    func openAPIResponse() -> Either<JSONReference<OpenAPI.Response>, OpenAPI.Response>
 }
 
 extension OpenAPI.Response: OpenAPIResponseRepresentable {
-    
-    public func openAPIResponse() -> OpenAPI.Response {
-        self
+
+    public func openAPIResponse() -> Either<JSONReference<OpenAPI.Response>, OpenAPI.Response> {
+        .init(self)
     }
 }

@@ -44,6 +44,7 @@ struct FeatherOpenAPIKitTests {
 
         struct MyPathCollection: PathCollectionRepresentable {
             
+            
             var pathMap: PathMap {
                 [
                     "todos": TodoPathItems(),

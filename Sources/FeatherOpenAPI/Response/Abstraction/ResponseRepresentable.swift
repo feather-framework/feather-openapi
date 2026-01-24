@@ -9,6 +9,7 @@ import OpenAPIKit30
 
 public protocol ResponseRepresentable:
     OpenAPIResponseRepresentable,
+    Identifiable,
     VendorExtensionsProperty
 {
     var description: String { get }
@@ -19,14 +20,20 @@ public protocol ResponseRepresentable:
 public extension ResponseRepresentable {
 
     var headerMap: HeaderMap { [:] }
+    
+    func reference() -> ResponseReference<Self> {
+        .init(self)
+    }
 
-    func openAPIResponse() -> OpenAPI.Response {
+    func openAPIResponse() -> Either<JSONReference<OpenAPI.Response>, OpenAPI.Response> {
         .init(
-            description: description,
-            headers: headerMap.mapValues { $0.openAPIHeader() },
-            content: contentMap.mapValues { $0.openAPIContent() },
-            links: [:],
-            vendorExtensions: vendorExtensions
+            .init(
+                description: description,
+                headers: headerMap.mapValues { $0.openAPIHeader() },
+                content: contentMap.mapValues { $0.openAPIContent() },
+                links: [:],
+                vendorExtensions: vendorExtensions
+            )
         )
     }
 }

@@ -11,10 +11,11 @@ public protocol PathCollectionRepresentable:
     ReferencedSchemaMapRepresentable,
     ReferencedParameterMapRepresentable,
     ReferencedRequestBodyMapRepresentable,
-    ReferencedHeaderMapRepresentable
+    ReferencedHeaderMapRepresentable,
+    ReferencedResponseMapRepresentable
 {
     var pathMap: PathMap { get }
-    var components: Components { get }
+    var components: FeatherOpenAPI.Components { get }
 }
 
 extension PathCollectionRepresentable {
@@ -71,12 +72,26 @@ extension PathCollectionRepresentable {
         return results
     }
 
-    var components: Components {
+    var referencedResponseMap: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable> {
+        var results = OrderedDictionary<ResponseID, OpenAPIResponseRepresentable>()
+
+        let responseMaps = pathMap.values
+            .map { $0.referencedResponseMap }
+            .flatMap { $0 }
+
+        for (k, v) in responseMaps {
+            results[k] = v
+        }
+        return results
+    }
+
+    var components: FeatherOpenAPI.Components {
         .init(
-            schemas: referencedSchemaMap.mapValues { $0.openAPISchema() },
-            parameters: referencedParameterMap.mapValues { $0.openAPIParameter().b }.compactMapValues { $0 },
-            requestBodies: referencedRequestBodyMap.mapValues { $0.openAPIRequestBody().b }.compactMapValues { $0 },
-            headers: referencedHeaderMap.mapValues { $0.openAPIHeader().b }.compactMapValues { $0 }
+            schemas: referencedSchemaMap,
+            parameters: referencedParameterMap,
+            responses: referencedResponseMap,
+            requestBodies: referencedRequestBodyMap,
+            headers: referencedHeaderMap,
         )
     }
 }
