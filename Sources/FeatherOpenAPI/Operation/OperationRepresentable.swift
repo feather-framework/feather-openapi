@@ -19,11 +19,12 @@ public protocol OperationRepresentable:
     ReferencedHeaderMapRepresentable,
     ReferencedRequestBodyMapRepresentable,
     ReferencedParameterMapRepresentable,
-    ReferencedResponseMapRepresentable
+    ReferencedResponseMapRepresentable,
+    ReferencedTagMapRepresentable
 {
 //    associatedtype RequestBodyType: RequestBodyRepresentable
     
-//    var tags: [String]?
+    var tags: [TagRepresentable] { get }
     var summary: String? { get }
     var operationId: String? { get }
 
@@ -37,6 +38,7 @@ public protocol OperationRepresentable:
 
 public extension OperationRepresentable {
 
+    var tags: [TagRepresentable] { [] }
     var summary: String? { nil }
     
     var operationId: String? { nil }
@@ -47,7 +49,7 @@ public extension OperationRepresentable {
     func openAPIOperation() -> OpenAPI.Operation {
         if let requestBody {
             return .init(
-                tags: nil,
+                tags: tags.isEmpty ? nil : tags.map { $0.name },
                 summary: summary,
                 description: description,
                 externalDocs: nil,
@@ -63,7 +65,7 @@ public extension OperationRepresentable {
             )
         }
         return .init(
-            tags: nil,
+            tags: tags.isEmpty ? nil : tags.map { $0.name },
             summary: summary,
             description: description,
             externalDocs: nil,
@@ -128,6 +130,10 @@ public extension OperationRepresentable {
             }
         }
         return results
+    }
+
+    var referencedTags: [OpenAPITagRepresentable] {
+        tags
     }
         
     var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {

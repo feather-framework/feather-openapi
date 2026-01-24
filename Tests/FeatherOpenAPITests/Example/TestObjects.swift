@@ -71,8 +71,18 @@ struct CustomHeader: HeaderRepresentable {
     }
 }
 
+struct TodoTag: TagRepresentable {
+    var name: String = "Todos"
+    var description: String? = "This is the todo tag."
+}
 
 struct TodoCreateOperation: OperationRepresentable {
+
+    var tags: [TagRepresentable] {
+        [
+            TodoTag()
+        ]
+    }
 
     var parameters: [ParameterRepresentable] {
         [

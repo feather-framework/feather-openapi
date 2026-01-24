@@ -17,7 +17,8 @@ public protocol PathItemRepresentable:
     ReferencedParameterMapRepresentable,
     ReferencedRequestBodyMapRepresentable,
     ReferencedHeaderMapRepresentable,
-    ReferencedResponseMapRepresentable
+    ReferencedResponseMapRepresentable,
+    ReferencedTagMapRepresentable
 {
     var summary: String? { get }
     
@@ -131,5 +132,9 @@ public extension PathItemRepresentable {
             results[k] = v
         }
         return results
+    }
+
+    var referencedTags: [OpenAPITagRepresentable] {
+        allOperations.map { $0.referencedTags }.flatMap { $0 }
     }
 }

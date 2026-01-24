@@ -9,6 +9,7 @@ import OpenAPIKit30
 
 public protocol TagRepresentable:
     OpenAPITagRepresentable,
+    Identifiable,
     DescriptionProperty,
     VendorExtensionsProperty
 {
@@ -16,11 +17,11 @@ public protocol TagRepresentable:
     var externalDocs: ExternalDocsRepresentable? { get }
 }
 
-extension TagRepresentable {
+public extension TagRepresentable {
     
     var externalDocs: ExternalDocsRepresentable? { nil }
 
-    public func openAPITag() -> OpenAPI.Tag {
+    func openAPITag() -> OpenAPI.Tag {
         .init(
             name: name,
             description: description,
@@ -29,5 +30,4 @@ extension TagRepresentable {
         )
     }
 }
-
 

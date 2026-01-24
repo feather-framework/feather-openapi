@@ -11,7 +11,6 @@ public protocol ReferencedSchemaMapRepresentable {
     var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> { get }
 }
 
-
 public protocol ReferencedParameterMapRepresentable {
     var referencedParameterMap: OrderedDictionary<ParameterID, OpenAPIParameterRepresentable> { get }
 }
@@ -26,4 +25,8 @@ public protocol ReferencedHeaderMapRepresentable {
 
 public protocol ReferencedResponseMapRepresentable {
     var referencedResponseMap: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable> { get }
+}
+
+public protocol ReferencedTagMapRepresentable {
+    var referencedTags: [OpenAPITagRepresentable] { get }
 }

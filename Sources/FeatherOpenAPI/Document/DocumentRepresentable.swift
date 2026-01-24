@@ -9,7 +9,8 @@ import OpenAPIKit30
 
 public protocol DocumentRepresentable:
     OpenAPIDocumentRepresentable,
-    VendorExtensionsProperty
+    VendorExtensionsProperty,
+    ReferencedTagMapRepresentable
 {
     var info: OpenAPIInfoRepresentable { get }
     var servers: [OpenAPIServerRepresentable] { get }
@@ -26,6 +27,10 @@ public extension DocumentRepresentable {
 
     var security: [OpenAPISecurityRequirementRepresentable] { [] }
     var externalDocs: ExternalDocsRepresentable? { nil }
+
+    var referencedTags: [OpenAPITagRepresentable] {
+        paths.values.map { $0.referencedTags }.flatMap { $0 }
+    }
     
     func openAPIDocument() -> OpenAPI.Document {
         .init(
@@ -35,7 +40,7 @@ public extension DocumentRepresentable {
             paths: paths.mapValues { .init($0.openAPIPathItem()) },
             components: components.openAPIComponents(),
             security: security.map { $0.openAPISecurityRequirement() },
-            tags: nil,
+            tags: referencedTags.map { $0.openAPITag() },
             externalDocs: externalDocs?.openAPIExternalDocs(),
             vendorExtensions: vendorExtensions
         )

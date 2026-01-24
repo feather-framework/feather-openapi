@@ -59,7 +59,7 @@ struct FeatherOpenAPIKitTests {
         let document = MyDocument(
             info: MyInfo(),
             paths: collection.pathMap,
-            components: collection.components
+            components: collection.components,
         )
 
         let openAPIdoc = document.openAPIDocument()

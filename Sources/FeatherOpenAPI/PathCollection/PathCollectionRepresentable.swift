@@ -12,7 +12,8 @@ public protocol PathCollectionRepresentable:
     ReferencedParameterMapRepresentable,
     ReferencedRequestBodyMapRepresentable,
     ReferencedHeaderMapRepresentable,
-    ReferencedResponseMapRepresentable
+    ReferencedResponseMapRepresentable,
+    ReferencedTagMapRepresentable
 {
     var pathMap: PathMap { get }
     var components: FeatherOpenAPI.Components { get }
@@ -83,6 +84,10 @@ extension PathCollectionRepresentable {
             results[k] = v
         }
         return results
+    }
+
+    var referencedTags: [OpenAPITagRepresentable] {
+        pathMap.values.map { $0.referencedTags }.flatMap { $0 }
     }
 
     var components: FeatherOpenAPI.Components {
