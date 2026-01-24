@@ -7,19 +7,21 @@
 
 import OpenAPIKit30
 
-public protocol SecurityRequirementRepresentable: OpenAPISecurityRequirementRepresentable {
-
-    var requirements: [String: [String]] { get }
+public protocol SecurityRequirementRepresentable:
+    OpenAPISecurityRequirementRepresentable
+{
+    var security: any SecuritySchemeRepresentable { get }
+    var requirements: [String] { get }
 }
 
 public extension SecurityRequirementRepresentable {
 
+    var requirements: [String] { [] }
+
     //[JSONReference<SecurityScheme>: [String]]
     func openAPISecurityRequirement() -> OpenAPI.SecurityRequirement {
-        var result: [JSONReference<OpenAPI.SecurityScheme>: [String]] = [:]
-        for (key, value) in self.requirements {
-            result[.component(named: key)] = value
-        }
-        return result
+        [
+            .component(named: security.openAPIIdentifier): requirements
+        ]
     }
 }

@@ -19,17 +19,3 @@ public extension BinaryRequestBodyRepresentable {
         ]
     }
 }
-
-#warning("move this")
-struct BinarySchema: SchemaRepresentable {
-    
-    func openAPISchema() -> JSONSchema {
-        JSONSchema.string(
-            format: .binary
-        )
-    }
-
-    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
-        [:]
-    }
-}

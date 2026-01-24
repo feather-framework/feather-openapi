@@ -9,6 +9,7 @@ import OpenAPIKit30
 
 public protocol SecuritySchemeRepresentable:
     OpenAPISecuritySchemeRepresentable,
+    Identifiable,
     DescriptionProperty,
     VendorExtensionsProperty
 {

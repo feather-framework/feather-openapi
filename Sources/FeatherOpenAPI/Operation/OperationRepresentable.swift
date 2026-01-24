@@ -20,7 +20,8 @@ public protocol OperationRepresentable:
     ReferencedRequestBodyMapRepresentable,
     ReferencedParameterMapRepresentable,
     ReferencedResponseMapRepresentable,
-    ReferencedTagMapRepresentable
+    ReferencedTagMapRepresentable,
+    ReferencedSecuritySchemeMapRepresentable
 {
 //    associatedtype RequestBodyType: RequestBodyRepresentable
     
@@ -32,7 +33,7 @@ public protocol OperationRepresentable:
     var requestBody: RequestBodyRepresentable? { get }
     var responseMap: ResponseMap { get }
 
-//    var security: [SecurityRequirementRepresentable]?
+    var security: [SecurityRequirementRepresentable]? { get }
 //    var servers: [ServerRepresentable]?
 }
 
@@ -45,11 +46,24 @@ public extension OperationRepresentable {
     var parameters: [ParameterRepresentable] { [] }
 
     var requestBody: RequestBodyRepresentable? { nil }
+    var security: [SecurityRequirementRepresentable]? { nil }
+    
+    private var openAPITags: [String]? {
+        tags.isEmpty ? nil : tags.map { $0.name }
+    }
+        
+    private var openAPISecurityRequirements: [OpenAPI.SecurityRequirement]? {
+        guard let security, !security.isEmpty else {
+            return nil
+        }
+
+        return security.map { $0.openAPISecurityRequirement() }
+    }
     
     func openAPIOperation() -> OpenAPI.Operation {
         if let requestBody {
             return .init(
-                tags: tags.isEmpty ? nil : tags.map { $0.name },
+                tags: openAPITags,
                 summary: summary,
                 description: description,
                 externalDocs: nil,
@@ -59,13 +73,13 @@ public extension OperationRepresentable {
                 responses: responseMap.mapValues { $0.openAPIResponse() },
                 callbacks: [:],
                 deprecated: deprecated,
-                security: nil,
+                security: openAPISecurityRequirements,
                 servers: nil,
                 vendorExtensions: vendorExtensions
             )
         }
         return .init(
-            tags: tags.isEmpty ? nil : tags.map { $0.name },
+            tags: openAPITags,
             summary: summary,
             description: description,
             externalDocs: nil,
@@ -74,10 +88,42 @@ public extension OperationRepresentable {
             responses: responseMap.mapValues { $0.openAPIResponse() },
             callbacks: [:],
             deprecated: deprecated,
-            security: nil,
+            security: openAPISecurityRequirements,
             servers: nil,
             vendorExtensions: vendorExtensions
         )
+    }
+    
+    // MARK: - refs
+    
+    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
+        
+        for parameter in parameters {
+            results.merge(parameter.referencedSchemaMap)
+        }
+        
+        if let schemaMap = requestBody?.referencedSchemaMap {
+            results.merge(schemaMap)
+        }
+
+        let headers = responseMap.values
+            .map { $0.headerMap.values }
+            .flatMap { $0 }
+        
+        for header in headers {
+            results.merge(header.referencedSchemaMap)
+        }
+        
+        let contents = responseMap.values
+            .map { $0.contentMap.values }
+            .flatMap { $0 }
+
+        for content in contents {
+            results.merge(content.referencedSchemaMap)
+        }
+
+        return results
     }
     
     var referencedParameterMap: OrderedDictionary<ParameterID, OpenAPIParameterRepresentable> {
@@ -135,34 +181,8 @@ public extension OperationRepresentable {
     var referencedTags: [OpenAPITagRepresentable] {
         tags
     }
-        
-    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
-        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
-        
-        for parameter in parameters {
-            results.merge(parameter.referencedSchemaMap)
-        }
-        
-        if let schemaMap = requestBody?.referencedSchemaMap {
-            results.merge(schemaMap)
-        }
-
-        let headers = responseMap.values
-            .map { $0.headerMap.values }
-            .flatMap { $0 }
-        
-        for header in headers {
-            results.merge(header.referencedSchemaMap)
-        }
-        
-        let contents = responseMap.values
-            .map { $0.contentMap.values }
-            .flatMap { $0 }
-
-        for content in contents {
-            results.merge(content.referencedSchemaMap)
-        }
-
-        return results
+    
+    var referencedSecurityRequirements: [SecurityRequirementRepresentable] {
+        security?.map { $0 } ?? []
     }
 }

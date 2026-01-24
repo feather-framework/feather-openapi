@@ -13,7 +13,8 @@ public protocol PathCollectionRepresentable:
     ReferencedRequestBodyMapRepresentable,
     ReferencedHeaderMapRepresentable,
     ReferencedResponseMapRepresentable,
-    ReferencedTagMapRepresentable
+    ReferencedTagMapRepresentable,
+    ReferencedSecuritySchemeMapRepresentable
 {
     var pathMap: PathMap { get }
     var components: FeatherOpenAPI.Components { get }
@@ -89,6 +90,10 @@ extension PathCollectionRepresentable {
     var referencedTags: [OpenAPITagRepresentable] {
         pathMap.values.map { $0.referencedTags }.flatMap { $0 }
     }
+    
+    public var referencedSecurityRequirements: [SecurityRequirementRepresentable] {
+        pathMap.values.map { $0.referencedSecurityRequirements }.flatMap { $0 }
+    }
 
     var components: FeatherOpenAPI.Components {
         .init(
@@ -97,6 +102,7 @@ extension PathCollectionRepresentable {
             responses: referencedResponseMap,
             requestBodies: referencedRequestBodyMap,
             headers: referencedHeaderMap,
+            securityRequirements: referencedSecurityRequirements
         )
     }
 }

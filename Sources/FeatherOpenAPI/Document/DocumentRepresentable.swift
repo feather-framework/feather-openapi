@@ -10,13 +10,13 @@ import OpenAPIKit30
 public protocol DocumentRepresentable:
     OpenAPIDocumentRepresentable,
     VendorExtensionsProperty,
-    ReferencedTagMapRepresentable
+    ReferencedTagMapRepresentable,
+    ReferencedSecuritySchemeMapRepresentable
 {
     var info: OpenAPIInfoRepresentable { get }
     var servers: [OpenAPIServerRepresentable] { get }
     var paths: PathMap { get }
     var components: OpenAPIComponentsRepresentable { get }
-    var security: [OpenAPISecurityRequirementRepresentable] { get }
     var externalDocs: ExternalDocsRepresentable? { get }
 }
 
@@ -25,11 +25,14 @@ public extension DocumentRepresentable {
     var servers: [OpenAPIServerRepresentable] { [] }
     var paths: PathMap { [:] }
 
-    var security: [OpenAPISecurityRequirementRepresentable] { [] }
     var externalDocs: ExternalDocsRepresentable? { nil }
 
     var referencedTags: [OpenAPITagRepresentable] {
         paths.values.map { $0.referencedTags }.flatMap { $0 }
+    }
+
+    var referencedSecurityRequirements: [SecurityRequirementRepresentable] {
+        paths.values.map { $0.referencedSecurityRequirements }.flatMap { $0 }
     }
     
     func openAPIDocument() -> OpenAPI.Document {
@@ -39,7 +42,7 @@ public extension DocumentRepresentable {
             servers: servers.map { $0.openAPIServer() },
             paths: paths.mapValues { .init($0.openAPIPathItem()) },
             components: components.openAPIComponents(),
-            security: security.map { $0.openAPISecurityRequirement() },
+            security: referencedSecurityRequirements.map { $0.openAPISecurityRequirement() },
             tags: referencedTags.map { $0.openAPITag() },
             externalDocs: externalDocs?.openAPIExternalDocs(),
             vendorExtensions: vendorExtensions

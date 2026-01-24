@@ -11,14 +11,13 @@ public protocol ComponentsRepresentable:
     OpenAPIComponentsRepresentable,
     VendorExtensionsProperty
 {
-
     var schemas: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> { get }
     var parameters: OrderedDictionary<ParameterID, OpenAPIParameterRepresentable> { get }
     var examples: OrderedDictionary<ExampleID, OpenAPIExampleRepresentable> { get }
     var responses: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable> { get }
     var requestBodies: OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable> { get }
     var headers: OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable> { get }
-    var securitySchemes: OrderedDictionary<SecuritySchemeID, OpenAPISecuritySchemeRepresentable> { get }
+    var securityRequirements: [SecurityRequirementRepresentable] { get }
     var links: OrderedDictionary<LinkID, OpenAPILinkRepresentable> { get }
     //    public var callbacks: OrderedDictionary<CallbackID, CallbackRepresentable>
 
@@ -33,16 +32,6 @@ public protocol ComponentsRepresentable:
 }
 
 public extension ComponentsRepresentable {
-    
-    var schemas: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> { [:] }
-    var parameters: OrderedDictionary<ParameterID, OpenAPIParameterRepresentable> { [:] }
-    var examples: OrderedDictionary<ExampleID, OpenAPIExampleRepresentable> { [:] }
-    var responses: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable> { [:] }
-    var requestBodies: OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable> { [:] }
-    var headers: OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable> { [:] }
-    var securitySchemes: OrderedDictionary<SecuritySchemeID, OpenAPISecuritySchemeRepresentable> { [:] }
-    var links: OrderedDictionary<LinkID, OpenAPILinkRepresentable> { [:] }
-    
 
     func openAPISchemas() -> OpenAPI.ComponentDictionary<JSONSchema> {
         var result: OpenAPI.ComponentDictionary<JSONSchema> = [:]
@@ -112,9 +101,10 @@ public extension ComponentsRepresentable {
     {
         var result: OpenAPI.ComponentDictionary<OpenAPI.SecurityScheme> = [:]
 
-        for (key, value) in securitySchemes {
-            result[.init(stringLiteral: key.rawValue)] =
-                value.openAPISecurityScheme()
+        print(securityRequirements)
+        for requirement in securityRequirements {
+            let scheme = requirement.security
+            result[.init(stringLiteral: scheme.openAPIIdentifier)] = scheme.openAPISecurityScheme()
         }
         return result
     }

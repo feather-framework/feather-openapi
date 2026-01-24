@@ -27,6 +27,10 @@ public protocol ReferencedResponseMapRepresentable {
     var referencedResponseMap: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable> { get }
 }
 
+public protocol ReferencedSecuritySchemeMapRepresentable {
+    var referencedSecurityRequirements: [SecurityRequirementRepresentable] { get }
+}
+
 public protocol ReferencedTagMapRepresentable {
     var referencedTags: [OpenAPITagRepresentable] { get }
 }

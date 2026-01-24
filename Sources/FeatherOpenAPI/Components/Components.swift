@@ -15,7 +15,7 @@ public struct Components: ComponentsRepresentable {
     public var responses: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable>
     public var requestBodies: OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable>
     public var headers: OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable>
-    public var securitySchemes: OrderedDictionary<SecuritySchemeID, OpenAPISecuritySchemeRepresentable>
+    public var securityRequirements: [SecurityRequirementRepresentable]
     public var links: OrderedDictionary<LinkID, OpenAPILinkRepresentable>
 
     public init(
@@ -25,7 +25,7 @@ public struct Components: ComponentsRepresentable {
         responses: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable> = [:],
         requestBodies: OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable> = [:],
         headers: OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable> = [:],
-        securitySchemes: OrderedDictionary<SecuritySchemeID, OpenAPISecuritySchemeRepresentable> = [:],
+        securityRequirements: [SecurityRequirementRepresentable] = [],
         links: OrderedDictionary<LinkID, OpenAPILinkRepresentable> = [:],
     ) {
         self.schemas = schemas
@@ -34,7 +34,7 @@ public struct Components: ComponentsRepresentable {
         self.responses = responses
         self.requestBodies = requestBodies
         self.headers = headers
-        self.securitySchemes = securitySchemes
+        self.securityRequirements = securityRequirements
         self.links = links
     }
 }

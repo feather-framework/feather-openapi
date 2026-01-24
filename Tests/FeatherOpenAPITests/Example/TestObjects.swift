@@ -99,9 +99,42 @@ struct TodoCreateOperation: OperationRepresentable {
             200: TodoCreateResponse().reference(),
         ]
     }
+    
+    var security: [any SecurityRequirementRepresentable]? {
+        [
+            OAuthSecurityRequirement(),
+            APIKeySecurityRequirement(),
+        ]
+    }
 }
 
 
 struct TodoPathItems: PathItemRepresentable {
     var post: OperationRepresentable? = TodoCreateOperation()
+}
+
+struct OAuthSecurityScheme: SecuritySchemeRepresentable {
+
+    var type: OpenAPIKit30.OpenAPI.SecurityScheme.SecurityType = .oauth2(
+        flows: .init()
+    )
+}
+
+struct OAuthSecurityRequirement: SecurityRequirementRepresentable {
+    
+    var security: any SecuritySchemeRepresentable = OAuthSecurityScheme()
+    var requirements: [String] = ["read"]
+}
+
+struct APIKeySecurityScheme: SecuritySchemeRepresentable {
+
+    var type: OpenAPIKit30.OpenAPI.SecurityScheme.SecurityType = .apiKey(
+        name: "test",
+        location: .header
+    )
+}
+
+struct APIKeySecurityRequirement: SecurityRequirementRepresentable {
+
+    var security: any SecuritySchemeRepresentable = APIKeySecurityScheme()
 }
