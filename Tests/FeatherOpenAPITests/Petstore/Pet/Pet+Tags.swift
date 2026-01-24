@@ -5,14 +5,11 @@
 //  Created by Tibor Bödecs on 2026. 01. 22..
 //
 
-import FeatherOpenAPIKit
+import FeatherOpenAPI
 
 extension Petstore.Pet {
 
-    enum Tags {
-
-        enum Pet: Tag {
-            static let name = "Pet"
-        }
+    struct PetTag: TagRepresentable {
+        var name: String { "Pet" }
     }
 }

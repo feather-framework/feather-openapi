@@ -5,9 +5,8 @@
 //  Created by Tibor Bödecs on 2026. 01. 22..
 //
 
-import FeatherOpenAPIKit
+import FeatherOpenAPI
 
 extension Petstore {
-
-    enum Tag: Component {}
+    enum Pet {}
 }

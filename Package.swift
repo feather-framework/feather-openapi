@@ -34,7 +34,8 @@ let package = Package(
         .library(name: "FeatherOpenAPI", targets: ["FeatherOpenAPI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/mattpolzin/OpenAPIKit", exact: "5.0.0-rc.2"),
+//        .package(url: "https://github.com/mattpolzin/OpenAPIKit", exact: "5.0.0-rc.2"),
+        .package(url: "https://github.com/mattpolzin/OpenAPIKit", from: "4.3.0"),
         .package(url: "https://github.com/jpsim/Yams", from: "6.2.0"),
     ],
     targets: [

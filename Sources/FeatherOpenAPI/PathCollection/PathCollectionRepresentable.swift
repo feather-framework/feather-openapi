@@ -20,7 +20,7 @@ public protocol PathCollectionRepresentable:
     var components: FeatherOpenAPI.Components { get }
 }
 
-extension PathCollectionRepresentable {
+public extension PathCollectionRepresentable {
     
     var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
         var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
@@ -91,7 +91,7 @@ extension PathCollectionRepresentable {
         pathMap.values.map { $0.referencedTags }.flatMap { $0 }
     }
     
-    public var referencedSecurityRequirements: [SecurityRequirementRepresentable] {
+    var referencedSecurityRequirements: [SecurityRequirementRepresentable] {
         pathMap.values.map { $0.referencedSecurityRequirements }.flatMap { $0 }
     }
 

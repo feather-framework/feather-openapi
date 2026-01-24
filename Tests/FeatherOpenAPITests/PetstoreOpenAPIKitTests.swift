@@ -11,7 +11,7 @@ import OpenAPIKitCore
 import Yams
 import Testing
 
-@testable import FeatherOpenAPIKit
+@testable import FeatherOpenAPI
 
 @Suite
 struct PetstoreOpenAPIKitTests {

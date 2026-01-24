@@ -22,7 +22,9 @@ public protocol SchemaRepresentable:
 
 public extension SchemaRepresentable {
     
-    func reference() -> SchemaReference<Self> {
+    func reference(
+        required: Bool = true
+    ) -> SchemaReference<Self> {
         .init(self)
     }
     
