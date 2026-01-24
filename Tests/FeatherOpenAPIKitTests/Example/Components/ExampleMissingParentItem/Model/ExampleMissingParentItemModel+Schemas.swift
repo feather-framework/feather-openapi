@@ -5,28 +5,16 @@
 //  Created by Tibor Bodecs on 20/01/2024.
 //
 
-import FeatherOpenAPIKit
+import FeatherOpenAPI
 
 extension ExampleMissingParentItem.Model {
 
-    static var schemas: [Schema.Type] {
-        [
-            Schemas.Id.self,
-            Schemas.Key.self,
-        ]
+    struct IdSchema: StringSchemaRepresentable {
+        var description: String? { "Unique example model identifier" }
     }
 
-    enum Schemas {
-
-        enum Id: UUIDSchema {
-            static let description = "Unique example model identifier"
-        }
-
-        enum Key: TextSchema {
-            static let override = true
-            static let description = "Key of the example model"
-            static let example: String? = "my-example-key"
-        }
-
+    struct KeySchema: StringSchemaRepresentable {
+        var description: String? { "Key of the example model" }
+        var example: String? { "my-example-key" }
     }
 }

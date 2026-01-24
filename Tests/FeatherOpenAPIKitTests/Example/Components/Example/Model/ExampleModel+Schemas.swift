@@ -5,98 +5,74 @@
 //  Created by Tibor Bodecs on 20/01/2024.
 //
 
-import FeatherOpenAPIKit
+import FeatherOpenAPI
+import OpenAPIKit30
 
 extension Example.Model {
 
-    static var schemas: [Schema.Type] {
-        [
-            Schemas.Id.self,
-            Schemas.Key.self,
-            Schemas.Create.self,
-            Schemas.Patch.self,
-            Schemas.Detail.self,
-            Schemas.List.self,
-            Schemas.List.Item.self,
-            Schemas.CustomHeader.self,
-            Schemas.PatchOverride.self,
-        ]
+    struct IdSchema: StringSchemaRepresentable {
+        var description: String? { "Unique example model identifier" }
     }
 
-    enum Schemas {
+    struct CustomHeaderSchema: StringSchemaRepresentable {
+        var description: String? { "Custom header" }
+        var example: String? { "my-example-key" }
+    }
 
-        enum Id: UUIDSchema {
-            static let description = "Unique example model identifier"
+    struct KeySchema: StringSchemaRepresentable {
+        var description: String? { "Key of the example model" }
+        var example: String? { "my-example-key" }
+    }
+
+    struct CreateSchema: ObjectSchemaRepresentable {
+        var description: String? { "example model create object" }
+        var propertyMap: SchemaMap {
+            [
+                "key": KeySchema().reference()
+            ]
         }
+    }
 
-        enum CustomHeader: TextSchema {
-            static let description = "Custom header"
-            static let example: String? = "my-example-key"
+    struct DetailSchema: ObjectSchemaRepresentable {
+        var description: String? { "example model detail object" }
+        var propertyMap: SchemaMap {
+            [
+                "id": IdSchema().reference(),
+                "key": KeySchema().reference(),
+            ]
         }
+    }
 
-        enum Key: TextSchema {
-            static let description = "Key of the example model"
-            static let example: String? = "my-example-key"
+    struct PatchSchema: ObjectSchemaRepresentable {
+        var description: String? { "example model detail object" }
+        var propertyMap: SchemaMap {
+            [
+                "key": KeySchema().reference(required: false)
+            ]
         }
+    }
 
-        enum Create: ObjectSchema {
-            static let description = "example model create object"
-            static var properties: [ObjectSchemaProperty] {
-                [
-                    .init("key", Key.self)
-                ]
-            }
+    struct ListItemSchema: ObjectSchemaRepresentable {
+        var description: String? { "example model detail object" }
+        var propertyMap: SchemaMap {
+            [
+                "id": IdSchema().reference(),
+                "key": KeySchema().reference(),
+            ]
         }
+    }
 
-        enum Detail: ObjectSchema {
-            static let description = "example model detail object"
+    struct ListSchema: ArraySchemaRepresentable {
+        var description: String? { "Lorem ipsum dolor sit amet" }
+        var items: JSONSchema? { ListItemSchema().openAPISchema() }
+    }
 
-            static var properties: [ObjectSchemaProperty] {
-                [
-                    .init("id", Id.self),
-                    .init("key", Key.self),
-                ]
-            }
-        }
-
-        enum Patch: ObjectSchema {
-            static let description = "example model detail object"
-
-            static var properties: [ObjectSchemaProperty] {
-                [
-                    .init("key", Key.self, required: false)
-                ]
-            }
-        }
-
-        enum List: ArraySchema {
-
-            enum Item: ObjectSchema {
-                static let description = "example model detail object"
-
-                static var properties: [ObjectSchemaProperty] {
-                    [
-                        .init("id", Id.self),
-                        .init("key", Key.self),
-                    ]
-                }
-            }
-
-            static let description = "Lorem ipsum dolor sit amet"
-            static var items: Schema.Type { Item.self }
-        }
-
-        enum PatchOverride: ObjectSchema {
-            static let id = Patch.id
-            static let override = true
-
-            static let description = "overridden"
-
-            static var properties: [ObjectSchemaProperty] {
-                [
-                    .init("key", Key.self, required: false)
-                ]
-            }
+    struct PatchOverrideSchema: ObjectSchemaRepresentable {
+        var description: String? { "overridden" }
+        var propertyMap: SchemaMap {
+            [
+                "key": KeySchema().reference(required: false)
+            ]
         }
     }
 }

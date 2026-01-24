@@ -5,20 +5,11 @@
 //  Created by Tibor Bodecs on 20/01/2024.
 //
 
-import FeatherOpenAPIKit
+import FeatherOpenAPI
 
 extension Example.Model {
 
-    static var tags: [Tag.Type] {
-        [
-            Tags.Main.self
-        ]
-    }
-
-    enum Tags {
-
-        enum Main: Tag {
-            static let name = "Model"
-        }
+    struct ModelTag: TagRepresentable {
+        var name: String { "Model" }
     }
 }

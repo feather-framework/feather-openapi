@@ -5,40 +5,70 @@
 //  Created by Tibor Bodecs on 20/01/2024.
 //
 
-import FeatherOpenAPIKit
-import OpenAPIKit30
-import Foundation
+import FeatherOpenAPI
 
-struct ExampleDocument: Document {
+struct ExampleLocation: LocationRepresentable {
+    let location: String
+}
 
-    let components: [Component.Type]
+struct ExampleContact: ContactRepresentable {
+    var name: String? { "Binary Birds" }
+    var url: LocationRepresentable? {
+        ExampleLocation(location: "https://binarybirds.com")
+    }
+    var email: String? { "info@binarybirds.com" }
+}
 
-    init() {
-        self.components = [
-            Example.Model.self
+struct ExampleInfo: InfoRepresentable {
+    var title: String { "Example" }
+    var description: String? {
+        """
+        Example API description
+        """
+    }
+    var contact: OpenAPIContactRepresentable? { ExampleContact() }
+    var version: String { "1.0.0" }
+}
+
+struct ExampleServer: ServerRepresentable {
+    var url: LocationRepresentable {
+        ExampleLocation(location: "http://localhost:8080")
+    }
+    var description: String? { "dev" }
+}
+
+struct ExamplePathCollection: PathCollectionRepresentable {
+    var pathMap: PathMap {
+        [
+            "/example/models": Example.Model.MainPathItem(),
+            "/example/models/{id}": Example.Model.IdentifiedPathItem(),
         ]
     }
+}
 
-    func openAPIDocument() throws -> OpenAPI.Document {
-        try composedDocument(
-            info: .init(
-                title: "Example",
-                description: """
-                    Example API description
-                    """,
-                contact: .init(
-                    name: "Binary Birds",
-                    url: .init(string: "https://binarybirds.com")!,
-                    email: "info@binarybirds.com"
-                ),
-                version: "1.0.0"
-            ),
-            servers: [
-                .init(
-                    url: .init(string: "http://localhost:8080")!,
-                    description: "dev"
-                )
-            ]
+struct ExampleDocument: DocumentRepresentable {
+    var info: OpenAPIInfoRepresentable { ExampleInfo() }
+    var servers: [OpenAPIServerRepresentable] { [ExampleServer()] }
+    var paths: PathMap { ExamplePathCollection().pathMap }
+    var components: OpenAPIComponentsRepresentable {
+        let collection = ExamplePathCollection()
+        let bearer = Example.Model.BearerTokenSecurityScheme()
+        return Components(
+            schemas: collection.referencedSchemaMap,
+            parameters: collection.referencedParameterMap,
+            responses: collection.referencedResponseMap,
+            requestBodies: collection.referencedRequestBodyMap,
+            headers: collection.referencedHeaderMap,
+            securitySchemes: [bearer.reference().id: bearer]
         )
+    }
+    var security: [OpenAPISecurityRequirementRepresentable] {
+        [
+            SecurityRequirement(
+                [
+                    (Example.Model.BearerTokenSecurityScheme().reference(), [])
+                ]
+            )
+        ]
     }
 }

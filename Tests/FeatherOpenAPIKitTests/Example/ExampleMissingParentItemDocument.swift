@@ -5,39 +5,37 @@
 //  Created by Tibor Bodecs on 20/01/2024.
 //
 
-import FeatherOpenAPIKit
-import OpenAPIKit30
-import Foundation
+import FeatherOpenAPI
 
-struct ExampleMissingParentItemItemDocument: Document {
-
-    let components: [Component.Type]
-
-    init() {
-        self.components = [
-            ExampleMissingParentItem.Model.self
-        ]
+struct ExampleMissingParentItemInfo: InfoRepresentable {
+    var title: String { "ExampleMissingParentItem" }
+    var description: String? {
+        """
+        Example API description
+        """
     }
+    var contact: OpenAPIContactRepresentable? { ExampleContact() }
+    var version: String { "1.0.0" }
+}
 
-    func openAPIDocument() throws -> OpenAPI.Document {
-        try composedDocument(
-            info: .init(
-                title: "ExampleMissingParentItem",
-                description: """
-                    Example API description
-                    """,
-                contact: .init(
-                    name: "Binary Birds",
-                    url: .init(string: "https://binarybirds.com")!,
-                    email: "info@binarybirds.com"
-                ),
-                version: "1.0.0"
-            ),
-            servers: [
-                .init(
-                    url: .init(string: "http://localhost:8080")!,
-                    description: "dev"
-                )
+struct ExampleMissingParentItemServer: ServerRepresentable {
+    var url: LocationRepresentable {
+        ExampleLocation(location: "http://localhost:8080")
+    }
+    var description: String? { "dev" }
+}
+
+struct ExampleMissingParentItemItemDocument: DocumentRepresentable {
+    var info: OpenAPIInfoRepresentable { ExampleMissingParentItemInfo() }
+    var servers: [OpenAPIServerRepresentable] { [ExampleMissingParentItemServer()] }
+    var paths: PathMap { [:] }
+    var components: OpenAPIComponentsRepresentable {
+        let idSchema = ExampleMissingParentItem.Model.IdSchema()
+        let keySchema = ExampleMissingParentItem.Model.KeySchema()
+        return Components(
+            schemas: [
+                SchemaID(idSchema.openAPIIdentifier): idSchema,
+                SchemaID(keySchema.openAPIIdentifier): keySchema,
             ]
         )
     }

@@ -5,29 +5,23 @@
 //  Created by Tibor Bodecs on 20/01/2024.
 //
 
-import FeatherOpenAPIKit
+import FeatherOpenAPI
 
 extension Example.Model {
 
-    static var parameters: [Parameter.Type] {
-        [
-            Parameters.Id.self,
-            Parameters.CustomRequestHeader.self,
-        ]
+    struct IdParameter: PathParameterRepresentable {
+        var name: String { "id" }
+        var description: String? { "Example parameter" }
+        var schema: any OpenAPISchemaRepresentable {
+            IdSchema().reference()
+        }
     }
 
-    enum Parameters {
-
-        enum Id: PathParameter {
-            static let name = "id"
-            static let description = "Example parameter"
-            static var schema: Schema.Type { Schemas.Id.self }
-        }
-
-        enum CustomRequestHeader: HeaderParameter {
-            static let name = "CustomRequestHeader"
-            static let description = "Example request header parameter"
-            static var schema: Schema.Type { Schemas.CustomHeader.self }
+    struct CustomRequestHeaderParameter: HeaderParameterRepresentable {
+        var name: String { "CustomRequestHeader" }
+        var description: String? { "Example request header parameter" }
+        var schema: any OpenAPISchemaRepresentable {
+            CustomHeaderSchema().reference()
         }
     }
 }

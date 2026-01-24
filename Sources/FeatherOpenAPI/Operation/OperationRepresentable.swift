@@ -7,6 +7,16 @@
 
 import OpenAPIKit30
 
+fileprivate extension String {
+
+    func lowercasedFirstLetter() -> String {
+        guard !isEmpty else {
+            return self
+        }
+        return prefix(1).lowercased() + dropFirst()
+    }
+}
+
 
 public protocol OperationRepresentable:
     OpenAPIOperationRepresentable,
@@ -44,6 +54,20 @@ public extension OperationRepresentable {
     
     var operationId: String? { nil }
     var parameters: [ParameterRepresentable] { [] }
+    
+    static var operationId: String {
+        var components = String(reflecting: self)
+            .split(separator: ".")
+            .dropFirst()
+            .map(String.init)
+
+        components.remove(at: 2)
+        if let last = components.popLast()?.lowercasedFirstLetter() {
+            components.insert(last, at: 0)
+        }
+        return components.joined(separator: "")
+    }
+
 
     var requestBody: RequestBodyRepresentable? { nil }
     var security: [SecurityRequirementRepresentable]? { nil }

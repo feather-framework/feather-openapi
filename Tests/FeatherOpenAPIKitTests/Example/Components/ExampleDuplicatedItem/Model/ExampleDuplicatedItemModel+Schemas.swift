@@ -5,35 +5,22 @@
 //  Created by Tibor Bodecs on 20/01/2024.
 //
 
-import FeatherOpenAPIKit
+import FeatherOpenAPI
 
 extension ExampleDuplicatedItem.Model {
 
-    static var schemas: [Schema.Type] {
-        [
-            Schemas.Id.self,
-            Schemas.Key.self,
-            Schemas.KeySecond.self,
-        ]
+    struct IdSchema: StringSchemaRepresentable {
+        var description: String? { "Unique example model identifier" }
     }
 
-    enum Schemas {
+    struct KeySchema: StringSchemaRepresentable {
+        var description: String? { "Key of the example model" }
+        var example: String? { "my-example-key" }
+    }
 
-        enum Id: UUIDSchema {
-            static let description = "Unique example model identifier"
-        }
-
-        enum Key: TextSchema {
-            static let description = "Key of the example model"
-            static let example: String? = "my-example-key"
-
-        }
-
-        enum KeySecond: TextSchema {
-            static let id = Key.id
-
-            static let description = "Key of the example model"
-            static let example: String? = "my-example-key"
-        }
+    struct KeySecondSchema: StringSchemaRepresentable {
+        var openAPIIdentifier: String { KeySchema().openAPIIdentifier }
+        var description: String? { "Key of the example model" }
+        var example: String? { "my-example-key" }
     }
 }
