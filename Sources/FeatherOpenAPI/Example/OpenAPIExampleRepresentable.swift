@@ -8,12 +8,12 @@
 import OpenAPIKit30
 
 public protocol OpenAPIExampleRepresentable {
-    func openAPIExample() -> OpenAPI.Example
+    func openAPIExample() -> Either<JSONReference<OpenAPI.Example>, OpenAPI.Example>
 }
 
 extension OpenAPI.Example: OpenAPIExampleRepresentable {
 
-    public func openAPIExample() -> OpenAPI.Example {
-        self
+    public func openAPIExample() -> Either<JSONReference<OpenAPI.Example>, OpenAPI.Example> {
+        .init(self)
     }
 }

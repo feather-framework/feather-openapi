@@ -8,6 +8,14 @@
 import FeatherOpenAPI
 import OpenAPIKit30
 
+extension String: LocationRepresentable {
+    public var location: String { self }
+}
+
+struct TestServer: ServerRepresentable {
+    var url: any LocationRepresentable { "http://127.0.0.1:8080/" }
+}
+
 
 struct TodoIDField: IntSchemaRepresentable {
     var example: Int? { 1 }
@@ -114,13 +122,7 @@ struct TodoCreateOperation: OperationRepresentable {
     }
 }
 
-extension String: LocationRepresentable {
-    public var location: String { self }
-}
 
-struct TestServer: ServerRepresentable {
-    var url: any LocationRepresentable { "http://127.0.0.1:8080/" }
-}
 
 
 struct TodoPathItems: PathItemRepresentable {

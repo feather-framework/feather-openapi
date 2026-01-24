@@ -9,6 +9,7 @@ import OpenAPIKit30
 
 public protocol ExampleRepresentable:
     OpenAPIExampleRepresentable,
+    Identifiable,
     DescriptionProperty,
     VendorExtensionsProperty
 {
@@ -17,13 +18,19 @@ public protocol ExampleRepresentable:
 }
 
 public extension ExampleRepresentable {
+
+    func reference() -> ExampleReference<Self> {
+        .init(self)
+    }
     
-    func openAPIExample() -> OpenAPI.Example {
+    func openAPIExample() -> Either<JSONReference<OpenAPI.Example>, OpenAPI.Example> {
         .init(
-            summary: summary,
-            description: description,
-            value: .init(value),
-            vendorExtensions: vendorExtensions
+            .init(
+                summary: summary,
+                description: description,
+                value: .init(value),
+                vendorExtensions: vendorExtensions
+            )
         )
     }
 }
