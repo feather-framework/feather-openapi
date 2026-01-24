@@ -34,7 +34,7 @@ public protocol OperationRepresentable:
     var responseMap: ResponseMap { get }
 
     var security: [SecurityRequirementRepresentable]? { get }
-//    var servers: [ServerRepresentable]?
+    var servers: [ServerRepresentable]? { get }
 }
 
 public extension OperationRepresentable {
@@ -47,6 +47,7 @@ public extension OperationRepresentable {
 
     var requestBody: RequestBodyRepresentable? { nil }
     var security: [SecurityRequirementRepresentable]? { nil }
+    var servers: [ServerRepresentable]? { nil }
     
     private var openAPITags: [String]? {
         tags.isEmpty ? nil : tags.map { $0.name }
@@ -74,7 +75,7 @@ public extension OperationRepresentable {
                 callbacks: [:],
                 deprecated: deprecated,
                 security: openAPISecurityRequirements,
-                servers: nil,
+                servers: servers?.map { $0.openAPIServer() },
                 vendorExtensions: vendorExtensions
             )
         }
@@ -89,7 +90,7 @@ public extension OperationRepresentable {
             callbacks: [:],
             deprecated: deprecated,
             security: openAPISecurityRequirements,
-            servers: nil,
+            servers: servers?.map { $0.openAPIServer() },
             vendorExtensions: vendorExtensions
         )
     }

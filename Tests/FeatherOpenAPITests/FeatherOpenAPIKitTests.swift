@@ -21,7 +21,15 @@ struct MyInfo: InfoRepresentable {
 }
 
 struct MyDocument: DocumentRepresentable {
+
     var info: OpenAPIInfoRepresentable
+    
+    var servers: [any OpenAPIServerRepresentable] {
+        [
+            TestServer()
+        ]
+    }
+    
     var paths: PathMap
     var components: OpenAPIComponentsRepresentable
     
