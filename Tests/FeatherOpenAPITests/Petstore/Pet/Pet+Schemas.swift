@@ -22,12 +22,12 @@ extension Petstore.Pet {
     }
 
     struct PhotoUrlsSchema: ArraySchemaRepresentable {
-        var items: JSONSchema? { PhotoUrlItemSchema().openAPISchema() }
+        var items: SchemaRepresentable? { PhotoUrlItemSchema() }
     }
 
     struct TagsSchema: ArraySchemaRepresentable {
         var required: Bool { false }
-        var items: JSONSchema? { Petstore.Tag.TagSchema().openAPISchema() }
+        var items: SchemaRepresentable? { Petstore.Tag.TagSchema() }
     }
 
     struct StatusSchema: StringSchemaRepresentable {

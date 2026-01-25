@@ -6,6 +6,7 @@
 //
 
 import FeatherOpenAPI
+import OpenAPIKit30
 
 struct ExampleMissingParentItemInfo: InfoRepresentable {
     var title: String { "ExampleMissingParentItem" }

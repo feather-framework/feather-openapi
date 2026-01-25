@@ -6,6 +6,7 @@
 //
 
 import FeatherOpenAPI
+import OpenAPIKit30
 
 struct ExampleDuplicatedItemInfo: InfoRepresentable {
     var title: String { "ExampleDuplicatedItem" }

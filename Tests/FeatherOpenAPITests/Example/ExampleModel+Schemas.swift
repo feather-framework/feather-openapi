@@ -47,7 +47,7 @@ extension Example.Model {
         var description: String? { "example model detail object" }
         var propertyMap: SchemaMap {
             [
-                "key": KeySchema().reference(required: false)
+                "key": KeySchema().reference()
             ]
         }
     }
@@ -64,14 +64,14 @@ extension Example.Model {
 
     struct ListSchema: ArraySchemaRepresentable {
         var description: String? { "Lorem ipsum dolor sit amet" }
-        var items: JSONSchema? { ListItemSchema().openAPISchema() }
+        var items: SchemaRepresentable? { ListItemSchema() }
     }
 
     struct PatchOverrideSchema: ObjectSchemaRepresentable {
         var description: String? { "overridden" }
         var propertyMap: SchemaMap {
             [
-                "key": KeySchema().reference(required: false)
+                "key": KeySchema().reference()
             ]
         }
     }

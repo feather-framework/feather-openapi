@@ -6,6 +6,7 @@
 //
 
 import FeatherOpenAPI
+import OpenAPIKit30
 
 struct ExampleLocation: LocationRepresentable {
     let location: String
@@ -47,28 +48,12 @@ struct ExamplePathCollection: PathCollectionRepresentable {
 }
 
 struct ExampleDocument: DocumentRepresentable {
+    
+    let collection = ExamplePathCollection()
+
     var info: OpenAPIInfoRepresentable { ExampleInfo() }
     var servers: [OpenAPIServerRepresentable] { [ExampleServer()] }
-    var paths: PathMap { ExamplePathCollection().pathMap }
-    var components: OpenAPIComponentsRepresentable {
-        let collection = ExamplePathCollection()
-        let bearer = Example.Model.BearerTokenSecurityScheme()
-        return Components(
-            schemas: collection.referencedSchemaMap,
-            parameters: collection.referencedParameterMap,
-            responses: collection.referencedResponseMap,
-            requestBodies: collection.referencedRequestBodyMap,
-            headers: collection.referencedHeaderMap,
-            securitySchemes: [bearer.reference().id: bearer]
-        )
-    }
-    var security: [OpenAPISecurityRequirementRepresentable] {
-        [
-            SecurityRequirement(
-                [
-                    (Example.Model.BearerTokenSecurityScheme().reference(), [])
-                ]
-            )
-        ]
-    }
+
+    var paths: PathMap { collection.pathMap }
+    var components: OpenAPIComponentsRepresentable { collection.components }    
 }

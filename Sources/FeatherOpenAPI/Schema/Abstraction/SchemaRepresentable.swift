@@ -31,6 +31,6 @@ public extension SchemaRepresentable {
     var deprecated: Bool? { nil }
 
     var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
-        [:]
+        return [:]
     }
 }

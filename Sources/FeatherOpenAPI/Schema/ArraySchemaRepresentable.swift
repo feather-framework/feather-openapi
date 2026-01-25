@@ -10,7 +10,7 @@ import OpenAPIKit30
 public protocol ArraySchemaRepresentable:
     SchemaRepresentable
 {
-    var items: JSONSchema? { get }
+    var items: SchemaRepresentable? { get }
 }
 
 public extension ArraySchemaRepresentable {
@@ -29,11 +29,22 @@ public extension ArraySchemaRepresentable {
             minItems: nil,
             maxItems: nil,
             uniqueItems: nil,
-            items: items,
+            items: items?.openAPISchema(),
             allowedValues: nil,
             defaultValue: nil,
             example: nil
         )
+    }
+    
+    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+        var results: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> = [:]
+
+        for (key, value) in items?.referencedSchemaMap ?? [:] {
+//            if let ref = value as? SchemaReferenceRepresentable {
+                results[key] = value
+//            }
+        }
+        return results
     }
 }
 

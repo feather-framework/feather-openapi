@@ -11,6 +11,6 @@ extension Example.Model {
 
     struct CreateRequestBody: JSONRequestBodyRepresentable {
         var description: String? { "Create example" }
-        var schema: CreateSchema { CreateSchema() }
+        var schema: SchemaReference<CreateSchema> { CreateSchema().reference() }
     }
 }

@@ -14,14 +14,14 @@ extension Example.Model {
         var description: String { "Example" }
         var contentMap: ContentMap {
             [
-                .xml: Content(DetailSchema())
+                .xml: Content(DetailSchema().reference())
             ]
         }
     }
 
     struct DetailResponse: JSONResponseRepresentable {
         var description: String { "Example" }
-        var schema: DetailSchema { DetailSchema() }
+        var schema: SchemaReference<DetailSchema> { DetailSchema().reference() }
         var headerMap: HeaderMap {
             [
                 "X-Custom-Response-Header": CustomResponseHeader().reference()

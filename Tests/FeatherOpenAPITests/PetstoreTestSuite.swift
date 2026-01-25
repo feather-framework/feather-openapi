@@ -14,7 +14,7 @@ import Testing
 @testable import FeatherOpenAPI
 
 @Suite
-struct PetstoreOpenAPIKitTests {
+struct PetstoreTestSuite {
 
     @Test
     func render() throws {
@@ -22,7 +22,7 @@ struct PetstoreOpenAPIKitTests {
         let document = PetstoreDocument()
 
         let encoder = YAMLEncoder()
-        let openAPIDocument = try document.openAPIDocument()
+        let openAPIDocument = document.openAPIDocument()
 
         do {
             _ =

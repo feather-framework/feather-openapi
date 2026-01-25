@@ -6,6 +6,7 @@
 //
 
 import FeatherOpenAPI
+import OpenAPIKit30
 
 extension Example.Model {
 
@@ -15,6 +16,7 @@ extension Example.Model {
         var description: String? { "Detail example detail" }
         var parameters: [ParameterRepresentable] {
             [
+                IdParameter().reference(),
                 CustomRequestHeaderParameter().reference()
             ]
         }

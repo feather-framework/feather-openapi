@@ -8,6 +8,46 @@
 import FeatherOpenAPI
 import OpenAPIKit30
 
+struct MyPathCollection: PathCollectionRepresentable {
+    
+    
+    var pathMap: PathMap {
+        [
+            "todos": TodoPathItems(),
+//                    "laci": LaciPathItems(),
+        ]
+    }
+}
+
+struct MyInfo: InfoRepresentable {
+    var title: String { "foo" }
+    var version: String { "1.0.0" }
+}
+
+struct MyDocument: DocumentRepresentable {
+
+    var info: OpenAPIInfoRepresentable
+    
+    var servers: [any OpenAPIServerRepresentable] {
+        [
+            TestServer()
+        ]
+    }
+    
+    var paths: PathMap
+    var components: OpenAPIComponentsRepresentable
+    
+    init(
+        info: OpenAPIInfoRepresentable,
+        paths: PathMap,
+        components: OpenAPIComponentsRepresentable
+    ) {
+        self.info = info
+        self.paths = paths
+        self.components = components
+    }
+}
+
 extension String: LocationRepresentable {
     public var location: String { self }
 }

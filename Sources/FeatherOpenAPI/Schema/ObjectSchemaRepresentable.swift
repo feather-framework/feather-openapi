@@ -41,12 +41,6 @@ public extension ObjectSchemaRepresentable {
     
     var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
         var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
-//
-//        for property in propertyMap.values {
-//            if let ref = property as? SchemaReferenceRepresentable {
-//                results[ref.id] = ref.object
-//            }
-//        }
 
         for (_, value) in propertyMap {
             if let ref = value as? SchemaReferenceRepresentable {
