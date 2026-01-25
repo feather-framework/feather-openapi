@@ -36,4 +36,8 @@ public struct SchemaReference<T: SchemaRepresentable>:
     public func openAPISchema() -> JSONSchema {
         .reference(.component(named: id.rawValue), required: required)
     }
+
+    public var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+        [id: object]
+    }
 }

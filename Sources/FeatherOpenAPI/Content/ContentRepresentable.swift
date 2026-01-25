@@ -27,6 +27,6 @@ public extension ContentRepresentable {
     }
     
     var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
-        schema.referencedSchemaMap
+        schema.allReferencedSchemaMap()
     }
 }

@@ -25,7 +25,7 @@ struct ExampleTestSuite {
         let document = ExampleDocument()
 
         let openAPIdoc = document.openAPIDocument()
-//        _ = try openAPIdoc.locallyDereferenced().resolved()
+        _ = try openAPIdoc.locallyDereferenced().resolved()
         
         let encoder = YAMLEncoder()
         let result = try encoder.encode(openAPIdoc)

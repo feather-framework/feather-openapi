@@ -10,5 +10,5 @@ import OpenAPIKit30
 public typealias SchemaMap = OrderedDictionary
 <
     String,
-    OpenAPISchemaRepresentable
+    SchemaRepresentable
 >

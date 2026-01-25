@@ -43,10 +43,9 @@ public extension ParameterRepresentable {
     }
     
     var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
-        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
-        if let ref = schema as? SchemaReferenceRepresentable {
-            results[ref.id] = ref.object
+        guard let schema = schema as? SchemaRepresentable else {
+            return [:]
         }
-        return results
+        return schema.allReferencedSchemaMap()
     }
 }

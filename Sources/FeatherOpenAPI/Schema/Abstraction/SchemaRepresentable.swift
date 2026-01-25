@@ -33,4 +33,26 @@ public extension SchemaRepresentable {
     var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
         return [:]
     }
+
+    func allReferencedSchemaMap() -> OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
+        var visited = Set<SchemaID>()
+        collectReferencedSchemaMap(into: &results, visited: &visited)
+        return results
+    }
+
+    fileprivate func collectReferencedSchemaMap(
+        into results: inout OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>,
+        visited: inout Set<SchemaID>
+    ) {
+        for (id, schema) in referencedSchemaMap {
+            guard visited.insert(id).inserted else {
+                continue
+            }
+            results[id] = schema
+            if let schema = schema as? SchemaRepresentable {
+                schema.collectReferencedSchemaMap(into: &results, visited: &visited)
+            }
+        }
+    }
 }
