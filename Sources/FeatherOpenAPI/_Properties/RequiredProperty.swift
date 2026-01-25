@@ -5,7 +5,6 @@
 //  Created by Tibor Bödecs on 2026. 01. 22..
 //
 
-/// Provides a `required` flag with a default value.
 public protocol RequiredProperty {
     /// Indicates whether the item is required.
     var required: Bool { get }

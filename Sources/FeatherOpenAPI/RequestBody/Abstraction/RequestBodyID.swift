@@ -5,7 +5,6 @@
 //  Created by Tibor Bödecs on 2026. 01. 22..
 //
 
-/// Strongly typed identifier for reusable OpenAPI request bodies.
 public struct RequestBodyID: Sendable, Equatable, Hashable, Codable {
 
     /// The raw identifier value.

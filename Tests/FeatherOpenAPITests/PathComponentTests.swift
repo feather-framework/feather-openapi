@@ -4,17 +4,10 @@
 //
 //  Created by Tibor Bodecs on 2026. 01. 22..
 
-//
-//  File.swift
-//
-//
-//  Created by Tibor Bodecs on 25/01/2024.
-//
-
 import Foundation
 import Testing
 
-@testable import FeatherOpenAPIKit
+@testable import FeatherOpenAPI
 
 extension Path {
 

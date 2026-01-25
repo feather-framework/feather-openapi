@@ -5,7 +5,6 @@
 //  Created by Tibor Bödecs on 2026. 01. 22..
 //
 
-/// Provides a default OpenAPI identifier based on the type name.
 public protocol Identifiable: Sendable {
     /// The identifier to use for OpenAPI component references.
     var openAPIIdentifier: String { get }

@@ -5,7 +5,6 @@
 //  Created by Tibor Bödecs on 2026. 01. 22..
 //
 
-/// Strongly typed identifier for reusable OpenAPI schemas.
 public struct SchemaID: Sendable, Equatable, Hashable, Codable {
 
     /// The raw identifier value.

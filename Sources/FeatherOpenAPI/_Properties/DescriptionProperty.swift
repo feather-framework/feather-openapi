@@ -5,7 +5,6 @@
 //  Created by Tibor Bödecs on 2026. 01. 23..
 //
 
-/// Provides a description property with a default value.
 public protocol DescriptionProperty {
     /// Human-readable description.
     var description: String? { get }
