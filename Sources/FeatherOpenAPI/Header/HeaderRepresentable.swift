@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  HeaderRepresentable.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 21..
@@ -7,6 +7,7 @@
 
 import OpenAPIKit30
 
+/// Describes an OpenAPI header with defaults.
 public protocol HeaderRepresentable:
     OpenAPIHeaderRepresentable,
     Identifiable,
@@ -17,16 +18,23 @@ public protocol HeaderRepresentable:
     // reference
     ReferencedSchemaMapRepresentable
 {
+    /// The schema describing the header value.
     var schema: OpenAPISchemaRepresentable { get }
 }
 
-public extension HeaderRepresentable {
-    
-    func reference() -> HeaderReference<Self> {
+extension HeaderRepresentable {
+
+    /// Creates a reference wrapper for this header.
+    /// - Returns: A header reference.
+    public func reference() -> HeaderReference<Self> {
         .init(self)
     }
 
-    func openAPIHeader() -> Either<JSONReference<OpenAPI.Header>, OpenAPI.Header> {
+    /// Builds an OpenAPI header object or reference.
+    /// - Returns: The OpenAPI header representation.
+    public func openAPIHeader() -> Either<
+        JSONReference<OpenAPI.Header>, OpenAPI.Header
+    > {
         .init(
             .init(
                 schema: schema.openAPISchema(),
@@ -37,8 +45,11 @@ public extension HeaderRepresentable {
             )
         )
     }
-    
-    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+
+    /// Referenced schemas used by the header.
+    public var referencedSchemaMap:
+        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+    {
         guard let schema = schema as? SchemaRepresentable else {
             return [:]
         }

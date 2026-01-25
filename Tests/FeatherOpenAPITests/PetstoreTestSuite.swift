@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  PetstoreTestSuite.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 22..
@@ -8,8 +8,8 @@
 import Foundation
 import OpenAPIKit30
 import OpenAPIKitCore
-import Yams
 import Testing
+import Yams
 
 @testable import FeatherOpenAPI
 

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  BoolSchemaRepresentable.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 22..
@@ -7,6 +7,7 @@
 
 import OpenAPIKit30
 
+/// Schema representation for boolean values.
 public protocol BoolSchemaRepresentable:
     SchemaRepresentable,
     ExampleProperty,
@@ -15,12 +16,14 @@ where
     ExamplePropertyType == Bool,
     DefaultValuePropertyType == Bool
 {
-    
+
 }
 
-public extension BoolSchemaRepresentable {
+extension BoolSchemaRepresentable {
 
-    func openAPISchema() -> JSONSchema {
+    /// Builds a boolean JSON schema.
+    /// - Returns: The JSON schema.
+    public func openAPISchema() -> JSONSchema {
         .boolean(
             format: .generic,
             required: `required`,
@@ -37,4 +40,3 @@ public extension BoolSchemaRepresentable {
         )
     }
 }
-

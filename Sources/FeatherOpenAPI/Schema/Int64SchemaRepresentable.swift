@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Int64SchemaRepresentable.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 22..
@@ -7,6 +7,7 @@
 
 import OpenAPIKit30
 
+/// Schema representation for 64-bit integer values.
 public protocol Int64SchemaRepresentable:
     SchemaRepresentable,
     ExampleProperty,
@@ -17,12 +18,14 @@ where
     DefaultValuePropertyType == Int64,
     AllowedValuesPropertyType == Int64
 {
-    
+
 }
 
-public extension Int64SchemaRepresentable {
+extension Int64SchemaRepresentable {
 
-    func openAPISchema() -> JSONSchema {
+    /// Builds an int64 JSON schema.
+    /// - Returns: The JSON schema.
+    public func openAPISchema() -> JSONSchema {
         .integer(
             format: .int64,
             required: `required`,

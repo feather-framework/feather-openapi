@@ -1,4 +1,10 @@
 //
+//  ExampleDocument.swift
+//  feather-openapi
+//
+//  Created by Tibor Bodecs on 2026. 01. 25..
+
+//
 //  File.swift
 //
 //
@@ -48,12 +54,12 @@ struct ExamplePathCollection: PathCollectionRepresentable {
 }
 
 struct ExampleDocument: DocumentRepresentable {
-    
+
     let collection = ExamplePathCollection()
 
     var info: OpenAPIInfoRepresentable { ExampleInfo() }
     var servers: [OpenAPIServerRepresentable] { [ExampleServer()] }
 
     var paths: PathMap { collection.pathMap }
-    var components: OpenAPIComponentsRepresentable { collection.components }    
+    var components: OpenAPIComponentsRepresentable { collection.components }
 }

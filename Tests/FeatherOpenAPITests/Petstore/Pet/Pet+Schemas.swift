@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Pet+Schemas.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 22..
@@ -46,7 +46,8 @@ extension Petstore.Pet {
             [
                 "id": IdSchema().reference(required: false),
                 "name": NameSchema(),
-                "category": Petstore.Category.CategorySchema().reference(required: false),
+                "category": Petstore.Category.CategorySchema()
+                    .reference(required: false),
                 "photoUrls": PhotoUrlsSchema(),
                 "tags": TagsSchema(),
                 "status": StatusSchema().reference(required: false),

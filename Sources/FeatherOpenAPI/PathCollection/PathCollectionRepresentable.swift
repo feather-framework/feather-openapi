@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  PathCollectionRepresentable.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 23..
@@ -7,6 +7,7 @@
 
 import OpenAPIKit30
 
+/// Describes a collection of paths and their derived components.
 public protocol PathCollectionRepresentable:
     ReferencedSchemaMapRepresentable,
     ReferencedParameterMapRepresentable,
@@ -16,15 +17,20 @@ public protocol PathCollectionRepresentable:
     ReferencedTagMapRepresentable,
     ReferencedSecuritySchemeMapRepresentable
 {
+    /// The map of paths to path items.
     var pathMap: PathMap { get }
+    /// Derived components from the path collection.
     var components: FeatherOpenAPI.Components { get }
 }
 
-public extension PathCollectionRepresentable {
-    
-    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+extension PathCollectionRepresentable {
+
+    /// Aggregated referenced schemas from the path map.
+    public var referencedSchemaMap:
+        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+    {
         var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
-        
+
         let schemaMaps = pathMap.values
             .map { $0.referencedSchemaMap }
             .flatMap { $0 }
@@ -34,10 +40,15 @@ public extension PathCollectionRepresentable {
         }
         return results
     }
-    
-    var referencedParameterMap: OrderedDictionary<ParameterID, OpenAPIParameterRepresentable> {
-        var results = OrderedDictionary<ParameterID, OpenAPIParameterRepresentable>()
-        
+
+    /// Aggregated referenced parameters from the path map.
+    public var referencedParameterMap:
+        OrderedDictionary<ParameterID, OpenAPIParameterRepresentable>
+    {
+        var results = OrderedDictionary<
+            ParameterID, OpenAPIParameterRepresentable
+        >()
+
         let parameterMaps = pathMap.values
             .map { $0.referencedParameterMap }
             .flatMap { $0 }
@@ -48,8 +59,13 @@ public extension PathCollectionRepresentable {
         return results
     }
 
-    var referencedRequestBodyMap: OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable> {
-        var results = OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable>()
+    /// Aggregated referenced request bodies from the path map.
+    public var referencedRequestBodyMap:
+        OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable>
+    {
+        var results = OrderedDictionary<
+            RequestBodyID, OpenAPIRequestBodyRepresentable
+        >()
 
         let requestBodyMaps = pathMap.values
             .map { $0.referencedRequestBodyMap }
@@ -61,7 +77,10 @@ public extension PathCollectionRepresentable {
         return results
     }
 
-    var referencedHeaderMap: OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable> {
+    /// Aggregated referenced headers from the path map.
+    public var referencedHeaderMap:
+        OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable>
+    {
         var results = OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable>()
 
         let headerMaps = pathMap.values
@@ -74,8 +93,13 @@ public extension PathCollectionRepresentable {
         return results
     }
 
-    var referencedResponseMap: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable> {
-        var results = OrderedDictionary<ResponseID, OpenAPIResponseRepresentable>()
+    /// Aggregated referenced responses from the path map.
+    public var referencedResponseMap:
+        OrderedDictionary<ResponseID, OpenAPIResponseRepresentable>
+    {
+        var results = OrderedDictionary<
+            ResponseID, OpenAPIResponseRepresentable
+        >()
 
         let responseMaps = pathMap.values
             .map { $0.referencedResponseMap }
@@ -87,15 +111,20 @@ public extension PathCollectionRepresentable {
         return results
     }
 
-    var referencedTags: [OpenAPITagRepresentable] {
+    /// Aggregated referenced tags from the path map.
+    public var referencedTags: [OpenAPITagRepresentable] {
         pathMap.values.map { $0.referencedTags }.flatMap { $0 }
     }
-    
-    var referencedSecurityRequirements: [SecurityRequirementRepresentable] {
+
+    /// Aggregated referenced security requirements from the path map.
+    public var referencedSecurityRequirements:
+        [SecurityRequirementRepresentable]
+    {
         pathMap.values.map { $0.referencedSecurityRequirements }.flatMap { $0 }
     }
 
-    var components: FeatherOpenAPI.Components {
+    /// Builds components from all referenced objects in the path map.
+    public var components: FeatherOpenAPI.Components {
         .init(
             schemas: referencedSchemaMap,
             parameters: referencedParameterMap,

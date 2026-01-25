@@ -1,4 +1,10 @@
 //
+//  PathComponentTests.swift
+//  feather-openapi
+//
+//  Created by Tibor Bodecs on 2026. 01. 22..
+
+//
 //  File.swift
 //
 //
@@ -10,13 +16,13 @@ import Testing
 
 @testable import FeatherOpenAPIKit
 
-fileprivate extension Path {
+extension Path {
 
-    static func star(_ param: String) -> Path {
+    fileprivate static func star(_ param: String) -> Path {
         Path("*" + param + "*")
     }
 
-    static func superstar() -> Path {
+    fileprivate static func superstar() -> Path {
         Path("********")
     }
 }
@@ -26,9 +32,9 @@ private struct ParameterDummy {
     let name: String
 }
 
-fileprivate extension Path {
+extension Path {
 
-    static func parameter(_ param: ParameterDummy) -> Path {
+    fileprivate static func parameter(_ param: ParameterDummy) -> Path {
         parameter(param.name)
     }
 }

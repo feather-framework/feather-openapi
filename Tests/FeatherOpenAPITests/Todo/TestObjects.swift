@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  TestObjects.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 21..
@@ -9,12 +9,11 @@ import FeatherOpenAPI
 import OpenAPIKit30
 
 struct MyPathCollection: PathCollectionRepresentable {
-    
-    
+
     var pathMap: PathMap {
         [
-            "todos": TodoPathItems(),
-//                    "laci": LaciPathItems(),
+            "todos": TodoPathItems()
+                //                    "laci": LaciPathItems(),
         ]
     }
 }
@@ -27,16 +26,16 @@ struct MyInfo: InfoRepresentable {
 struct MyDocument: DocumentRepresentable {
 
     var info: OpenAPIInfoRepresentable
-    
+
     var servers: [any OpenAPIServerRepresentable] {
         [
             TestServer()
         ]
     }
-    
+
     var paths: PathMap
     var components: OpenAPIComponentsRepresentable
-    
+
     init(
         info: OpenAPIInfoRepresentable,
         paths: PathMap,
@@ -56,7 +55,6 @@ struct TestServer: ServerRepresentable {
     var url: any LocationRepresentable { "http://127.0.0.1:8080/" }
 }
 
-
 struct TodoIDField: IntSchemaRepresentable {
     var example: Int? { 1 }
 }
@@ -70,23 +68,23 @@ struct TodoIsCompleteField: BoolSchemaRepresentable {
 }
 
 struct TodoDetailObject: ObjectSchemaRepresentable {
-    
+
     var propertyMap: SchemaMap {
         [
             "id": TodoIDField().reference(),
             "title": TodoTitleField(),
             "isComplete": TodoIsCompleteField(),
-//            "unsafe": UnsafeSchemaReference("asdf"),
+                //            "unsafe": UnsafeSchemaReference("asdf"),
         ]
     }
 
 }
 
 struct TodoCreateRequestBody: RequestBodyRepresentable {
-    
+
     var contentMap: ContentMap {
         [
-            .json: Content(TodoDetailObject().reference()),
+            .json: Content(TodoDetailObject().reference())
         ]
     }
 }
@@ -103,7 +101,7 @@ struct TodoCreateResponse: JSONResponseRepresentable {
 }
 
 struct TodoIdParameter: ParameterRepresentable {
-    
+
     var name: String { "todoId" }
     var context: OpenAPIKit30.OpenAPI.Parameter.Context {
         .path
@@ -134,7 +132,7 @@ struct TodoCreateOperation: OperationRepresentable {
 
     var parameters: [ParameterRepresentable] {
         [
-            TodoIdParameter().reference(),
+            TodoIdParameter().reference()
         ]
     }
 
@@ -144,26 +142,23 @@ struct TodoCreateOperation: OperationRepresentable {
 
     var responseMap: ResponseMap {
         [
-            200: TodoCreateResponse().reference(),
+            200: TodoCreateResponse().reference()
         ]
     }
-    
+
     var security: [any SecurityRequirementRepresentable]? {
         [
             OAuthSecurityRequirement(),
             APIKeySecurityRequirement(),
         ]
     }
-    
+
     var servers: [any ServerRepresentable]? {
         [
             TestServer()
         ]
     }
 }
-
-
-
 
 struct TodoPathItems: PathItemRepresentable {
     var post: OperationRepresentable? = TodoCreateOperation()
@@ -177,7 +172,7 @@ struct OAuthSecurityScheme: SecuritySchemeRepresentable {
 }
 
 struct OAuthSecurityRequirement: SecurityRequirementRepresentable {
-    
+
     var security: any SecuritySchemeRepresentable = OAuthSecurityScheme()
     var requirements: [String] = ["read"]
 }

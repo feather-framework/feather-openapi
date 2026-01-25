@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  DoubleSchemaRepresentable.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 22..
@@ -7,6 +7,7 @@
 
 import OpenAPIKit30
 
+/// Schema representation for double values.
 public protocol DoubleSchemaRepresentable:
     SchemaRepresentable,
     ExampleProperty,
@@ -17,12 +18,14 @@ where
     DefaultValuePropertyType == Double,
     AllowedValuesPropertyType == Double
 {
-    
+
 }
 
-public extension DoubleSchemaRepresentable {
+extension DoubleSchemaRepresentable {
 
-    func openAPISchema() -> JSONSchema {
+    /// Builds a double JSON schema.
+    /// - Returns: The JSON schema.
+    public func openAPISchema() -> JSONSchema {
         .number(
             format: .double,
             required: `required`,

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  FloatSchemaRepresentable.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 22..
@@ -7,6 +7,7 @@
 
 import OpenAPIKit30
 
+/// Schema representation for float values.
 public protocol FloatSchemaRepresentable:
     SchemaRepresentable,
     ExampleProperty,
@@ -17,12 +18,14 @@ where
     DefaultValuePropertyType == Float,
     AllowedValuesPropertyType == Float
 {
-    
+
 }
 
-public extension FloatSchemaRepresentable {
+extension FloatSchemaRepresentable {
 
-    func openAPISchema() -> JSONSchema {
+    /// Builds a float JSON schema.
+    /// - Returns: The JSON schema.
+    public func openAPISchema() -> JSONSchema {
         .number(
             format: .float,
             required: `required`,
@@ -42,4 +45,3 @@ public extension FloatSchemaRepresentable {
         )
     }
 }
-

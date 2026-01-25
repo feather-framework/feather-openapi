@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  ExampleRepresentable.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 21..
@@ -7,23 +7,32 @@
 
 import OpenAPIKit30
 
+/// Describes an OpenAPI example with defaults.
 public protocol ExampleRepresentable:
     OpenAPIExampleRepresentable,
     Identifiable,
     DescriptionProperty,
     VendorExtensionsProperty
 {
+    /// Short summary of the example.
     var summary: String? { get }
+    /// Example payload value.
     var value: AnyCodable { get }
 }
 
-public extension ExampleRepresentable {
+extension ExampleRepresentable {
 
-    func reference() -> ExampleReference<Self> {
+    /// Creates a reference wrapper for this example.
+    /// - Returns: An example reference.
+    public func reference() -> ExampleReference<Self> {
         .init(self)
     }
-    
-    func openAPIExample() -> Either<JSONReference<OpenAPI.Example>, OpenAPI.Example> {
+
+    /// Builds an OpenAPI example object or reference.
+    /// - Returns: The OpenAPI example representation.
+    public func openAPIExample() -> Either<
+        JSONReference<OpenAPI.Example>, OpenAPI.Example
+    > {
         .init(
             .init(
                 summary: summary,

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  PathParameterRepresentable.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 23..
@@ -7,11 +7,13 @@
 
 import OpenAPIKit30
 
+/// Parameter located in the path.
 public protocol PathParameterRepresentable: ParameterRepresentable {
-    
+
 }
 
-public extension PathParameterRepresentable {
+extension PathParameterRepresentable {
 
-    var context: OpenAPI.Parameter.Context { .path }
+    /// Path parameter context.
+    public var context: OpenAPI.Parameter.Context { .path }
 }

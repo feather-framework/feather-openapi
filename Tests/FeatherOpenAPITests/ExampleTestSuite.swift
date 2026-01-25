@@ -1,4 +1,10 @@
 //
+//  ExampleTestSuite.swift
+//  feather-openapi
+//
+//  Created by Tibor Bodecs on 2026. 01. 25..
+
+//
 //  File.swift
 //
 //
@@ -9,12 +15,10 @@ import Foundation
 import OpenAPIKit
 import OpenAPIKit30
 import OpenAPIKitCompat
-import Yams
 import Testing
+import Yams
 
 @testable import FeatherOpenAPI
-
-
 
 @Suite
 struct ExampleTestSuite {
@@ -26,7 +30,7 @@ struct ExampleTestSuite {
 
         let openAPIdoc = document.openAPIDocument()
         _ = try openAPIdoc.locallyDereferenced().resolved()
-        
+
         let encoder = YAMLEncoder()
         let result = try encoder.encode(openAPIdoc)
         print("---- 3.0 ----")
@@ -37,10 +41,10 @@ struct ExampleTestSuite {
     func duplicatedItem() throws {
 
         let document = ExampleDuplicatedItemDocument()
-        
+
         let openAPIdoc = document.openAPIDocument()
         _ = try openAPIdoc.locallyDereferenced().resolved()
-        
+
         let encoder = YAMLEncoder()
         let result = try encoder.encode(openAPIdoc)
         print("---- 3.0 ----")
@@ -54,7 +58,7 @@ struct ExampleTestSuite {
 
         let openAPIdoc = document.openAPIDocument()
         _ = try openAPIdoc.locallyDereferenced().resolved()
-        
+
         let encoder = YAMLEncoder()
         let result = try encoder.encode(openAPIdoc)
         print("---- 3.0 ----")

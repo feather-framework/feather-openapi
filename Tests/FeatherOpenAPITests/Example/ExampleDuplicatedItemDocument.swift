@@ -1,4 +1,10 @@
 //
+//  ExampleDuplicatedItemDocument.swift
+//  feather-openapi
+//
+//  Created by Tibor Bodecs on 2026. 01. 25..
+
+//
 //  File.swift
 //
 //
@@ -28,7 +34,9 @@ struct ExampleDuplicatedItemServer: ServerRepresentable {
 
 struct ExampleDuplicatedItemDocument: DocumentRepresentable {
     var info: OpenAPIInfoRepresentable { ExampleDuplicatedItemInfo() }
-    var servers: [OpenAPIServerRepresentable] { [ExampleDuplicatedItemServer()] }
+    var servers: [OpenAPIServerRepresentable] {
+        [ExampleDuplicatedItemServer()]
+    }
     var paths: PathMap { [:] }
     var components: OpenAPIComponentsRepresentable {
         let idSchema = ExampleDuplicatedItem.Model.IdSchema()

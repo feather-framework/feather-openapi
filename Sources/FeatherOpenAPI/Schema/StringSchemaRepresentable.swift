@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  StringSchemaRepresentable.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 22..
@@ -7,6 +7,7 @@
 
 import OpenAPIKit30
 
+/// Schema representation for string values.
 public protocol StringSchemaRepresentable:
     SchemaRepresentable,
     ExampleProperty,
@@ -17,12 +18,14 @@ where
     DefaultValuePropertyType == String,
     AllowedValuesPropertyType == String
 {
-    
+
 }
 
-public extension StringSchemaRepresentable {
+extension StringSchemaRepresentable {
 
-    func openAPISchema() -> JSONSchema {
+    /// Builds a string JSON schema.
+    /// - Returns: The JSON schema.
+    public func openAPISchema() -> JSONSchema {
         .string(
             format: .generic,
             required: `required`,
@@ -42,4 +45,3 @@ public extension StringSchemaRepresentable {
         )
     }
 }
-

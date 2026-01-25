@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  RequestBodyRepresentable.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 22..
@@ -7,6 +7,7 @@
 
 import OpenAPIKit30
 
+/// Describes an OpenAPI request body with defaults.
 public protocol RequestBodyRepresentable:
     Identifiable,
     OpenAPIRequestBodyRepresentable,
@@ -16,16 +17,23 @@ public protocol RequestBodyRepresentable:
     // reference
     ReferencedSchemaMapRepresentable
 {
+    /// Map of request body content by content type.
     var contentMap: ContentMap { get }
 }
 
-public extension RequestBodyRepresentable {
-    
-    func reference() -> RequestBodyReference<Self> {
+extension RequestBodyRepresentable {
+
+    /// Creates a reference wrapper for this request body.
+    /// - Returns: A request body reference.
+    public func reference() -> RequestBodyReference<Self> {
         .init(self)
     }
 
-    func openAPIRequestBody() -> Either<JSONReference<OpenAPI.Request>, OpenAPI.Request> {
+    /// Builds an OpenAPI request body object or reference.
+    /// - Returns: The OpenAPI request body representation.
+    public func openAPIRequestBody() -> Either<
+        JSONReference<OpenAPI.Request>, OpenAPI.Request
+    > {
         .init(
             .init(
                 description: description,
@@ -35,8 +43,11 @@ public extension RequestBodyRepresentable {
             )
         )
     }
-    
-    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+
+    /// Aggregated referenced schemas from the content map.
+    public var referencedSchemaMap:
+        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+    {
         var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
         for content in contentMap.values {
             results.merge(content.referencedSchemaMap)

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Pet+Operations.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 22..
@@ -17,12 +17,12 @@ extension Petstore.Pet {
         var operationId: String? { "updatePet" }
         var parameters: [ParameterRepresentable] {
             [
-                IdParameter().reference(),
+                IdParameter().reference()
             ]
         }
         var responseMap: ResponseMap {
             [
-                200: DetailResponse().reference(),
+                200: DetailResponse().reference()
             ]
         }
     }

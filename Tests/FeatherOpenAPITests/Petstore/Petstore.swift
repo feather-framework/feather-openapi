@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Petstore.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 22..
@@ -21,7 +21,9 @@ struct PetstoreContact: ContactRepresentable {
 struct PetstoreLicense: LicenseRepresentable {
     var name: String { "Apache 2.0" }
     var url: LocationRepresentable? {
-        PetstoreLocation(location: "https://www.apache.org/licenses/LICENSE-2.0.html")
+        PetstoreLocation(
+            location: "https://www.apache.org/licenses/LICENSE-2.0.html"
+        )
     }
 }
 

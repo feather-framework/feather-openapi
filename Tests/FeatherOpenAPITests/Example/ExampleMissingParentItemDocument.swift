@@ -1,4 +1,10 @@
 //
+//  ExampleMissingParentItemDocument.swift
+//  feather-openapi
+//
+//  Created by Tibor Bodecs on 2026. 01. 25..
+
+//
 //  File.swift
 //
 //
@@ -28,7 +34,9 @@ struct ExampleMissingParentItemServer: ServerRepresentable {
 
 struct ExampleMissingParentItemItemDocument: DocumentRepresentable {
     var info: OpenAPIInfoRepresentable { ExampleMissingParentItemInfo() }
-    var servers: [OpenAPIServerRepresentable] { [ExampleMissingParentItemServer()] }
+    var servers: [OpenAPIServerRepresentable] {
+        [ExampleMissingParentItemServer()]
+    }
     var paths: PathMap { [:] }
     var components: OpenAPIComponentsRepresentable {
         let idSchema = ExampleMissingParentItem.Model.IdSchema()

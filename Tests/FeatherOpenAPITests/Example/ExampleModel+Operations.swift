@@ -1,4 +1,10 @@
 //
+//  ExampleModel+Operations.swift
+//  feather-openapi
+//
+//  Created by Tibor Bodecs on 2026. 01. 25..
+
+//
 //  File.swift
 //
 //
@@ -17,7 +23,7 @@ extension Example.Model {
         var parameters: [ParameterRepresentable] {
             [
                 IdParameter().reference(),
-                CustomRequestHeaderParameter().reference()
+                CustomRequestHeaderParameter().reference(),
             ]
         }
         var responseMap: ResponseMap {

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  ObjectSchemaRepresentable.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 22..
@@ -7,18 +7,22 @@
 
 import OpenAPIKit30
 
+/// Schema representation for objects.
 public protocol ObjectSchemaRepresentable:
     SchemaRepresentable,
     ExampleProperty
 where
     ExamplePropertyType == AnyCodable
 {
+    /// Map of property names to schemas.
     var propertyMap: SchemaMap { get }
 }
 
-public extension ObjectSchemaRepresentable {
+extension ObjectSchemaRepresentable {
 
-    func openAPISchema() -> JSONSchema {
+    /// Builds an object JSON schema.
+    /// - Returns: The JSON schema.
+    public func openAPISchema() -> JSONSchema {
         .object(
             format: .generic,
             required: `required`,
@@ -38,8 +42,11 @@ public extension ObjectSchemaRepresentable {
             example: example
         )
     }
-    
-    var referencedSchemaMap: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+
+    /// Referenced schemas used by object properties.
+    public var referencedSchemaMap:
+        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+    {
         var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
         for (_, value) in propertyMap {
             results.merge(value.referencedSchemaMap)

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  IntSchemaRepresentable.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 22..
@@ -7,6 +7,7 @@
 
 import OpenAPIKit30
 
+/// Schema representation for integer values.
 public protocol IntSchemaRepresentable:
     SchemaRepresentable,
     ExampleProperty,
@@ -17,12 +18,14 @@ where
     DefaultValuePropertyType == Int,
     AllowedValuesPropertyType == Int
 {
-    
+
 }
 
-public extension IntSchemaRepresentable {
+extension IntSchemaRepresentable {
 
-    func openAPISchema() -> JSONSchema {
+    /// Builds an integer JSON schema.
+    /// - Returns: The JSON schema.
+    public func openAPISchema() -> JSONSchema {
         .integer(
             format: .unspecified,
             required: `required`,
