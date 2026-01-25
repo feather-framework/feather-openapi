@@ -12,17 +12,21 @@ public protocol Identifiable: Sendable {
 public extension Identifiable {
 
     var openAPIIdentifier: String {
-        String(describing: type(of: self))
+        let name = String(reflecting: type(of: self))
+        var components = name.split(separator: ".")
+        if components.count > 1 {
+            components.remove(at: 0)  // remove namespace if present
+        }
+        let identifier = components
+            .joined(separator: "")
+            .replacing("()", with: "")
+            .replacing("GenericComponent", with: "Generic")
+
+        return identifier
     }
 }
 
 
-//static var id: String {
-//    var components = String(reflecting: self).split(separator: ".")
-//    components.remove(at: 0)  // remove namespace
-//    components.remove(at: 2)  // remove enum name
-//    return
-//        components
-//        .joined(separator: "")
-//        .replacing("GenericComponent", with: "Generic")
-//}
+
+
+
