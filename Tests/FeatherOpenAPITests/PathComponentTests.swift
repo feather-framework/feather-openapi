@@ -2,7 +2,7 @@
 //  PathComponentTests.swift
 //  feather-openapi
 //
-//  Created by Tibor Bodecs on 2026. 01. 22..
+//  Created by Tibor Bödecs on 2026. 01. 22..
 
 import Foundation
 import Testing

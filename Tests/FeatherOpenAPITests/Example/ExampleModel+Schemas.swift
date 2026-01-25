@@ -2,7 +2,7 @@
 //  ExampleModel+Schemas.swift
 //  feather-openapi
 //
-//  Created by Tibor Bodecs on 2026. 01. 25..
+//  Created by Tibor Bödecs on 2026. 01. 25..
 
 import FeatherOpenAPI
 import OpenAPIKit30
