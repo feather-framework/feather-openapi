@@ -30,7 +30,9 @@ extension Petstore.User {
     struct CreateWithListOperation: OperationRepresentable {
         var tags: [TagRepresentable] { [UserTag()] }
         var summary: String? { "Creates list of users with given input array." }
-        var description: String? { "Creates list of users with given input array." }
+        var description: String? {
+            "Creates list of users with given input array."
+        }
         var operationId: String? { "createUsersWithListInput" }
         var requestBody: RequestBodyRepresentable? {
             CreateWithListRequestBody()
@@ -58,7 +60,9 @@ extension Petstore.User {
         var responseMap: ResponseMap {
             [
                 200: LoginResponse(),
-                400: EmptyResponse(description: "Invalid username/password supplied"),
+                400: EmptyResponse(
+                    description: "Invalid username/password supplied"
+                ),
                 .default:
                     EmptyResponse(description: "Unexpected error"),
             ]

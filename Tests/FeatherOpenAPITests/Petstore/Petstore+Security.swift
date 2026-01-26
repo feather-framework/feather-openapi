@@ -5,17 +5,17 @@
 //  Created by Tibor Bödecs on 2026. 01. 22..
 //
 
+import FeatherOpenAPI
+import OpenAPIKit30
+
 #if canImport(FoundationEssentials)
 import FoundationEssentials
 #else
 import Foundation
 #endif
 
-import FeatherOpenAPI
-import OpenAPIKit30
-
 struct PetstoreAuthSecurityScheme: SecuritySchemeRepresentable {
-    
+
     var type: OpenAPI.SecurityScheme.SecurityType {
         .oauth2(
             flows: .init(
