@@ -4,7 +4,6 @@
 //
 //  Created by Tibor Bödecs on 2026. 01. 25..
 
-import Foundation
 import OpenAPIKit
 import OpenAPIKit30
 import OpenAPIKitCompat

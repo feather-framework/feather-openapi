@@ -158,8 +158,6 @@ extension ComponentsRepresentable {
         -> OpenAPI.ComponentDictionary<OpenAPI.SecurityScheme>
     {
         var result: OpenAPI.ComponentDictionary<OpenAPI.SecurityScheme> = [:]
-
-        print(securityRequirements)
         for requirement in securityRequirements {
             let scheme = requirement.security
             result[.init(stringLiteral: scheme.openAPIIdentifier)] =

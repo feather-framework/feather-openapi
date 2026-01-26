@@ -12,17 +12,40 @@ extension Petstore.Store {
 
     struct OrderIdSchema: Int64SchemaRepresentable {
         var example: Int64? { 10 }
+        var required: Bool { false }
     }
 
     struct OrderPetIdSchema: Int64SchemaRepresentable {
         var example: Int64? { 198772 }
+        var required: Bool { false }
     }
 
     struct OrderQuantitySchema: Int32SchemaRepresentable {
         var example: Int32? { 7 }
+        var required: Bool { false }
     }
 
-    struct OrderShipDateSchema: StringSchemaRepresentable {
+    struct OrderShipDateSchema: SchemaRepresentable {
+        var required: Bool { false }
+        func openAPISchema() -> JSONSchema {
+            .string(
+                format: .dateTime,
+                required: `required`,
+                nullable: nullable,
+                permissions: nil,
+                deprecated: deprecated,
+                title: title,
+                description: description,
+                discriminator: nil,
+                externalDocs: nil,
+                minLength: nil,
+                maxLength: nil,
+                pattern: nil,
+                allowedValues: nil,
+                defaultValue: nil,
+                example: nil
+            )
+        }
     }
 
     struct OrderStatusSchema: StringSchemaRepresentable {
@@ -35,12 +58,15 @@ extension Petstore.Store {
             ]
         }
         var example: String? { "approved" }
+        var required: Bool { false }
     }
 
     struct OrderCompleteSchema: BoolSchemaRepresentable {
+        var required: Bool { false }
     }
 
     struct OrderSchema: ObjectSchemaRepresentable {
+        var openAPIIdentifier: String { "Order" }
         var propertyMap: SchemaMap {
             [
                 "id": OrderIdSchema(),
@@ -51,5 +77,33 @@ extension Petstore.Store {
                 "complete": OrderCompleteSchema(),
             ]
         }
+    }
+
+    struct InventorySchema: SchemaRepresentable {
+        func openAPISchema() -> JSONSchema {
+            .object(
+                format: .generic,
+                required: `required`,
+                nullable: nullable,
+                permissions: nil,
+                deprecated: deprecated,
+                title: title,
+                description: description,
+                discriminator: nil,
+                externalDocs: nil,
+                minProperties: nil,
+                maxProperties: nil,
+                properties: [:],
+                additionalProperties: .schema(
+                    InventoryQuantitySchema().openAPISchema()
+                ),
+                allowedValues: nil,
+                defaultValue: nil,
+                example: nil
+            )
+        }
+    }
+
+    struct InventoryQuantitySchema: Int32SchemaRepresentable {
     }
 }

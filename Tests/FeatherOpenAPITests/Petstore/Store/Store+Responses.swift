@@ -1,5 +1,5 @@
 //
-//  Pet+Responses.swift
+//  Store+Responses.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 22..
@@ -8,35 +8,32 @@
 import FeatherOpenAPI
 import OpenAPIKit30
 
-extension Petstore.Pet {
+extension Petstore.Store {
 
-    struct PetResponse: ResponseRepresentable {
+    struct OrderResponse: ResponseRepresentable {
         let description: String
         var contentMap: ContentMap {
             [
-                .json: Content(PetSchema().reference()),
-                .xml: Content(PetSchema().reference()),
+                .json: Content(OrderSchema().reference()),
+                .xml: Content(OrderSchema().reference()),
             ]
         }
     }
 
-    struct PetListResponse: ResponseRepresentable {
+    struct OrderJSONResponse: ResponseRepresentable {
         let description: String
         var contentMap: ContentMap {
             [
-                .json: Content(PetListSchema()),
-                .xml: Content(PetListSchema()),
+                .json: Content(OrderSchema().reference())
             ]
         }
     }
 
-    struct ApiResponseJSONResponse: ResponseRepresentable {
+    struct InventoryResponse: ResponseRepresentable {
         let description: String
         var contentMap: ContentMap {
             [
-                .json: Content(
-                    Petstore.ApiResponse.ApiResponseSchema().reference()
-                )
+                .json: Content(InventorySchema())
             ]
         }
     }

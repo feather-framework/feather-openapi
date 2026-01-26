@@ -5,9 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 22..
 //
 
-import Foundation
 import OpenAPIKit30
-import OpenAPIKitCore
 import Testing
 import Yams
 
@@ -22,11 +20,11 @@ struct PetstoreTestSuite {
         let document = PetstoreDocument()
 
         let encoder = YAMLEncoder()
-        let openAPIDocument = document.openAPIDocument()
+        let openAPIdoc = document.openAPIDocument()
 
         do {
             _ =
-                try openAPIDocument
+                try openAPIdoc
                 .locallyDereferenced()
                 .resolved()
         }
@@ -35,8 +33,8 @@ struct PetstoreTestSuite {
             return
         }
 
-        let output = try encoder.encode(openAPIDocument)
-
-        print(output)
+        let result = try encoder.encode(openAPIdoc)
+        print("---- 3.0 ----")
+        print(result)
     }
 }

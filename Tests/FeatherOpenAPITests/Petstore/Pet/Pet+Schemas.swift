@@ -12,6 +12,7 @@ extension Petstore.Pet {
 
     struct IdSchema: Int64SchemaRepresentable {
         var example: Int64? { 10 }
+        var required: Bool { false }
     }
 
     struct NameSchema: StringSchemaRepresentable {
@@ -27,7 +28,7 @@ extension Petstore.Pet {
 
     struct TagsSchema: ArraySchemaRepresentable {
         var required: Bool { false }
-        var items: SchemaRepresentable? { Petstore.Tag.TagSchema() }
+        var items: SchemaRepresentable? { Petstore.Tag.TagSchema().reference() }
     }
 
     struct StatusSchema: StringSchemaRepresentable {
@@ -39,19 +40,59 @@ extension Petstore.Pet {
                 "sold",
             ]
         }
+        var required: Bool { false }
     }
 
-    struct Schema: ObjectSchemaRepresentable {
+    struct PetSchema: ObjectSchemaRepresentable {
+        var openAPIIdentifier: String { "Pet" }
         var propertyMap: SchemaMap {
             [
-                "id": IdSchema().reference(required: false),
+                "id": IdSchema(),
                 "name": NameSchema(),
                 "category": Petstore.Category.CategorySchema()
                     .reference(required: false),
                 "photoUrls": PhotoUrlsSchema(),
                 "tags": TagsSchema(),
-                "status": StatusSchema().reference(required: false),
+                "status": StatusSchema(),
             ]
         }
+    }
+
+    struct PetListSchema: ArraySchemaRepresentable {
+        var items: SchemaRepresentable? { PetSchema().reference() }
+    }
+
+    struct StatusQuerySchema: StringSchemaRepresentable {
+        var defaultValue: String? { "available" }
+        var allowedValues: [String]? {
+            [
+                "available",
+                "pending",
+                "sold",
+            ]
+        }
+    }
+
+    struct TagsQueryItemSchema: StringSchemaRepresentable {
+    }
+
+    struct TagsQuerySchema: ArraySchemaRepresentable {
+        var items: SchemaRepresentable? { TagsQueryItemSchema() }
+    }
+
+    struct UpdateNameSchema: StringSchemaRepresentable {
+        var required: Bool { false }
+    }
+
+    struct UpdateStatusSchema: StringSchemaRepresentable {
+        var required: Bool { false }
+    }
+
+    struct AdditionalMetadataSchema: StringSchemaRepresentable {
+        var required: Bool { false }
+    }
+
+    struct ApiKeySchema: StringSchemaRepresentable {
+        var required: Bool { false }
     }
 }

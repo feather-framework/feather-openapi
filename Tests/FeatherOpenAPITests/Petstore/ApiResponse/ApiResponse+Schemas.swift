@@ -11,15 +11,19 @@ import OpenAPIKit30
 extension Petstore.ApiResponse {
 
     struct CodeSchema: Int32SchemaRepresentable {
+        var required: Bool { false }
     }
 
     struct ResponseTypeSchema: StringSchemaRepresentable {
+        var required: Bool { false }
     }
 
     struct MessageSchema: StringSchemaRepresentable {
+        var required: Bool { false }
     }
 
     struct ApiResponseSchema: ObjectSchemaRepresentable {
+        var openAPIIdentifier: String { "ApiResponse" }
         var propertyMap: SchemaMap {
             [
                 "code": CodeSchema(),
