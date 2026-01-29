@@ -1,0 +1,30 @@
+//
+//  ExampleModel+Responses.swift
+//  feather-openapi
+//
+//  Created by Tibor Bödecs on 2026. 01. 25..
+
+import FeatherOpenAPI
+import OpenAPIKit30
+
+extension Example.Model {
+
+    struct CustomResponse: ResponseRepresentable {
+        var description: String { "Example" }
+        var contentMap: ContentMap {
+            [
+                .xml: Content(DetailSchema().reference())
+            ]
+        }
+    }
+
+    struct DetailResponse: JSONResponseRepresentable {
+        var description: String { "Example" }
+        var schema: SchemaReference<DetailSchema> { DetailSchema().reference() }
+        var headerMap: HeaderMap {
+            [
+                "X-Custom-Response-Header": CustomResponseHeader().reference()
+            ]
+        }
+    }
+}
