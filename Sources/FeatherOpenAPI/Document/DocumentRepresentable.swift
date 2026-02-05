@@ -38,7 +38,18 @@ extension DocumentRepresentable {
 
     /// Collects all tags referenced by the document.
     public var referencedTags: [OpenAPITagRepresentable] {
-        paths.values.map { $0.referencedTags }.flatMap { $0 }
+        var seen = Set<String>()
+        return paths.values
+            .map { $0.referencedTags }
+            .flatMap { $0 }
+            .filter { tag in
+                let name = tag.openAPITag().name
+                if seen.contains(name) {
+                    return false
+                }
+                seen.insert(name)
+                return true
+            }
     }
 
     /// Collects all security requirements referenced by the document.

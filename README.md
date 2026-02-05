@@ -3,9 +3,9 @@
 The FeatherOpenAPI library makes it easy to define OpenAPI specifications using Swift in a type-safe way.
 
 [
-    ![Release: 1.0.0-beta.2](https://img.shields.io/badge/Release-1%2E0%2E0--beta%2E2-F05138)
+    ![Release: 1.0.0-beta.3](https://img.shields.io/badge/Release-1%2E0%2E0--beta%2E3-F05138)
 ](
-    https://github.com/feather-framework/feather-openapi/releases/tag/1.0.0-beta.2
+    https://github.com/feather-framework/feather-openapi/releases/tag/1.0.0-beta.3
 )
 
 ## Features
@@ -34,7 +34,7 @@ The FeatherOpenAPI library makes it easy to define OpenAPI specifications using 
 Use Swift Package Manager; add the dependency to your `Package.swift` file:
 
 ```swift
-.package(url: "https://github.com/feather-framework/feather-openapi", exact: "1.0.0-beta.2"),
+.package(url: "https://github.com/feather-framework/feather-openapi", exact: "1.0.0-beta.3"),
 ```
 
 Then add `FeatherOpenAPI` to your target dependencies:
