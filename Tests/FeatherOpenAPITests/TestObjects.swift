@@ -189,3 +189,61 @@ struct APIKeySecurityRequirement: SecurityRequirementRepresentable {
 
     var security: any SecuritySchemeRepresentable = APIKeySecurityScheme()
 }
+
+// MARK: -
+
+struct TagDedupInfo: InfoRepresentable {
+    var title: String { "Tag Dedup Test" }
+    var version: String { "1.0.0" }
+}
+
+struct TagDedupDocument: DocumentRepresentable {
+    var info: OpenAPIInfoRepresentable
+    var paths: PathMap
+    var components: OpenAPIComponentsRepresentable
+}
+
+struct TagDedupPaths: PathCollectionRepresentable {
+    var pathMap: PathMap {
+        [
+            "dogs": TagDedupDogPathItem()
+        ]
+    }
+}
+
+struct TagDedupDogPathItem: PathItemRepresentable {
+    var get: OperationRepresentable? { TagDedupListDogsOperation() }
+    var post: OperationRepresentable? { TagDedupCreateDogOperation() }
+}
+
+struct TagDedupDogTag: TagRepresentable {
+    var name: String = "Dogs"
+    var description: String? = "Manage dogs."
+}
+
+struct TagDedupDogSchema: StringSchemaRepresentable {
+    var example: String? = "Hachi"
+}
+
+struct TagDedupDogResponse: JSONResponseRepresentable {
+    var description: String = "Dog response"
+    var schema: TagDedupDogSchema = TagDedupDogSchema()
+}
+
+struct TagDedupListDogsOperation: OperationRepresentable {
+    var tags: [TagRepresentable] { [TagDedupDogTag()] }
+    var responseMap: ResponseMap {
+        [
+            200: TagDedupDogResponse().reference()
+        ]
+    }
+}
+
+struct TagDedupCreateDogOperation: OperationRepresentable {
+    var tags: [TagRepresentable] { [TagDedupDogTag()] }
+    var responseMap: ResponseMap {
+        [
+            200: TagDedupDogResponse().reference()
+        ]
+    }
+}

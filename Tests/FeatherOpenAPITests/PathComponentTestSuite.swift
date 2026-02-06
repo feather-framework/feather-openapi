@@ -1,5 +1,5 @@
 //
-//  PathComponentTests.swift
+//  PathComponentTestSuite.swift
 //  feather-openapi
 //
 //  Created by Tibor Bödecs on 2026. 01. 22..
@@ -32,7 +32,7 @@ extension Path {
 }
 
 @Suite
-struct PathComponentTests {
+struct PathComponentTestSuite {
 
     @Test
     func doesNotCompile() {

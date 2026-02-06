@@ -1,8 +1,9 @@
 //
-//  TodoTestSuite.swift
+//  FeatherOpenAPITestSuite.swift
 //  feather-openapi
 //
-//  Created by Tibor Bödecs on 2026. 01. 25..
+//  Created by Tibor Bödecs on 2026. 02. 05..
+//
 
 import OpenAPIKit
 import OpenAPIKit30
@@ -13,10 +14,24 @@ import Yams
 @testable import FeatherOpenAPI
 
 @Suite
-struct TodoTestSuite {
+struct FeatherOpenAPITestSuite {
 
     @Test
-    func example() throws {
+    func documentDeduplicatesTagsByName() {
+        let document = TagDedupDocument(
+            info: TagDedupInfo(),
+            paths: TagDedupPaths().pathMap,
+            components: Components()
+        )
+
+        let openAPIDoc = document.openAPIDocument()
+        let tags = openAPIDoc.tags ?? []
+
+        #expect(tags.map(\.name) == ["Dogs"])
+    }
+
+    @Test
+    func multipleVersions() throws {
 
         let collection = MyPathCollection()
         //        collection.components.schemas.register(id: "", TodoFieldId())
