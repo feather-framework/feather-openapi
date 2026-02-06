@@ -192,7 +192,6 @@ struct APIKeySecurityRequirement: SecurityRequirementRepresentable {
 
 // MARK: -
 
-
 struct TagDedupInfo: InfoRepresentable {
     var title: String { "Tag Dedup Test" }
     var version: String { "1.0.0" }
@@ -248,4 +247,3 @@ struct TagDedupCreateDogOperation: OperationRepresentable {
         ]
     }
 }
-
