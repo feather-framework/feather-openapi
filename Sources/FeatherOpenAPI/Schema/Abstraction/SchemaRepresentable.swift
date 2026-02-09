@@ -30,7 +30,7 @@ extension SchemaRepresentable {
     public func reference(
         required: Bool = true
     ) -> SchemaReference<Self> {
-        .init(self)
+        .init(self, required: required)
     }
 
     /// Default deprecated flag is `nil`.

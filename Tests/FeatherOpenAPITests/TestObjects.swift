@@ -73,8 +73,8 @@ struct TodoDetailObject: ObjectSchemaRepresentable {
         [
             "id": TodoIDField().reference(),
             "title": TodoTitleField(),
-            "isComplete": TodoIsCompleteField(),
-                //            "unsafe": UnsafeSchemaReference("asdf"),
+            "isComplete": TodoIsCompleteField().reference(required: false),
+            //            "unsafe": UnsafeSchemaReference("asdf"),
         ]
     }
 
