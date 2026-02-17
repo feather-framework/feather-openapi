@@ -56,7 +56,20 @@ extension DocumentRepresentable {
     public var referencedSecurityRequirements:
         [SecurityRequirementRepresentable]
     {
-        paths.values.map { $0.referencedSecurityRequirements }.flatMap { $0 }
+        var seen = Set<String>()
+        return paths.values
+            .map { $0.referencedSecurityRequirements }
+            .flatMap { $0 }
+            .filter { requirement in
+                let requirementID =
+                    requirement.security.openAPIIdentifier + "::"
+                    + requirement.requirements.sorted().joined(separator: ",")
+                if seen.contains(requirementID) {
+                    return false
+                }
+                seen.insert(requirementID)
+                return true
+            }
     }
 
     /// Builds an OpenAPI document from the representable values.

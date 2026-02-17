@@ -247,3 +247,81 @@ struct TagDedupCreateDogOperation: OperationRepresentable {
         ]
     }
 }
+
+// MARK: -
+
+struct SecurityRequirementDedupInfo: InfoRepresentable {
+    var title: String { "Security Requirement Dedup Test" }
+    var version: String { "1.0.0" }
+}
+
+struct SecurityRequirementDedupDocument: DocumentRepresentable {
+    var info: OpenAPIInfoRepresentable
+    var paths: PathMap
+    var components: OpenAPIComponentsRepresentable
+}
+
+struct SecurityRequirementDedupPaths: PathCollectionRepresentable {
+    var pathMap: PathMap {
+        [
+            "cats": SecurityRequirementDedupCatPathItem()
+        ]
+    }
+}
+
+struct SecurityRequirementDedupCatPathItem: PathItemRepresentable {
+    var get: OperationRepresentable? {
+        SecurityRequirementDedupListCatsOperation()
+    }
+    var post: OperationRepresentable? {
+        SecurityRequirementDedupCreateCatOperation()
+    }
+}
+
+struct SecurityRequirementDedupBearerTokenScheme: SecuritySchemeRepresentable {
+    var type: OpenAPI.SecurityScheme.SecurityType {
+        .http(
+            scheme: "bearer",
+            bearerFormat: "token"
+        )
+    }
+}
+
+struct SecurityRequirementDedupBearerTokenRequirement:
+    SecurityRequirementRepresentable
+{
+    var security: any SecuritySchemeRepresentable {
+        SecurityRequirementDedupBearerTokenScheme()
+    }
+}
+
+struct SecurityRequirementDedupCatSchema: StringSchemaRepresentable {
+    var example: String? = "Milo"
+}
+
+struct SecurityRequirementDedupCatResponse: JSONResponseRepresentable {
+    var description: String = "Cat response"
+    var schema: SecurityRequirementDedupCatSchema = .init()
+}
+
+struct SecurityRequirementDedupListCatsOperation: OperationRepresentable {
+    var security: [SecurityRequirementRepresentable]? {
+        [SecurityRequirementDedupBearerTokenRequirement()]
+    }
+    var responseMap: ResponseMap {
+        [
+            200: SecurityRequirementDedupCatResponse().reference()
+        ]
+    }
+}
+
+struct SecurityRequirementDedupCreateCatOperation: OperationRepresentable {
+    var security: [SecurityRequirementRepresentable]? {
+        [SecurityRequirementDedupBearerTokenRequirement()]
+    }
+    var responseMap: ResponseMap {
+        [
+            200: SecurityRequirementDedupCatResponse().reference()
+        ]
+    }
+}
