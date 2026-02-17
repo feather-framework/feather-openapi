@@ -31,6 +31,20 @@ struct FeatherOpenAPITestSuite {
     }
 
     @Test
+    func documentDeduplicatesSecurityRequirementsBySchemeAndRequirements() {
+        let document = SecurityRequirementDedupDocument(
+            info: SecurityRequirementDedupInfo(),
+            paths: SecurityRequirementDedupPaths().pathMap,
+            components: Components()
+        )
+
+        let openAPIDoc = document.openAPIDocument()
+        let security = openAPIDoc.security
+
+        #expect(security.count == 1)
+    }
+
+    @Test
     func multipleVersions() throws {
 
         let collection = MyPathCollection()
