@@ -35,8 +35,8 @@ extension BoolSchemaRepresentable {
             discriminator: nil,
             externalDocs: nil,
             allowedValues: nil,
-            defaultValue: .init(defaultValue),
-            example: .init(example)
+            defaultValue: defaultValue.map { .init($0) },
+            example: example.map { .init($0) }
         )
     }
 }
