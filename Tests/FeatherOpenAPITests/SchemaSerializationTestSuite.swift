@@ -9,7 +9,8 @@ struct SchemaSerializationTestSuite {
 
     @Test
     func omittedStringDefaultAndExampleDoNotSerializeAsNull() throws {
-        let yaml = try YAMLEncoder().encode(OmittedStringSchema().openAPISchema())
+        let yaml = try YAMLEncoder()
+            .encode(OmittedStringSchema().openAPISchema())
         #expect(yaml.contains("default: null") == false)
         #expect(yaml.contains("example: null") == false)
     }
@@ -23,28 +24,32 @@ struct SchemaSerializationTestSuite {
 
     @Test
     func omittedInt32DefaultAndExampleDoNotSerializeAsNull() throws {
-        let yaml = try YAMLEncoder().encode(OmittedInt32Schema().openAPISchema())
+        let yaml = try YAMLEncoder()
+            .encode(OmittedInt32Schema().openAPISchema())
         #expect(yaml.contains("default: null") == false)
         #expect(yaml.contains("example: null") == false)
     }
 
     @Test
     func omittedInt64DefaultAndExampleDoNotSerializeAsNull() throws {
-        let yaml = try YAMLEncoder().encode(OmittedInt64Schema().openAPISchema())
+        let yaml = try YAMLEncoder()
+            .encode(OmittedInt64Schema().openAPISchema())
         #expect(yaml.contains("default: null") == false)
         #expect(yaml.contains("example: null") == false)
     }
 
     @Test
     func omittedFloatDefaultAndExampleDoNotSerializeAsNull() throws {
-        let yaml = try YAMLEncoder().encode(OmittedFloatSchema().openAPISchema())
+        let yaml = try YAMLEncoder()
+            .encode(OmittedFloatSchema().openAPISchema())
         #expect(yaml.contains("default: null") == false)
         #expect(yaml.contains("example: null") == false)
     }
 
     @Test
     func omittedDoubleDefaultAndExampleDoNotSerializeAsNull() throws {
-        let yaml = try YAMLEncoder().encode(OmittedDoubleSchema().openAPISchema())
+        let yaml = try YAMLEncoder()
+            .encode(OmittedDoubleSchema().openAPISchema())
         #expect(yaml.contains("default: null") == false)
         #expect(yaml.contains("example: null") == false)
     }
@@ -58,7 +63,8 @@ struct SchemaSerializationTestSuite {
 
     @Test
     func explicitDefaultAndExampleStillSerialize() throws {
-        let yaml = try YAMLEncoder().encode(ExplicitStringSchema().openAPISchema())
+        let yaml = try YAMLEncoder()
+            .encode(ExplicitStringSchema().openAPISchema())
         #expect(yaml.contains("default: abc"))
         #expect(yaml.contains("example: xyz"))
     }
