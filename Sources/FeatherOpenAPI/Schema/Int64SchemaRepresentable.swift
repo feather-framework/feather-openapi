@@ -40,8 +40,8 @@ extension Int64SchemaRepresentable {
             maximum: nil,
             minimum: nil,
             allowedValues: allowedValues?.map { .init($0) },
-            defaultValue: .init(defaultValue),
-            example: .init(example)
+            defaultValue: defaultValue.map { .init($0) },
+            example: example.map { .init($0) }
         )
     }
 }

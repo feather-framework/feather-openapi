@@ -40,8 +40,8 @@ extension StringSchemaRepresentable {
             maxLength: nil,
             pattern: nil,
             allowedValues: allowedValues?.map { .init($0) },
-            defaultValue: .init(defaultValue),
-            example: .init(example)
+            defaultValue: defaultValue.map { .init($0) },
+            example: example.map { .init($0) }
         )
     }
 }
