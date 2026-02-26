@@ -43,6 +43,7 @@ let package = Package(
             name: "FeatherOpenAPI",
             dependencies: [
                 .product(name: "OpenAPIKit30", package: "OpenAPIKit"),
+                .product(name: "Yams", package: "Yams"),
             ],
             swiftSettings: defaultSwiftSettings
         ),
