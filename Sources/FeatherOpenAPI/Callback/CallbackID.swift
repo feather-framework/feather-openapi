@@ -2,7 +2,7 @@
 //  CallbackID.swift
 //  feather-openapi
 //
-//  Created by Tibor Bödecs on 2026. 01. 23..
+//  Created by Tibor Bödecs on 2026. 01. 23.
 //
 
 public struct CallbackID: Sendable, Equatable, Hashable, Codable {

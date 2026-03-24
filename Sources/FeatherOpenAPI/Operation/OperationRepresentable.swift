@@ -2,7 +2,7 @@
 //  OperationRepresentable.swift
 //  feather-openapi
 //
-//  Created by Tibor Bödecs on 2026. 01. 21..
+//  Created by Tibor Bödecs on 2026. 01. 21.
 //
 
 import OpenAPIKit30
@@ -62,24 +62,27 @@ extension OperationRepresentable {
     /// Default summary is `nil`.
     public var summary: String? { nil }
 
-    /// Default operation identifier is `nil`.
-    public var operationId: String? { nil }
+    /// Computes a default operation identifier from the type name.
+    public var operationId: String? {
+        let suffix = "Operation"
+        let operationTypeName = String(reflecting: type(of: self))
+            .split(separator: ".")
+            .filter { $0.hasSuffix(suffix) }
+            .map(String.init)
+            .joined(separator: "")
+        guard !operationTypeName.isEmpty else {
+            return nil
+        }
+
+        let typeName = operationTypeName.dropLast(suffix.count)
+        guard !typeName.isEmpty else {
+            return nil
+        }
+
+        return String(typeName).lowercasedFirstLetter()
+    }
     /// Default parameters are empty.
     public var parameters: [ParameterRepresentable] { [] }
-
-    /// Computes a default operation identifier from the type name.
-    public static var operationId: String {
-        var components = String(reflecting: self)
-            .split(separator: ".")
-            .dropFirst()
-            .map(String.init)
-
-        components.remove(at: 2)
-        if let last = components.popLast()?.lowercasedFirstLetter() {
-            components.insert(last, at: 0)
-        }
-        return components.joined(separator: "")
-    }
 
     /// Default request body is `nil`.
     public var requestBody: RequestBodyRepresentable? { nil }

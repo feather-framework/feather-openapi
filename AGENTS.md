@@ -2,7 +2,7 @@
 //  AGENTS.md
 //  feather-openapi
 //
-//  Created by Binary Birds on 2026. 01. 20..
+//  Created by Binary Birds on 2026. 01. 20.
 
 # Repository Guidelines
 

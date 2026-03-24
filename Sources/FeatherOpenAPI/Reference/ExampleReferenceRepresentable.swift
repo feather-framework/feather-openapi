@@ -2,7 +2,7 @@
 //  ExampleReferenceRepresentable.swift
 //  feather-openapi
 //
-//  Created by Tibor Bödecs on 2026. 01. 24..
+//  Created by Tibor Bödecs on 2026. 01. 24.
 //
 
 import OpenAPIKit30

@@ -2,7 +2,7 @@
 //  ResponseID.swift
 //  feather-openapi
 //
-//  Created by Tibor Bödecs on 2026. 01. 22..
+//  Created by Tibor Bödecs on 2026. 01. 22.
 //
 
 public struct ResponseID: Sendable, Equatable, Hashable, Codable {
