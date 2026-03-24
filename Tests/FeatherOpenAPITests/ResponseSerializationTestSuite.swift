@@ -34,7 +34,6 @@ private struct RequestIdHeader: HeaderRepresentable {
 
 private struct RequestIdSchema: StringSchemaRepresentable {}
 
-
 @Suite
 struct ResponseSerializationTestSuite {
 
@@ -65,4 +64,3 @@ struct ResponseSerializationTestSuite {
         #expect(yaml.contains("x-request-id:"))
     }
 }
-
