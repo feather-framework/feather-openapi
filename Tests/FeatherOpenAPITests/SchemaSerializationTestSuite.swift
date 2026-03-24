@@ -1,3 +1,9 @@
+//
+//  SchemaSerializationTestSuite.swift
+//  feather-openapi
+//
+//  Created by Binary Birds on 2026. 02. 24.
+
 import OpenAPIKit30
 import Testing
 import Yams

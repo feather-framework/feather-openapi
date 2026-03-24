@@ -2,7 +2,7 @@
 //  OperationRepresentableTestSuite.swift
 //  feather-openapi
 //
-//  Created by Codex on 2026. 03. 24..
+//  Created by Codex on 2026. 03. 24.
 //
 
 import OpenAPIKit30
@@ -31,7 +31,6 @@ private enum OperationIdFixture {
     }
 }
 
-
 @Suite
 struct OperationRepresentableTestSuite {
 
@@ -49,4 +48,3 @@ struct OperationRepresentableTestSuite {
         #expect(operation.operationId == nil)
     }
 }
-

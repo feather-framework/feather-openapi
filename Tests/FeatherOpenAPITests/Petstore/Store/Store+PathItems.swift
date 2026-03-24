@@ -2,7 +2,7 @@
 //  Store+PathItems.swift
 //  feather-openapi
 //
-//  Created by Tibor Bödecs on 2026. 01. 22..
+//  Created by Tibor Bödecs on 2026. 01. 22.
 //
 
 import FeatherOpenAPI
