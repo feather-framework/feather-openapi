@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 23.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Describes an OpenAPI schema with common properties.
 public protocol SchemaRepresentable:
@@ -38,7 +38,7 @@ extension SchemaRepresentable {
 
     /// Referenced schemas directly used by this schema.
     public var referencedSchemaMap:
-        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+        OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
         [:]
     }
@@ -46,9 +46,9 @@ extension SchemaRepresentable {
     /// Collects all referenced schemas transitively.
     /// - Returns: An ordered dictionary of all referenced schemas.
     public func allReferencedSchemaMap() -> OrderedDictionary<
-        SchemaID, OpenAPISchemaRepresentable
+        SchemaID, any OpenAPISchemaRepresentable
     > {
-        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
+        var results = OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>()
         var visited = Set<SchemaID>()
         collectReferencedSchemaMap(into: &results, visited: &visited)
         return results
@@ -56,13 +56,13 @@ extension SchemaRepresentable {
 
     fileprivate func collectReferencedSchemaMap(
         into results:
-            inout OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>,
+            inout OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>,
         visited: inout Set<SchemaID>
     ) {
         for (id, schema) in referencedSchemaMap
         where visited.insert(id).inserted {
             results[id] = schema
-            if let schema = schema as? SchemaRepresentable {
+            if let schema = schema as? any SchemaRepresentable {
                 schema.collectReferencedSchemaMap(
                     into: &results,
                     visited: &visited

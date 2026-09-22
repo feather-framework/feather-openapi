@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 21.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Describes an OpenAPI server object with defaults.
 public protocol ServerRepresentable:
@@ -15,7 +15,7 @@ public protocol ServerRepresentable:
 {
 
     /// Server URL template.
-    var url: LocationRepresentable { get }
+    var url: any LocationRepresentable { get }
 
     /// Server variable definitions.
     var variables: VariableMap { get }

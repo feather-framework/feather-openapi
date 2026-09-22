@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 23.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Describes a collection of paths and their derived components.
 public protocol PathCollectionRepresentable:
@@ -27,9 +27,9 @@ extension PathCollectionRepresentable {
 
     /// Aggregated referenced schemas from the path map.
     public var referencedSchemaMap:
-        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+        OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
-        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
+        var results = OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>()
 
         let schemaMaps = pathMap.values
             .map { $0.referencedSchemaMap }
@@ -43,10 +43,10 @@ extension PathCollectionRepresentable {
 
     /// Aggregated referenced parameters from the path map.
     public var referencedParameterMap:
-        OrderedDictionary<ParameterID, OpenAPIParameterRepresentable>
+        OrderedDictionary<ParameterID, any OpenAPIParameterRepresentable>
     {
         var results = OrderedDictionary<
-            ParameterID, OpenAPIParameterRepresentable
+            ParameterID, any OpenAPIParameterRepresentable
         >()
 
         let parameterMaps = pathMap.values
@@ -61,10 +61,10 @@ extension PathCollectionRepresentable {
 
     /// Aggregated referenced request bodies from the path map.
     public var referencedRequestBodyMap:
-        OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable>
+        OrderedDictionary<RequestBodyID, any OpenAPIRequestBodyRepresentable>
     {
         var results = OrderedDictionary<
-            RequestBodyID, OpenAPIRequestBodyRepresentable
+            RequestBodyID, any OpenAPIRequestBodyRepresentable
         >()
 
         let requestBodyMaps = pathMap.values
@@ -79,9 +79,9 @@ extension PathCollectionRepresentable {
 
     /// Aggregated referenced headers from the path map.
     public var referencedHeaderMap:
-        OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable>
+        OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>
     {
-        var results = OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable>()
+        var results = OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>()
 
         let headerMaps = pathMap.values
             .map { $0.referencedHeaderMap }
@@ -95,10 +95,10 @@ extension PathCollectionRepresentable {
 
     /// Aggregated referenced responses from the path map.
     public var referencedResponseMap:
-        OrderedDictionary<ResponseID, OpenAPIResponseRepresentable>
+        OrderedDictionary<ResponseID, any OpenAPIResponseRepresentable>
     {
         var results = OrderedDictionary<
-            ResponseID, OpenAPIResponseRepresentable
+            ResponseID, any OpenAPIResponseRepresentable
         >()
 
         let responseMaps = pathMap.values
@@ -112,13 +112,13 @@ extension PathCollectionRepresentable {
     }
 
     /// Aggregated referenced tags from the path map.
-    public var referencedTags: [OpenAPITagRepresentable] {
+    public var referencedTags: [any OpenAPITagRepresentable] {
         pathMap.values.map { $0.referencedTags }.flatMap { $0 }
     }
 
     /// Aggregated referenced security requirements from the path map.
     public var referencedSecurityRequirements:
-        [SecurityRequirementRepresentable]
+        [any SecurityRequirementRepresentable]
     {
         pathMap.values.map { $0.referencedSecurityRequirements }.flatMap { $0 }
     }

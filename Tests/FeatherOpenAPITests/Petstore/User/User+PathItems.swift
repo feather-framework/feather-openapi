@@ -10,24 +10,24 @@ import FeatherOpenAPI
 extension Petstore.User {
 
     struct MainPathItem: PathItemRepresentable {
-        var post: OperationRepresentable? { CreateOperation() }
+        var post: any OperationRepresentable? { CreateOperation() }
     }
 
     struct CreateWithListPathItem: PathItemRepresentable {
-        var post: OperationRepresentable? { CreateWithListOperation() }
+        var post: any OperationRepresentable? { CreateWithListOperation() }
     }
 
     struct LoginPathItem: PathItemRepresentable {
-        var get: OperationRepresentable? { LoginOperation() }
+        var get: any OperationRepresentable? { LoginOperation() }
     }
 
     struct LogoutPathItem: PathItemRepresentable {
-        var get: OperationRepresentable? { LogoutOperation() }
+        var get: any OperationRepresentable? { LogoutOperation() }
     }
 
     struct IdentifiedPathItem: PathItemRepresentable {
-        var get: OperationRepresentable? { GetByNameOperation() }
-        var put: OperationRepresentable? { UpdateOperation() }
-        var delete: OperationRepresentable? { DeleteOperation() }
+        var get: any OperationRepresentable? { GetByNameOperation() }
+        var put: any OperationRepresentable? { UpdateOperation() }
+        var delete: any OperationRepresentable? { DeleteOperation() }
     }
 }

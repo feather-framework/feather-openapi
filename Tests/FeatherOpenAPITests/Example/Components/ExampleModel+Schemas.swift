@@ -63,7 +63,7 @@ extension Example.Model {
 
     struct ListSchema: ArraySchemaRepresentable {
         var description: String? { "Lorem ipsum dolor sit amet" }
-        var items: SchemaRepresentable? { ListItemSchema() }
+        var items: any SchemaRepresentable? { ListItemSchema() }
     }
 
     struct PatchOverrideSchema: ObjectSchemaRepresentable {

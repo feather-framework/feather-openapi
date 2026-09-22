@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 21.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// A type that can describe reusable OpenAPI components.
 public protocol ComponentsRepresentable:
@@ -13,29 +13,29 @@ public protocol ComponentsRepresentable:
     VendorExtensionsProperty
 {
     /// Schema component map.
-    var schemas: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> { get }
+    var schemas: OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable> { get }
     /// Parameter component map.
     var parameters:
-        OrderedDictionary<ParameterID, OpenAPIParameterRepresentable>
+        OrderedDictionary<ParameterID, any OpenAPIParameterRepresentable>
     { get }
     /// Example component map.
-    var examples: OrderedDictionary<ExampleID, OpenAPIExampleRepresentable> {
+    var examples: OrderedDictionary<ExampleID, any OpenAPIExampleRepresentable> {
         get
     }
     /// Response component map.
-    var responses: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable> {
+    var responses: OrderedDictionary<ResponseID, any OpenAPIResponseRepresentable> {
         get
     }
     /// Request body component map.
     var requestBodies:
-        OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable>
+        OrderedDictionary<RequestBodyID, any OpenAPIRequestBodyRepresentable>
     { get }
     /// Header component map.
-    var headers: OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable> { get }
+    var headers: OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable> { get }
     /// Security requirements used by the document.
-    var securityRequirements: [SecurityRequirementRepresentable] { get }
+    var securityRequirements: [any SecurityRequirementRepresentable] { get }
     /// Link component map.
-    var links: OrderedDictionary<LinkID, OpenAPILinkRepresentable> { get }
+    var links: OrderedDictionary<LinkID, any OpenAPILinkRepresentable> { get }
     //    public var callbacks: OrderedDictionary<CallbackID, CallbackRepresentable>
 
     /// Produces the OpenAPI schema components.

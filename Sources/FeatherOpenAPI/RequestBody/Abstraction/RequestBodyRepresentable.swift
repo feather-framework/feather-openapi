@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 22.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Describes an OpenAPI request body with defaults.
 public protocol RequestBodyRepresentable:
@@ -46,9 +46,9 @@ extension RequestBodyRepresentable {
 
     /// Aggregated referenced schemas from the content map.
     public var referencedSchemaMap:
-        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+        OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
-        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
+        var results = OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>()
         for content in contentMap.values {
             results.merge(content.referencedSchemaMap)
         }

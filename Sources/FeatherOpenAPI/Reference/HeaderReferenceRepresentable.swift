@@ -5,14 +5,14 @@
 //  Created by Tibor Bödecs on 2026. 01. 23.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// A type that exposes a referenced header.
 public protocol HeaderReferenceRepresentable {
     /// The identifier for the header reference.
     var id: HeaderID { get }
     /// The underlying header object.
-    var object: HeaderRepresentable { get }
+    var object: any HeaderRepresentable { get }
 }
 
 /// Wrapper that exposes a header as a reusable reference.
@@ -21,10 +21,10 @@ public struct HeaderReference<T: HeaderRepresentable>:
     HeaderReferenceRepresentable
 {
     /// Header schema.
-    public var schema: OpenAPISchemaRepresentable { object.schema }
+    public var schema: any OpenAPISchemaRepresentable { object.schema }
 
     /// The underlying header object.
-    public var object: HeaderRepresentable {
+    public var object: any HeaderRepresentable {
         _object
     }
 

@@ -14,24 +14,24 @@ struct ExampleDuplicatedItemInfo: InfoRepresentable {
         Example API description
         """
     }
-    var contact: OpenAPIContactRepresentable? { ExampleContact() }
+    var contact: any OpenAPIContactRepresentable? { ExampleContact() }
     var version: String { "1.0.0" }
 }
 
 struct ExampleDuplicatedItemServer: ServerRepresentable {
-    var url: LocationRepresentable {
+    var url: any LocationRepresentable {
         ExampleLocation(location: "http://localhost:8080")
     }
     var description: String? { "dev" }
 }
 
 struct ExampleDuplicatedItemDocument: DocumentRepresentable {
-    var info: OpenAPIInfoRepresentable { ExampleDuplicatedItemInfo() }
-    var servers: [OpenAPIServerRepresentable] {
+    var info: any OpenAPIInfoRepresentable { ExampleDuplicatedItemInfo() }
+    var servers: [any OpenAPIServerRepresentable] {
         [ExampleDuplicatedItemServer()]
     }
     var paths: PathMap { [:] }
-    var components: OpenAPIComponentsRepresentable {
+    var components: any OpenAPIComponentsRepresentable {
         let idSchema = ExampleDuplicatedItem.Model.IdSchema()
         let keySchema = ExampleDuplicatedItem.Model.KeySchema()
         let keySecondSchema = ExampleDuplicatedItem.Model.KeySecondSchema()

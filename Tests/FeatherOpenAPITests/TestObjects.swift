@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 21.
 //
 
-import FeatherOpenAPI
+public import FeatherOpenAPI
 import OpenAPIKit30
 
 struct MyPathCollection: PathCollectionRepresentable {
@@ -25,7 +25,7 @@ struct MyInfo: InfoRepresentable {
 
 struct MyDocument: DocumentRepresentable {
 
-    var info: OpenAPIInfoRepresentable
+    var info: any OpenAPIInfoRepresentable
 
     var servers: [any OpenAPIServerRepresentable] {
         [
@@ -34,12 +34,12 @@ struct MyDocument: DocumentRepresentable {
     }
 
     var paths: PathMap
-    var components: OpenAPIComponentsRepresentable
+    var components: any OpenAPIComponentsRepresentable
 
     init(
-        info: OpenAPIInfoRepresentable,
+        info: any OpenAPIInfoRepresentable,
         paths: PathMap,
-        components: OpenAPIComponentsRepresentable
+        components: any OpenAPIComponentsRepresentable
     ) {
         self.info = info
         self.paths = paths
@@ -124,19 +124,19 @@ struct TodoTag: TagRepresentable {
 
 struct TodoCreateOperation: OperationRepresentable {
 
-    var tags: [TagRepresentable] {
+    var tags: [any TagRepresentable] {
         [
             TodoTag()
         ]
     }
 
-    var parameters: [ParameterRepresentable] {
+    var parameters: [any ParameterRepresentable] {
         [
             TodoIdParameter().reference()
         ]
     }
 
-    var requestBody: RequestBodyRepresentable? {
+    var requestBody: any RequestBodyRepresentable? {
         TodoCreateRequestBody().reference()
     }
 
@@ -161,7 +161,7 @@ struct TodoCreateOperation: OperationRepresentable {
 }
 
 struct TodoPathItems: PathItemRepresentable {
-    var post: OperationRepresentable? = TodoCreateOperation()
+    var post: any OperationRepresentable? = TodoCreateOperation()
 }
 
 struct OAuthSecurityScheme: SecuritySchemeRepresentable {
@@ -198,9 +198,9 @@ struct TagDedupInfo: InfoRepresentable {
 }
 
 struct TagDedupDocument: DocumentRepresentable {
-    var info: OpenAPIInfoRepresentable
+    var info: any OpenAPIInfoRepresentable
     var paths: PathMap
-    var components: OpenAPIComponentsRepresentable
+    var components: any OpenAPIComponentsRepresentable
 }
 
 struct TagDedupPaths: PathCollectionRepresentable {
@@ -212,8 +212,8 @@ struct TagDedupPaths: PathCollectionRepresentable {
 }
 
 struct TagDedupDogPathItem: PathItemRepresentable {
-    var get: OperationRepresentable? { TagDedupListDogsOperation() }
-    var post: OperationRepresentable? { TagDedupCreateDogOperation() }
+    var get: any OperationRepresentable? { TagDedupListDogsOperation() }
+    var post: any OperationRepresentable? { TagDedupCreateDogOperation() }
 }
 
 struct TagDedupDogTag: TagRepresentable {
@@ -231,7 +231,7 @@ struct TagDedupDogResponse: JSONResponseRepresentable {
 }
 
 struct TagDedupListDogsOperation: OperationRepresentable {
-    var tags: [TagRepresentable] { [TagDedupDogTag()] }
+    var tags: [any TagRepresentable] { [TagDedupDogTag()] }
     var responseMap: ResponseMap {
         [
             200: TagDedupDogResponse().reference()
@@ -240,7 +240,7 @@ struct TagDedupListDogsOperation: OperationRepresentable {
 }
 
 struct TagDedupCreateDogOperation: OperationRepresentable {
-    var tags: [TagRepresentable] { [TagDedupDogTag()] }
+    var tags: [any TagRepresentable] { [TagDedupDogTag()] }
     var responseMap: ResponseMap {
         [
             200: TagDedupDogResponse().reference()
@@ -256,9 +256,9 @@ struct SecurityRequirementDedupInfo: InfoRepresentable {
 }
 
 struct SecurityRequirementDedupDocument: DocumentRepresentable {
-    var info: OpenAPIInfoRepresentable
+    var info: any OpenAPIInfoRepresentable
     var paths: PathMap
-    var components: OpenAPIComponentsRepresentable
+    var components: any OpenAPIComponentsRepresentable
 }
 
 struct SecurityRequirementDedupPaths: PathCollectionRepresentable {
@@ -270,10 +270,10 @@ struct SecurityRequirementDedupPaths: PathCollectionRepresentable {
 }
 
 struct SecurityRequirementDedupCatPathItem: PathItemRepresentable {
-    var get: OperationRepresentable? {
+    var get: any OperationRepresentable? {
         SecurityRequirementDedupListCatsOperation()
     }
-    var post: OperationRepresentable? {
+    var post: any OperationRepresentable? {
         SecurityRequirementDedupCreateCatOperation()
     }
 }
@@ -305,7 +305,7 @@ struct SecurityRequirementDedupCatResponse: JSONResponseRepresentable {
 }
 
 struct SecurityRequirementDedupListCatsOperation: OperationRepresentable {
-    var security: [SecurityRequirementRepresentable]? {
+    var security: [any SecurityRequirementRepresentable]? {
         [SecurityRequirementDedupBearerTokenRequirement()]
     }
     var responseMap: ResponseMap {
@@ -316,7 +316,7 @@ struct SecurityRequirementDedupListCatsOperation: OperationRepresentable {
 }
 
 struct SecurityRequirementDedupCreateCatOperation: OperationRepresentable {
-    var security: [SecurityRequirementRepresentable]? {
+    var security: [any SecurityRequirementRepresentable]? {
         [SecurityRequirementDedupBearerTokenRequirement()]
     }
     var responseMap: ResponseMap {

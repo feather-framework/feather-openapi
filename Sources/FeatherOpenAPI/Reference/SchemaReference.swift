@@ -5,14 +5,14 @@
 //  Created by Tibor Bödecs on 2026. 01. 22.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// A type that exposes a referenced schema.
 public protocol SchemaReferenceRepresentable {
     /// The identifier for the schema reference.
     var id: SchemaID { get }
     /// The underlying schema object.
-    var object: SchemaRepresentable { get }
+    var object: any SchemaRepresentable { get }
 }
 
 /// Wrapper that exposes a schema as a reusable reference.
@@ -49,7 +49,7 @@ public struct SchemaReference<T: SchemaRepresentable>:
 
     /// Referenced schema map for this reference.
     public var referencedSchemaMap:
-        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+        OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
         [id: object]
     }

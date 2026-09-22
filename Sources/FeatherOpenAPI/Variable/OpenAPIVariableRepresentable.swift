@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 23.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// A type that can produce an OpenAPI server variable.
 public protocol OpenAPIVariableRepresentable {
