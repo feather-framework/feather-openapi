@@ -12,14 +12,14 @@ extension Petstore.Store {
     struct StoreTag: TagRepresentable {
         var name: String { "store" }
         var description: String? { "Access to Petstore orders" }
-        var externalDocs: ExternalDocsRepresentable? {
+        var externalDocs: any ExternalDocsRepresentable? {
             StoreTagExternalDocs()
         }
     }
 
     struct StoreTagExternalDocs: ExternalDocsRepresentable {
         var description: String? { "Find out more about our store" }
-        var url: LocationRepresentable {
+        var url: any LocationRepresentable {
             PetstoreLocation(location: "https://swagger.io")
         }
     }

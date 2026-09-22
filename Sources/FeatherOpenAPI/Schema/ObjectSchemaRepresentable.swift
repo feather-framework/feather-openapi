@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 22.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Schema representation for objects.
 public protocol ObjectSchemaRepresentable:
@@ -45,9 +45,9 @@ extension ObjectSchemaRepresentable {
 
     /// Referenced schemas used by object properties.
     public var referencedSchemaMap:
-        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+        OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
-        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
+        var results = OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>()
         for (_, value) in propertyMap {
             results.merge(value.referencedSchemaMap)
         }

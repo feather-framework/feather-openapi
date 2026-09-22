@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 21.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Describes a high-level OpenAPI document with standard defaults.
 public protocol DocumentRepresentable:
@@ -15,29 +15,29 @@ public protocol DocumentRepresentable:
     ReferencedSecuritySchemeMapRepresentable
 {
     /// The document information metadata.
-    var info: OpenAPIInfoRepresentable { get }
+    var info: any OpenAPIInfoRepresentable { get }
     /// The list of servers where the API is served.
-    var servers: [OpenAPIServerRepresentable] { get }
+    var servers: [any OpenAPIServerRepresentable] { get }
     /// The map of path items by path.
     var paths: PathMap { get }
     /// The reusable component definitions.
-    var components: OpenAPIComponentsRepresentable { get }
+    var components: any OpenAPIComponentsRepresentable { get }
     /// External documentation for this API, if any.
-    var externalDocs: ExternalDocsRepresentable? { get }
+    var externalDocs: (any ExternalDocsRepresentable)? { get }
 }
 
 extension DocumentRepresentable {
 
     /// Default servers for the document.
-    public var servers: [OpenAPIServerRepresentable] { [] }
+    public var servers: [any OpenAPIServerRepresentable] { [] }
     /// Default empty path map.
     public var paths: PathMap { [:] }
 
     /// Default external docs is `nil`.
-    public var externalDocs: ExternalDocsRepresentable? { nil }
+    public var externalDocs: (any ExternalDocsRepresentable)? { nil }
 
     /// Collects all tags referenced by the document.
-    public var referencedTags: [OpenAPITagRepresentable] {
+    public var referencedTags: [any OpenAPITagRepresentable] {
         var seen = Set<String>()
         return paths.values
             .map { $0.referencedTags }
@@ -54,7 +54,7 @@ extension DocumentRepresentable {
 
     /// Collects all security requirements referenced by the document.
     public var referencedSecurityRequirements:
-        [SecurityRequirementRepresentable]
+        [any SecurityRequirementRepresentable]
     {
         var seen = Set<String>()
         return paths.values

@@ -5,14 +5,14 @@
 //  Created by Tibor Bödecs on 2026. 01. 23.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// A type that exposes a referenced response.
 public protocol ResponseReferenceRepresentable {
     /// The identifier for the response reference.
     var id: ResponseID { get }
     /// The underlying response object.
-    var object: ResponseRepresentable { get }
+    var object: any ResponseRepresentable { get }
 }
 
 /// Wrapper that exposes a response as a reusable reference.
@@ -28,7 +28,7 @@ public struct ResponseReference<T: ResponseRepresentable>:
     public var contentMap: ContentMap { object.contentMap }
 
     /// The underlying response object.
-    public var object: ResponseRepresentable {
+    public var object: any ResponseRepresentable {
         _object
     }
 

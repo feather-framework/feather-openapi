@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 23.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Describes OpenAPI content with a schema.
 public protocol ContentRepresentable:
@@ -14,7 +14,7 @@ public protocol ContentRepresentable:
     VendorExtensionsProperty
 {
     /// The schema for the content.
-    var schema: SchemaRepresentable { get }
+    var schema: any SchemaRepresentable { get }
 }
 
 extension ContentRepresentable {
@@ -32,7 +32,7 @@ extension ContentRepresentable {
 
     /// Referenced schemas for this content.
     public var referencedSchemaMap:
-        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+        OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
         schema.allReferencedSchemaMap()
     }

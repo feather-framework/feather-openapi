@@ -3,9 +3,9 @@
 The FeatherOpenAPI library makes it easy to define OpenAPI specifications using Swift in a type-safe way.
 
 [
-    ![Release: 1.0.0-beta.7](https://img.shields.io/badge/Release-1%2E0%2E0--beta%2E7-F05138)
+    ![Release: 1.0.0-beta.8](https://img.shields.io/badge/Release-1%2E0%2E0--beta%2E8-F05138)
 ](
-    https://github.com/feather-framework/feather-openapi/releases/tag/1.0.0-beta.7
+    https://github.com/feather-framework/feather-openapi/releases/tag/1.0.0-beta.8
 )
 
 ## Features
@@ -17,10 +17,10 @@ The FeatherOpenAPI library makes it easy to define OpenAPI specifications using 
 
 ## Requirements
 
-![Swift 6.1+](https://img.shields.io/badge/Swift-6%2E1%2B-F05138)
+![Swift 6.4+](https://img.shields.io/badge/Swift-6%2E4%2B-F05138)
 ![Platforms: Linux, macOS, iOS, tvOS, watchOS, visionOS](https://img.shields.io/badge/Platforms-Linux_%7C_macOS_%7C_iOS_%7C_tvOS_%7C_watchOS_%7C_visionOS-F05138)
 
-- Swift 6.1+
+- Swift 6.4+
 - Platforms:
   - Linux
   - macOS 15+
@@ -34,7 +34,7 @@ The FeatherOpenAPI library makes it easy to define OpenAPI specifications using 
 Use Swift Package Manager; add the dependency to your `Package.swift` file:
 
 ```swift
-.package(url: "https://github.com/feather-framework/feather-openapi", exact: "1.0.0-beta.7"),
+.package(url: "https://github.com/feather-framework/feather-openapi", exact: "1.0.0-beta.8"),
 ```
 
 Then add `FeatherOpenAPI` to your target dependencies:

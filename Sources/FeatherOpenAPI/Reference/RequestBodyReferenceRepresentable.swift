@@ -5,14 +5,14 @@
 //  Created by Tibor Bödecs on 2026. 01. 23.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// A type that exposes a referenced request body.
 public protocol RequestBodyReferenceRepresentable {
     /// The identifier for the request body reference.
     var id: RequestBodyID { get }
     /// The underlying request body object.
-    var object: RequestBodyRepresentable { get }
+    var object: any RequestBodyRepresentable { get }
 }
 
 /// Wrapper that exposes a request body as a reusable reference.
@@ -24,7 +24,7 @@ public struct RequestBodyReference<T: RequestBodyRepresentable>:
     public var contentMap: ContentMap { object.contentMap }
 
     /// The underlying request body object.
-    public var object: RequestBodyRepresentable {
+    public var object: any RequestBodyRepresentable {
         _object
     }
 

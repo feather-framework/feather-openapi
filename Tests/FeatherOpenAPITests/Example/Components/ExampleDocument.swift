@@ -13,7 +13,7 @@ struct ExampleLocation: LocationRepresentable {
 
 struct ExampleContact: ContactRepresentable {
     var name: String? { "Binary Birds" }
-    var url: LocationRepresentable? {
+    var url: any LocationRepresentable? {
         ExampleLocation(location: "https://binarybirds.com")
     }
     var email: String? { "info@binarybirds.com" }
@@ -26,12 +26,12 @@ struct ExampleInfo: InfoRepresentable {
         Example API description
         """
     }
-    var contact: OpenAPIContactRepresentable? { ExampleContact() }
+    var contact: any OpenAPIContactRepresentable? { ExampleContact() }
     var version: String { "1.0.0" }
 }
 
 struct ExampleServer: ServerRepresentable {
-    var url: LocationRepresentable {
+    var url: any LocationRepresentable {
         ExampleLocation(location: "http://localhost:8080")
     }
     var description: String? { "dev" }
@@ -50,9 +50,9 @@ struct ExampleDocument: DocumentRepresentable {
 
     let collection = ExamplePathCollection()
 
-    var info: OpenAPIInfoRepresentable { ExampleInfo() }
-    var servers: [OpenAPIServerRepresentable] { [ExampleServer()] }
+    var info: any OpenAPIInfoRepresentable { ExampleInfo() }
+    var servers: [any OpenAPIServerRepresentable] { [ExampleServer()] }
 
     var paths: PathMap { collection.pathMap }
-    var components: OpenAPIComponentsRepresentable { collection.components }
+    var components: any OpenAPIComponentsRepresentable { collection.components }
 }

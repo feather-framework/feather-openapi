@@ -10,15 +10,15 @@ import FeatherOpenAPI
 extension Petstore.Store {
 
     struct InventoryPathItem: PathItemRepresentable {
-        var get: OperationRepresentable? { InventoryOperation() }
+        var get: any OperationRepresentable? { InventoryOperation() }
     }
 
     struct OrderPathItem: PathItemRepresentable {
-        var post: OperationRepresentable? { PlaceOrderOperation() }
+        var post: any OperationRepresentable? { PlaceOrderOperation() }
     }
 
     struct OrderIdentifiedPathItem: PathItemRepresentable {
-        var get: OperationRepresentable? { GetOrderOperation() }
-        var delete: OperationRepresentable? { DeleteOrderOperation() }
+        var get: any OperationRepresentable? { GetOrderOperation() }
+        var delete: any OperationRepresentable? { DeleteOrderOperation() }
     }
 }

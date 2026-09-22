@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 21.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Describes an OpenAPI path item with HTTP operation bindings.
 public protocol PathItemRepresentable:
@@ -26,23 +26,23 @@ public protocol PathItemRepresentable:
     var summary: String? { get }
 
     /// Optional servers that override document-level servers.
-    var servers: [OpenAPIServerRepresentable]? { get }
+    var servers: [any OpenAPIServerRepresentable]? { get }
     /// GET operation for this path.
-    var get: OperationRepresentable? { get }
+    var get: (any OperationRepresentable)? { get }
     /// PUT operation for this path.
-    var put: OperationRepresentable? { get }
+    var put: (any OperationRepresentable)? { get }
     /// POST operation for this path.
-    var post: OperationRepresentable? { get }
+    var post: (any OperationRepresentable)? { get }
     /// DELETE operation for this path.
-    var delete: OperationRepresentable? { get }
+    var delete: (any OperationRepresentable)? { get }
     /// OPTIONS operation for this path.
-    var options: OperationRepresentable? { get }
+    var options: (any OperationRepresentable)? { get }
     /// HEAD operation for this path.
-    var head: OperationRepresentable? { get }
+    var head: (any OperationRepresentable)? { get }
     /// PATCH operation for this path.
-    var patch: OperationRepresentable? { get }
+    var patch: (any OperationRepresentable)? { get }
     /// TRACE operation for this path.
-    var trace: OperationRepresentable? { get }
+    var trace: (any OperationRepresentable)? { get }
 }
 
 extension PathItemRepresentable {
@@ -51,23 +51,23 @@ extension PathItemRepresentable {
     public var summary: String? { nil }
 
     /// Default servers list is `nil`.
-    public var servers: [OpenAPIServerRepresentable]? { nil }
+    public var servers: [any OpenAPIServerRepresentable]? { nil }
     /// Default GET operation is `nil`.
-    public var get: OperationRepresentable? { nil }
+    public var get: (any OperationRepresentable)? { nil }
     /// Default PUT operation is `nil`.
-    public var put: OperationRepresentable? { nil }
+    public var put: (any OperationRepresentable)? { nil }
     /// Default POST operation is `nil`.
-    public var post: OperationRepresentable? { nil }
+    public var post: (any OperationRepresentable)? { nil }
     /// Default DELETE operation is `nil`.
-    public var delete: OperationRepresentable? { nil }
+    public var delete: (any OperationRepresentable)? { nil }
     /// Default OPTIONS operation is `nil`.
-    public var options: OperationRepresentable? { nil }
+    public var options: (any OperationRepresentable)? { nil }
     /// Default HEAD operation is `nil`.
-    public var head: OperationRepresentable? { nil }
+    public var head: (any OperationRepresentable)? { nil }
     /// Default PATCH operation is `nil`.
-    public var patch: OperationRepresentable? { nil }
+    public var patch: (any OperationRepresentable)? { nil }
     /// Default TRACE operation is `nil`.
-    public var trace: OperationRepresentable? { nil }
+    public var trace: (any OperationRepresentable)? { nil }
 
     /// Builds an OpenAPI path item.
     /// - Returns: The OpenAPI path item.
@@ -90,7 +90,7 @@ extension PathItemRepresentable {
     }
 
     /// All non-nil operations declared on the path item.
-    public var allOperations: [OperationRepresentable] {
+    public var allOperations: [any OperationRepresentable] {
         [
             get,
             put,
@@ -106,9 +106,9 @@ extension PathItemRepresentable {
 
     /// Aggregated referenced schemas from operations.
     public var referencedSchemaMap:
-        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+        OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
-        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
+        var results = OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>()
 
         let maps = allOperations.map { $0.referencedSchemaMap }.flatMap { $0 }
 
@@ -120,10 +120,10 @@ extension PathItemRepresentable {
 
     /// Aggregated referenced parameters from operations.
     public var referencedParameterMap:
-        OrderedDictionary<ParameterID, OpenAPIParameterRepresentable>
+        OrderedDictionary<ParameterID, any OpenAPIParameterRepresentable>
     {
         var results = OrderedDictionary<
-            ParameterID, OpenAPIParameterRepresentable
+            ParameterID, any OpenAPIParameterRepresentable
         >()
 
         let maps = allOperations.map { $0.referencedParameterMap }
@@ -137,10 +137,10 @@ extension PathItemRepresentable {
 
     /// Aggregated referenced request bodies from operations.
     public var referencedRequestBodyMap:
-        OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable>
+        OrderedDictionary<RequestBodyID, any OpenAPIRequestBodyRepresentable>
     {
         var results = OrderedDictionary<
-            RequestBodyID, OpenAPIRequestBodyRepresentable
+            RequestBodyID, any OpenAPIRequestBodyRepresentable
         >()
 
         let maps = allOperations.map { $0.referencedRequestBodyMap }
@@ -154,9 +154,9 @@ extension PathItemRepresentable {
 
     /// Aggregated referenced headers from operations.
     public var referencedHeaderMap:
-        OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable>
+        OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>
     {
-        var results = OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable>()
+        var results = OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>()
 
         let maps = allOperations.map { $0.referencedHeaderMap }.flatMap { $0 }
 
@@ -168,10 +168,10 @@ extension PathItemRepresentable {
 
     /// Aggregated referenced responses from operations.
     public var referencedResponseMap:
-        OrderedDictionary<ResponseID, OpenAPIResponseRepresentable>
+        OrderedDictionary<ResponseID, any OpenAPIResponseRepresentable>
     {
         var results = OrderedDictionary<
-            ResponseID, OpenAPIResponseRepresentable
+            ResponseID, any OpenAPIResponseRepresentable
         >()
 
         let maps = allOperations.map { $0.referencedResponseMap }.flatMap { $0 }
@@ -183,13 +183,13 @@ extension PathItemRepresentable {
     }
 
     /// Aggregated referenced tags from operations.
-    public var referencedTags: [OpenAPITagRepresentable] {
+    public var referencedTags: [any OpenAPITagRepresentable] {
         allOperations.map { $0.referencedTags }.flatMap { $0 }
     }
 
     /// Aggregated referenced security requirements from operations.
     public var referencedSecurityRequirements:
-        [SecurityRequirementRepresentable]
+        [any SecurityRequirementRepresentable]
     {
         allOperations.map { $0.referencedSecurityRequirements }.flatMap { $0 }
     }

@@ -11,11 +11,11 @@ import OpenAPIKit30
 extension Petstore.Pet {
 
     struct UpdateOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [PetTag()] }
+        var tags: [any TagRepresentable] { [PetTag()] }
         var summary: String? { "Update an existing pet." }
         var description: String? { "Update an existing pet by Id." }
         var operationId: String? { "updatePet" }
-        var requestBody: RequestBodyRepresentable? {
+        var requestBody: any RequestBodyRepresentable? {
             UpdateRequestBody()
         }
         var responseMap: ResponseMap {
@@ -36,11 +36,11 @@ extension Petstore.Pet {
     }
 
     struct AddOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [PetTag()] }
+        var tags: [any TagRepresentable] { [PetTag()] }
         var summary: String? { "Add a new pet to the store." }
         var description: String? { "Add a new pet to the store." }
         var operationId: String? { "addPet" }
-        var requestBody: RequestBodyRepresentable? {
+        var requestBody: any RequestBodyRepresentable? {
             AddRequestBody()
         }
         var responseMap: ResponseMap {
@@ -60,13 +60,13 @@ extension Petstore.Pet {
     }
 
     struct FindByStatusOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [PetTag()] }
+        var tags: [any TagRepresentable] { [PetTag()] }
         var summary: String? { "Finds Pets by status." }
         var description: String? {
             "Multiple status values can be provided with comma separated strings."
         }
         var operationId: String? { "findPetsByStatus" }
-        var parameters: [ParameterRepresentable] {
+        var parameters: [any ParameterRepresentable] {
             [
                 StatusQueryParameter()
             ]
@@ -87,13 +87,13 @@ extension Petstore.Pet {
     }
 
     struct FindByTagsOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [PetTag()] }
+        var tags: [any TagRepresentable] { [PetTag()] }
         var summary: String? { "Finds Pets by tags." }
         var description: String? {
             "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing."
         }
         var operationId: String? { "findPetsByTags" }
-        var parameters: [ParameterRepresentable] {
+        var parameters: [any ParameterRepresentable] {
             [
                 TagsQueryParameter()
             ]
@@ -114,11 +114,11 @@ extension Petstore.Pet {
     }
 
     struct GetByIdOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [PetTag()] }
+        var tags: [any TagRepresentable] { [PetTag()] }
         var summary: String? { "Find pet by ID." }
         var description: String? { "Returns a single pet." }
         var operationId: String? { "getPetById" }
-        var parameters: [ParameterRepresentable] {
+        var parameters: [any ParameterRepresentable] {
             [
                 IdParameter()
             ]
@@ -141,7 +141,7 @@ extension Petstore.Pet {
     }
 
     struct UpdateWithFormOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [PetTag()] }
+        var tags: [any TagRepresentable] { [PetTag()] }
         var summary: String? {
             "Updates a pet in the store with form data."
         }
@@ -149,7 +149,7 @@ extension Petstore.Pet {
             "Updates a pet resource based on the form data."
         }
         var operationId: String? { "updatePetWithForm" }
-        var parameters: [ParameterRepresentable] {
+        var parameters: [any ParameterRepresentable] {
             [
                 UpdateIdParameter(),
                 NameQueryParameter(),
@@ -172,11 +172,11 @@ extension Petstore.Pet {
     }
 
     struct DeleteOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [PetTag()] }
+        var tags: [any TagRepresentable] { [PetTag()] }
         var summary: String? { "Deletes a pet." }
         var description: String? { "Delete a pet." }
         var operationId: String? { "deletePet" }
-        var parameters: [ParameterRepresentable] {
+        var parameters: [any ParameterRepresentable] {
             [
                 ApiKeyHeaderParameter(),
                 DeleteIdParameter(),
@@ -198,17 +198,17 @@ extension Petstore.Pet {
     }
 
     struct UploadImageOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [PetTag()] }
+        var tags: [any TagRepresentable] { [PetTag()] }
         var summary: String? { "Uploads an image." }
         var description: String? { "Upload image of the pet." }
         var operationId: String? { "uploadFile" }
-        var parameters: [ParameterRepresentable] {
+        var parameters: [any ParameterRepresentable] {
             [
                 UploadIdParameter(),
                 AdditionalMetadataQueryParameter(),
             ]
         }
-        var requestBody: RequestBodyRepresentable? {
+        var requestBody: any RequestBodyRepresentable? {
             UploadImageRequestBody()
         }
         var responseMap: ResponseMap {

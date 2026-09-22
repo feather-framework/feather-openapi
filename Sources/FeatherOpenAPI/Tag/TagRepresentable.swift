@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 23.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Describes an OpenAPI tag with defaults.
 public protocol TagRepresentable:
@@ -17,13 +17,13 @@ public protocol TagRepresentable:
     /// Tag display name.
     var name: String { get }
     /// External documentation for the tag.
-    var externalDocs: ExternalDocsRepresentable? { get }
+    var externalDocs: (any ExternalDocsRepresentable)? { get }
 }
 
 extension TagRepresentable {
 
     /// Default external docs is `nil`.
-    public var externalDocs: ExternalDocsRepresentable? { nil }
+    public var externalDocs: (any ExternalDocsRepresentable)? { nil }
 
     /// Builds an OpenAPI tag object.
     /// - Returns: The OpenAPI tag.

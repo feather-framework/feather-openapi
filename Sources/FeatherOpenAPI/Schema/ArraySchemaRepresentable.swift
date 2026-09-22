@@ -5,14 +5,14 @@
 //  Created by Tibor Bödecs on 2026. 01. 22.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Schema representation for arrays.
 public protocol ArraySchemaRepresentable:
     SchemaRepresentable
 {
     /// The item schema for the array.
-    var items: SchemaRepresentable? { get }
+    var items: (any SchemaRepresentable)? { get }
 }
 
 extension ArraySchemaRepresentable {
@@ -42,9 +42,9 @@ extension ArraySchemaRepresentable {
 
     /// Referenced schemas used by the array items.
     public var referencedSchemaMap:
-        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+        OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
-        var results: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> =
+        var results: OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable> =
             [:]
 
         for (key, value) in items?.referencedSchemaMap ?? [:] {

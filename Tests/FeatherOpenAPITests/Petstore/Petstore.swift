@@ -20,7 +20,7 @@ struct PetstoreContact: ContactRepresentable {
 
 struct PetstoreLicense: LicenseRepresentable {
     var name: String { "Apache 2.0" }
-    var url: LocationRepresentable? {
+    var url: any LocationRepresentable? {
         PetstoreLocation(
             location: "https://www.apache.org/licenses/LICENSE-2.0.html"
         )
@@ -41,21 +41,21 @@ struct PetstoreInfo: InfoRepresentable {
         - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
         """
     }
-    var termsOfService: LocationRepresentable? {
+    var termsOfService: any LocationRepresentable? {
         PetstoreLocation(location: "https://swagger.io/terms/")
     }
-    var contact: OpenAPIContactRepresentable? { PetstoreContact() }
-    var license: OpenAPILicenseRepresentable? { PetstoreLicense() }
+    var contact: any OpenAPIContactRepresentable? { PetstoreContact() }
+    var license: any OpenAPILicenseRepresentable? { PetstoreLicense() }
     var version: String { "1.0.27" }
 }
 
 struct PetstoreServer: ServerRepresentable {
-    var url: LocationRepresentable { PetstoreLocation(location: "/api/v3") }
+    var url: any LocationRepresentable { PetstoreLocation(location: "/api/v3") }
 }
 
 struct PetstoreExternalDocs: ExternalDocsRepresentable {
     var description: String? { "Find out more about Swagger" }
-    var url: LocationRepresentable {
+    var url: any LocationRepresentable {
         PetstoreLocation(location: "https://swagger.io")
     }
 }
@@ -83,27 +83,27 @@ struct PetstorePathCollection: PathCollectionRepresentable {
 struct PetstoreComponents: ComponentsRepresentable {
     let base: FeatherOpenAPI.Components
 
-    var schemas: OrderedDictionary<SchemaID, OpenAPISchemaRepresentable> {
+    var schemas: OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable> {
         base.schemas
     }
 
     var parameters:
-        OrderedDictionary<ParameterID, OpenAPIParameterRepresentable>
+        OrderedDictionary<ParameterID, any OpenAPIParameterRepresentable>
     {
         base.parameters
     }
 
-    var examples: OrderedDictionary<ExampleID, OpenAPIExampleRepresentable> {
+    var examples: OrderedDictionary<ExampleID, any OpenAPIExampleRepresentable> {
         base.examples
     }
 
-    var responses: OrderedDictionary<ResponseID, OpenAPIResponseRepresentable> {
+    var responses: OrderedDictionary<ResponseID, any OpenAPIResponseRepresentable> {
         base.responses
     }
 
     var requestBodies:
         OrderedDictionary<
-            RequestBodyID, OpenAPIRequestBodyRepresentable
+            RequestBodyID, any OpenAPIRequestBodyRepresentable
         >
     {
         var results = base.requestBodies
@@ -119,15 +119,15 @@ struct PetstoreComponents: ComponentsRepresentable {
         return results
     }
 
-    var headers: OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable> {
+    var headers: OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable> {
         base.headers
     }
 
-    var securityRequirements: [SecurityRequirementRepresentable] {
+    var securityRequirements: [any SecurityRequirementRepresentable] {
         base.securityRequirements
     }
 
-    var links: OrderedDictionary<LinkID, OpenAPILinkRepresentable> {
+    var links: OrderedDictionary<LinkID, any OpenAPILinkRepresentable> {
         base.links
     }
 }
@@ -135,17 +135,17 @@ struct PetstoreComponents: ComponentsRepresentable {
 struct PetstoreDocument: DocumentRepresentable {
     let collection = PetstorePathCollection()
 
-    var info: OpenAPIInfoRepresentable { PetstoreInfo() }
-    var servers: [OpenAPIServerRepresentable] { [PetstoreServer()] }
+    var info: any OpenAPIInfoRepresentable { PetstoreInfo() }
+    var servers: [any OpenAPIServerRepresentable] { [PetstoreServer()] }
 
-    var externalDocs: ExternalDocsRepresentable? { PetstoreExternalDocs() }
+    var externalDocs: any ExternalDocsRepresentable? { PetstoreExternalDocs() }
 
     var paths: PathMap { collection.pathMap }
-    var components: OpenAPIComponentsRepresentable {
+    var components: any OpenAPIComponentsRepresentable {
         PetstoreComponents(base: collection.components)
     }
 
-    var referencedTags: [OpenAPITagRepresentable] {
+    var referencedTags: [any OpenAPITagRepresentable] {
         [
             Petstore.Pet.PetTag(),
             Petstore.Store.StoreTag(),
@@ -153,7 +153,7 @@ struct PetstoreDocument: DocumentRepresentable {
         ]
     }
 
-    var referencedSecurityRequirements: [SecurityRequirementRepresentable] {
+    var referencedSecurityRequirements: [any SecurityRequirementRepresentable] {
         []
     }
 }

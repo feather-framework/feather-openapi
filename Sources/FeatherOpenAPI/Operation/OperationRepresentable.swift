@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 21.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 extension String {
 
@@ -36,29 +36,29 @@ public protocol OperationRepresentable:
     //    associatedtype RequestBodyType: RequestBodyRepresentable
 
     /// Tags associated with the operation.
-    var tags: [TagRepresentable] { get }
+    var tags: [any TagRepresentable] { get }
     /// Short summary of the operation.
     var summary: String? { get }
     /// Optional explicit operation identifier.
     var operationId: String? { get }
 
     /// Parameters accepted by the operation.
-    var parameters: [ParameterRepresentable] { get }
+    var parameters: [any ParameterRepresentable] { get }
     /// Optional request body.
-    var requestBody: RequestBodyRepresentable? { get }
+    var requestBody: (any RequestBodyRepresentable)? { get }
     /// Response map keyed by status code.
     var responseMap: ResponseMap { get }
 
     /// Optional security requirements.
-    var security: [SecurityRequirementRepresentable]? { get }
+    var security: [any SecurityRequirementRepresentable]? { get }
     /// Optional per-operation servers.
-    var servers: [ServerRepresentable]? { get }
+    var servers: [any ServerRepresentable]? { get }
 }
 
 extension OperationRepresentable {
 
     /// Default tags are empty.
-    public var tags: [TagRepresentable] { [] }
+    public var tags: [any TagRepresentable] { [] }
     /// Default summary is `nil`.
     public var summary: String? { nil }
 
@@ -82,14 +82,14 @@ extension OperationRepresentable {
         return String(typeName).lowercasedFirstLetter()
     }
     /// Default parameters are empty.
-    public var parameters: [ParameterRepresentable] { [] }
+    public var parameters: [any ParameterRepresentable] { [] }
 
     /// Default request body is `nil`.
-    public var requestBody: RequestBodyRepresentable? { nil }
+    public var requestBody: (any RequestBodyRepresentable)? { nil }
     /// Default security requirements are `nil`.
-    public var security: [SecurityRequirementRepresentable]? { nil }
+    public var security: [any SecurityRequirementRepresentable]? { nil }
     /// Default servers list is `nil`.
-    public var servers: [ServerRepresentable]? { nil }
+    public var servers: [any ServerRepresentable]? { nil }
 
     private var openAPITags: [String]? {
         tags.isEmpty ? nil : tags.map { $0.name }
@@ -143,9 +143,9 @@ extension OperationRepresentable {
 
     /// Aggregated referenced schemas from parameters, request body, and responses.
     public var referencedSchemaMap:
-        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+        OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
-        var results = OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>()
+        var results = OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>()
 
         for parameter in parameters {
             results.merge(parameter.referencedSchemaMap)
@@ -176,14 +176,14 @@ extension OperationRepresentable {
 
     /// Aggregated referenced parameters used by the operation.
     public var referencedParameterMap:
-        OrderedDictionary<ParameterID, OpenAPIParameterRepresentable>
+        OrderedDictionary<ParameterID, any OpenAPIParameterRepresentable>
     {
         var results = OrderedDictionary<
-            ParameterID, OpenAPIParameterRepresentable
+            ParameterID, any OpenAPIParameterRepresentable
         >()
 
         for parameter in parameters {
-            if let ref = parameter as? ParameterReferenceRepresentable {
+            if let ref = parameter as? any ParameterReferenceRepresentable {
                 if case .b(let parameter) = ref.object.openAPIParameter() {
                     results[ref.id] = parameter
                 }
@@ -194,13 +194,13 @@ extension OperationRepresentable {
 
     /// Aggregated referenced request bodies used by the operation.
     public var referencedRequestBodyMap:
-        OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable>
+        OrderedDictionary<RequestBodyID, any OpenAPIRequestBodyRepresentable>
     {
         var results = OrderedDictionary<
-            RequestBodyID, OpenAPIRequestBodyRepresentable
+            RequestBodyID, any OpenAPIRequestBodyRepresentable
         >()
 
-        if let ref = requestBody as? RequestBodyReferenceRepresentable {
+        if let ref = requestBody as? any RequestBodyReferenceRepresentable {
             results[ref.id] = ref.object
         }
         return results
@@ -208,16 +208,16 @@ extension OperationRepresentable {
 
     /// Aggregated referenced headers used by responses.
     public var referencedHeaderMap:
-        OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable>
+        OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>
     {
-        var results = OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable>()
+        var results = OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>()
 
         let headers = responseMap.values
             .map { $0.headerMap.values }
             .flatMap { $0 }
 
         for header in headers {
-            if let ref = header as? HeaderReferenceRepresentable {
+            if let ref = header as? any HeaderReferenceRepresentable {
                 if case .b(let header) = ref.object.openAPIHeader() {
                     results[ref.id] = header
                 }
@@ -228,14 +228,14 @@ extension OperationRepresentable {
 
     /// Aggregated referenced responses used by the operation.
     public var referencedResponseMap:
-        OrderedDictionary<ResponseID, OpenAPIResponseRepresentable>
+        OrderedDictionary<ResponseID, any OpenAPIResponseRepresentable>
     {
         var results = OrderedDictionary<
-            ResponseID, OpenAPIResponseRepresentable
+            ResponseID, any OpenAPIResponseRepresentable
         >()
 
         for response in responseMap.values {
-            if let ref = response as? ResponseReferenceRepresentable {
+            if let ref = response as? any ResponseReferenceRepresentable {
                 if case .b(let response) = ref.object.openAPIResponse() {
                     results[ref.id] = response
                 }
@@ -245,13 +245,13 @@ extension OperationRepresentable {
     }
 
     /// Referenced tags for the operation.
-    public var referencedTags: [OpenAPITagRepresentable] {
+    public var referencedTags: [any OpenAPITagRepresentable] {
         tags
     }
 
     /// Referenced security requirements for the operation.
     public var referencedSecurityRequirements:
-        [SecurityRequirementRepresentable]
+        [any SecurityRequirementRepresentable]
     {
         security?.map { $0 } ?? []
     }

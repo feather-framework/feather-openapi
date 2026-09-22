@@ -10,25 +10,25 @@ import FeatherOpenAPI
 extension Petstore.Pet {
 
     struct MainPathItem: PathItemRepresentable {
-        var put: OperationRepresentable? { UpdateOperation() }
-        var post: OperationRepresentable? { AddOperation() }
+        var put: any OperationRepresentable? { UpdateOperation() }
+        var post: any OperationRepresentable? { AddOperation() }
     }
 
     struct FindByStatusPathItem: PathItemRepresentable {
-        var get: OperationRepresentable? { FindByStatusOperation() }
+        var get: any OperationRepresentable? { FindByStatusOperation() }
     }
 
     struct FindByTagsPathItem: PathItemRepresentable {
-        var get: OperationRepresentable? { FindByTagsOperation() }
+        var get: any OperationRepresentable? { FindByTagsOperation() }
     }
 
     struct IdentifiedPathItem: PathItemRepresentable {
-        var get: OperationRepresentable? { GetByIdOperation() }
-        var post: OperationRepresentable? { UpdateWithFormOperation() }
-        var delete: OperationRepresentable? { DeleteOperation() }
+        var get: any OperationRepresentable? { GetByIdOperation() }
+        var post: any OperationRepresentable? { UpdateWithFormOperation() }
+        var delete: any OperationRepresentable? { DeleteOperation() }
     }
 
     struct UploadImagePathItem: PathItemRepresentable {
-        var post: OperationRepresentable? { UploadImageOperation() }
+        var post: any OperationRepresentable? { UploadImageOperation() }
     }
 }

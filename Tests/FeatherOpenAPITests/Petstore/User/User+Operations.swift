@@ -11,13 +11,13 @@ import OpenAPIKit30
 extension Petstore.User {
 
     struct CreateOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [UserTag()] }
+        var tags: [any TagRepresentable] { [UserTag()] }
         var summary: String? { "Create user." }
         var description: String? {
             "This can only be done by the logged in user."
         }
         var operationId: String? { "createUser" }
-        var requestBody: RequestBodyRepresentable? { CreateRequestBody() }
+        var requestBody: any RequestBodyRepresentable? { CreateRequestBody() }
         var responseMap: ResponseMap {
             [
                 200: UserResponse(description: "successful operation"),
@@ -28,13 +28,13 @@ extension Petstore.User {
     }
 
     struct CreateWithListOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [UserTag()] }
+        var tags: [any TagRepresentable] { [UserTag()] }
         var summary: String? { "Creates list of users with given input array." }
         var description: String? {
             "Creates list of users with given input array."
         }
         var operationId: String? { "createUsersWithListInput" }
-        var requestBody: RequestBodyRepresentable? {
+        var requestBody: any RequestBodyRepresentable? {
             CreateWithListRequestBody()
         }
         var responseMap: ResponseMap {
@@ -47,11 +47,11 @@ extension Petstore.User {
     }
 
     struct LoginOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [UserTag()] }
+        var tags: [any TagRepresentable] { [UserTag()] }
         var summary: String? { "Logs user into the system." }
         var description: String? { "Log into the system." }
         var operationId: String? { "loginUser" }
-        var parameters: [ParameterRepresentable] {
+        var parameters: [any ParameterRepresentable] {
             [
                 LoginUsernameParameter(),
                 LoginPasswordParameter(),
@@ -70,7 +70,7 @@ extension Petstore.User {
     }
 
     struct LogoutOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [UserTag()] }
+        var tags: [any TagRepresentable] { [UserTag()] }
         var summary: String? { "Logs out current logged in user session." }
         var description: String? { "Log user out of the system." }
         var operationId: String? { "logoutUser" }
@@ -84,11 +84,11 @@ extension Petstore.User {
     }
 
     struct GetByNameOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [UserTag()] }
+        var tags: [any TagRepresentable] { [UserTag()] }
         var summary: String? { "Get user by user name." }
         var description: String? { "Get user detail based on username." }
         var operationId: String? { "getUserByName" }
-        var parameters: [ParameterRepresentable] {
+        var parameters: [any ParameterRepresentable] {
             [
                 UsernameParameter()
             ]
@@ -105,18 +105,18 @@ extension Petstore.User {
     }
 
     struct UpdateOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [UserTag()] }
+        var tags: [any TagRepresentable] { [UserTag()] }
         var summary: String? { "Update user resource." }
         var description: String? {
             "This can only be done by the logged in user."
         }
         var operationId: String? { "updateUser" }
-        var parameters: [ParameterRepresentable] {
+        var parameters: [any ParameterRepresentable] {
             [
                 UpdateUsernameParameter()
             ]
         }
-        var requestBody: RequestBodyRepresentable? { UpdateRequestBody() }
+        var requestBody: any RequestBodyRepresentable? { UpdateRequestBody() }
         var responseMap: ResponseMap {
             [
                 200: EmptyResponse(description: "successful operation"),
@@ -129,13 +129,13 @@ extension Petstore.User {
     }
 
     struct DeleteOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [UserTag()] }
+        var tags: [any TagRepresentable] { [UserTag()] }
         var summary: String? { "Delete user resource." }
         var description: String? {
             "This can only be done by the logged in user."
         }
         var operationId: String? { "deleteUser" }
-        var parameters: [ParameterRepresentable] {
+        var parameters: [any ParameterRepresentable] {
             [
                 DeleteUsernameParameter()
             ]

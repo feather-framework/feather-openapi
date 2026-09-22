@@ -11,7 +11,7 @@ import OpenAPIKit30
 extension Petstore.Store {
 
     struct InventoryOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [StoreTag()] }
+        var tags: [any TagRepresentable] { [StoreTag()] }
         var summary: String? { "Returns pet inventories by status." }
         var description: String? {
             "Returns a map of status codes to quantities."
@@ -32,11 +32,11 @@ extension Petstore.Store {
     }
 
     struct PlaceOrderOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [StoreTag()] }
+        var tags: [any TagRepresentable] { [StoreTag()] }
         var summary: String? { "Place an order for a pet." }
         var description: String? { "Place a new order in the store." }
         var operationId: String? { "placeOrder" }
-        var requestBody: RequestBodyRepresentable? {
+        var requestBody: any RequestBodyRepresentable? {
             PlaceOrderRequestBody()
         }
         var responseMap: ResponseMap {
@@ -51,13 +51,13 @@ extension Petstore.Store {
     }
 
     struct GetOrderOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [StoreTag()] }
+        var tags: [any TagRepresentable] { [StoreTag()] }
         var summary: String? { "Find purchase order by ID." }
         var description: String? {
             "For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions."
         }
         var operationId: String? { "getOrderById" }
-        var parameters: [ParameterRepresentable] {
+        var parameters: [any ParameterRepresentable] {
             [
                 OrderIdParameter()
             ]
@@ -74,13 +74,13 @@ extension Petstore.Store {
     }
 
     struct DeleteOrderOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [StoreTag()] }
+        var tags: [any TagRepresentable] { [StoreTag()] }
         var summary: String? { "Delete purchase order by identifier." }
         var description: String? {
             "For valid response try integer IDs with value < 1000. Anything above 1000 or non-integers will generate API errors."
         }
         var operationId: String? { "deleteOrder" }
-        var parameters: [ParameterRepresentable] {
+        var parameters: [any ParameterRepresentable] {
             [
                 OrderIdDeleteParameter()
             ]

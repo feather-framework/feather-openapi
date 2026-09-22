@@ -10,10 +10,10 @@ import OpenAPIKit30
 extension Example.Model {
 
     struct GetOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [ModelTag()] }
+        var tags: [any TagRepresentable] { [ModelTag()] }
         var summary: String? { "Detail example" }
         var description: String? { "Detail example detail" }
-        var parameters: [ParameterRepresentable] {
+        var parameters: [any ParameterRepresentable] {
             [
                 IdParameter().reference(),
                 CustomRequestHeaderParameter().reference(),
@@ -27,10 +27,10 @@ extension Example.Model {
     }
 
     struct CreateOperation: OperationRepresentable {
-        var tags: [TagRepresentable] { [ModelTag()] }
+        var tags: [any TagRepresentable] { [ModelTag()] }
         var summary: String? { "Create example" }
         var description: String? { "Create example detail" }
-        var requestBody: RequestBodyRepresentable? {
+        var requestBody: any RequestBodyRepresentable? {
             CreateRequestBody().reference()
         }
         var responseMap: ResponseMap {
