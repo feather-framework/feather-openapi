@@ -19,7 +19,7 @@ let swiftSettings: [SwiftSetting] = [
 ]
 
 let package = Package(
-    name: "application",
+    name: "feather-openapi",
     platforms: [
         .macOS(.v15),
         .iOS(.v18),
