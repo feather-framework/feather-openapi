@@ -47,7 +47,9 @@ extension ObjectSchemaRepresentable {
     public var referencedSchemaMap:
         OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
-        var results = OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>()
+        var results = OrderedDictionary<
+            SchemaID, any OpenAPISchemaRepresentable
+        >()
         for (_, value) in propertyMap {
             results.merge(value.referencedSchemaMap)
         }

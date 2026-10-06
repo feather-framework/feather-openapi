@@ -48,7 +48,9 @@ extension RequestBodyRepresentable {
     public var referencedSchemaMap:
         OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
-        var results = OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>()
+        var results = OrderedDictionary<
+            SchemaID, any OpenAPISchemaRepresentable
+        >()
         for content in contentMap.values {
             results.merge(content.referencedSchemaMap)
         }

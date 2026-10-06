@@ -17,10 +17,11 @@ The FeatherOpenAPI library makes it easy to define OpenAPI specifications using 
 
 ## Requirements
 
-![Swift 6.4+](https://img.shields.io/badge/Swift-6%2E4%2B-F05138)
+![Swift 6.3+](https://img.shields.io/badge/Swift-6%2E3%2B-F05138)
 ![Platforms: Linux, macOS, iOS, tvOS, watchOS, visionOS](https://img.shields.io/badge/Platforms-Linux_%7C_macOS_%7C_iOS_%7C_tvOS_%7C_watchOS_%7C_visionOS-F05138)
 
-- Swift 6.4+
+- Swift 6.3+
+
 - Platforms:
   - Linux
   - macOS 15+

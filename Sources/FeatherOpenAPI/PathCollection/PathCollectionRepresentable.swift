@@ -29,7 +29,9 @@ extension PathCollectionRepresentable {
     public var referencedSchemaMap:
         OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
-        var results = OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>()
+        var results = OrderedDictionary<
+            SchemaID, any OpenAPISchemaRepresentable
+        >()
 
         let schemaMaps = pathMap.values
             .map { $0.referencedSchemaMap }
@@ -81,7 +83,9 @@ extension PathCollectionRepresentable {
     public var referencedHeaderMap:
         OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>
     {
-        var results = OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>()
+        var results = OrderedDictionary<
+            HeaderID, any OpenAPIHeaderRepresentable
+        >()
 
         let headerMaps = pathMap.values
             .map { $0.referencedHeaderMap }

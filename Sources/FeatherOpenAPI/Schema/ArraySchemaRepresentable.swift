@@ -44,8 +44,9 @@ extension ArraySchemaRepresentable {
     public var referencedSchemaMap:
         OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
-        var results: OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable> =
-            [:]
+        var results:
+            OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable> =
+                [:]
 
         for (key, value) in items?.referencedSchemaMap ?? [:] {
             //            if let ref = value as? SchemaReferenceRepresentable {

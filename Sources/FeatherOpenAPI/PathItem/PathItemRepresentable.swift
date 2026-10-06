@@ -108,7 +108,9 @@ extension PathItemRepresentable {
     public var referencedSchemaMap:
         OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
-        var results = OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>()
+        var results = OrderedDictionary<
+            SchemaID, any OpenAPISchemaRepresentable
+        >()
 
         let maps = allOperations.map { $0.referencedSchemaMap }.flatMap { $0 }
 
@@ -156,7 +158,9 @@ extension PathItemRepresentable {
     public var referencedHeaderMap:
         OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>
     {
-        var results = OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>()
+        var results = OrderedDictionary<
+            HeaderID, any OpenAPIHeaderRepresentable
+        >()
 
         let maps = allOperations.map { $0.referencedHeaderMap }.flatMap { $0 }
 

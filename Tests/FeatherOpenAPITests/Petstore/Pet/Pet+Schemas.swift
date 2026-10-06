@@ -28,7 +28,9 @@ extension Petstore.Pet {
 
     struct TagsSchema: ArraySchemaRepresentable {
         var required: Bool { false }
-        var items: any SchemaRepresentable? { Petstore.Tag.TagSchema().reference() }
+        var items: any SchemaRepresentable? {
+            Petstore.Tag.TagSchema().reference()
+        }
     }
 
     struct StatusSchema: StringSchemaRepresentable {

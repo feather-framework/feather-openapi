@@ -93,11 +93,14 @@ struct PetstoreComponents: ComponentsRepresentable {
         base.parameters
     }
 
-    var examples: OrderedDictionary<ExampleID, any OpenAPIExampleRepresentable> {
+    var examples: OrderedDictionary<ExampleID, any OpenAPIExampleRepresentable>
+    {
         base.examples
     }
 
-    var responses: OrderedDictionary<ResponseID, any OpenAPIResponseRepresentable> {
+    var responses:
+        OrderedDictionary<ResponseID, any OpenAPIResponseRepresentable>
+    {
         base.responses
     }
 

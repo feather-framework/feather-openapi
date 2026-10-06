@@ -48,7 +48,9 @@ extension SchemaRepresentable {
     public func allReferencedSchemaMap() -> OrderedDictionary<
         SchemaID, any OpenAPISchemaRepresentable
     > {
-        var results = OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>()
+        var results = OrderedDictionary<
+            SchemaID, any OpenAPISchemaRepresentable
+        >()
         var visited = Set<SchemaID>()
         collectReferencedSchemaMap(into: &results, visited: &visited)
         return results

@@ -13,17 +13,22 @@ public protocol ComponentsRepresentable:
     VendorExtensionsProperty
 {
     /// Schema component map.
-    var schemas: OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable> { get }
+    var schemas: OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable> {
+        get
+    }
     /// Parameter component map.
     var parameters:
         OrderedDictionary<ParameterID, any OpenAPIParameterRepresentable>
     { get }
     /// Example component map.
-    var examples: OrderedDictionary<ExampleID, any OpenAPIExampleRepresentable> {
+    var examples: OrderedDictionary<ExampleID, any OpenAPIExampleRepresentable>
+    {
         get
     }
     /// Response component map.
-    var responses: OrderedDictionary<ResponseID, any OpenAPIResponseRepresentable> {
+    var responses:
+        OrderedDictionary<ResponseID, any OpenAPIResponseRepresentable>
+    {
         get
     }
     /// Request body component map.
@@ -31,7 +36,9 @@ public protocol ComponentsRepresentable:
         OrderedDictionary<RequestBodyID, any OpenAPIRequestBodyRepresentable>
     { get }
     /// Header component map.
-    var headers: OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable> { get }
+    var headers: OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable> {
+        get
+    }
     /// Security requirements used by the document.
     var securityRequirements: [any SecurityRequirementRepresentable] { get }
     /// Link component map.

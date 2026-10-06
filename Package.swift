@@ -1,22 +1,21 @@
-// swift-tools-version:6.4
+// swift-tools-version:6.3
 import PackageDescription
 
 let swiftSettings: [SwiftSetting] = [
     .swiftLanguageMode(.v6),
     .strictMemorySafety(),
     .treatAllWarnings(as: .error),
-    .enableUpcomingFeature("ExistentialAny"),
     .enableUpcomingFeature("InternalImportsByDefault"),
+    .enableUpcomingFeature("ExistentialAny"),
     .enableUpcomingFeature("MemberImportVisibility"),
     .enableUpcomingFeature("InferIsolatedConformances"),
     .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
     .enableUpcomingFeature("ImmutableWeakCaptures"),
-    .enableExperimentalFeature("SuppressedAssociatedTypesWithDefaults"),
+    .enableExperimentalFeature("SuppressedAssociatedTypes"),
     .enableExperimentalFeature("LifetimeDependence"),
     .enableExperimentalFeature("Lifetimes"),
     .enableUpcomingFeature("LifetimeDependence"),
-    .enableUpcomingFeature("ImmutableWeakCaptures"),
-    .enableExperimentalFeature("StrictConcurrency=complete"),
+    .enableUpcomingFeature("StrictConcurrency"),
 ]
 
 let package = Package(
@@ -32,9 +31,8 @@ let package = Package(
         .library(name: "FeatherOpenAPI", targets: ["FeatherOpenAPI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/mattpolzin/OpenAPIKit", exact: "7.0.0-beta.3"),
-        .package(url: "https://github.com/jpsim/Yams", from: "6.2.0"),
-        // [docc-plugin-placeholder]
+        .package(url: "https://github.com/mattpolzin/OpenAPIKit", from: "7.0.0"),
+        .package(url: "https://github.com/jpsim/Yams", from: "6.2.0"), 
     ],
     targets: [
         .target(

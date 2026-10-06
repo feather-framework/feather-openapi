@@ -145,7 +145,9 @@ extension OperationRepresentable {
     public var referencedSchemaMap:
         OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
-        var results = OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>()
+        var results = OrderedDictionary<
+            SchemaID, any OpenAPISchemaRepresentable
+        >()
 
         for parameter in parameters {
             results.merge(parameter.referencedSchemaMap)
@@ -210,7 +212,9 @@ extension OperationRepresentable {
     public var referencedHeaderMap:
         OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>
     {
-        var results = OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>()
+        var results = OrderedDictionary<
+            HeaderID, any OpenAPIHeaderRepresentable
+        >()
 
         let headers = responseMap.values
             .map { $0.headerMap.values }

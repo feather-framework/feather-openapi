@@ -11,7 +11,8 @@ public import OpenAPIKit30
 public struct Components: ComponentsRepresentable {
 
     /// Schema component map.
-    public var schemas: OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
+    public var schemas:
+        OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     /// Parameter component map.
     public var parameters:
         OrderedDictionary<ParameterID, any OpenAPIParameterRepresentable>
@@ -25,7 +26,8 @@ public struct Components: ComponentsRepresentable {
     public var requestBodies:
         OrderedDictionary<RequestBodyID, any OpenAPIRequestBodyRepresentable>
     /// Header component map.
-    public var headers: OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>
+    public var headers:
+        OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>
     /// Security requirement list used by components.
     public var securityRequirements: [any SecurityRequirementRepresentable]
     /// Link component map.
@@ -42,18 +44,24 @@ public struct Components: ComponentsRepresentable {
     ///   - securityRequirements: Security requirements.
     ///   - links: Link component map.
     public init(
-        schemas: OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable> = [:],
+        schemas: OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable> =
+            [:],
         parameters: OrderedDictionary<
             ParameterID, any OpenAPIParameterRepresentable
         > = [:],
-        examples: OrderedDictionary<ExampleID, any OpenAPIExampleRepresentable> =
+        examples: OrderedDictionary<
+            ExampleID, any OpenAPIExampleRepresentable
+        > =
             [:],
-        responses: OrderedDictionary<ResponseID, any OpenAPIResponseRepresentable> =
+        responses: OrderedDictionary<
+            ResponseID, any OpenAPIResponseRepresentable
+        > =
             [:],
         requestBodies: OrderedDictionary<
             RequestBodyID, any OpenAPIRequestBodyRepresentable
         > = [:],
-        headers: OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable> = [:],
+        headers: OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable> =
+            [:],
         securityRequirements: [any SecurityRequirementRepresentable] = [],
         links: OrderedDictionary<LinkID, any OpenAPILinkRepresentable> = [:],
     ) {
