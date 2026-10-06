@@ -79,6 +79,6 @@ extension Petstore.User {
     }
 
     struct UserArraySchema: ArraySchemaRepresentable {
-        var items: any SchemaRepresentable? { UserSchema().reference() }
+        var items: (any SchemaRepresentable)? { UserSchema().reference() }
     }
 }

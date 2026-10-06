@@ -14,7 +14,7 @@ struct ExampleMissingParentItemInfo: InfoRepresentable {
         Example API description
         """
     }
-    var contact: any OpenAPIContactRepresentable? { ExampleContact() }
+    var contact: (any OpenAPIContactRepresentable)? { ExampleContact() }
     var version: String { "1.0.0" }
 }
 

@@ -15,7 +15,7 @@ extension Petstore.Pet {
         var summary: String? { "Update an existing pet." }
         var description: String? { "Update an existing pet by Id." }
         var operationId: String? { "updatePet" }
-        var requestBody: any RequestBodyRepresentable? {
+        var requestBody: (any RequestBodyRepresentable)? {
             UpdateRequestBody()
         }
         var responseMap: ResponseMap {
@@ -40,7 +40,7 @@ extension Petstore.Pet {
         var summary: String? { "Add a new pet to the store." }
         var description: String? { "Add a new pet to the store." }
         var operationId: String? { "addPet" }
-        var requestBody: any RequestBodyRepresentable? {
+        var requestBody: (any RequestBodyRepresentable)? {
             AddRequestBody()
         }
         var responseMap: ResponseMap {
@@ -208,7 +208,7 @@ extension Petstore.Pet {
                 AdditionalMetadataQueryParameter(),
             ]
         }
-        var requestBody: any RequestBodyRepresentable? {
+        var requestBody: (any RequestBodyRepresentable)? {
             UploadImageRequestBody()
         }
         var responseMap: ResponseMap {

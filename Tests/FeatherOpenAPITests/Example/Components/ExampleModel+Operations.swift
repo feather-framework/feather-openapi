@@ -30,7 +30,7 @@ extension Example.Model {
         var tags: [any TagRepresentable] { [ModelTag()] }
         var summary: String? { "Create example" }
         var description: String? { "Create example detail" }
-        var requestBody: any RequestBodyRepresentable? {
+        var requestBody: (any RequestBodyRepresentable)? {
             CreateRequestBody().reference()
         }
         var responseMap: ResponseMap {

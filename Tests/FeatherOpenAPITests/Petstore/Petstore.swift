@@ -20,7 +20,7 @@ struct PetstoreContact: ContactRepresentable {
 
 struct PetstoreLicense: LicenseRepresentable {
     var name: String { "Apache 2.0" }
-    var url: any LocationRepresentable? {
+    var url: (any LocationRepresentable)? {
         PetstoreLocation(
             location: "https://www.apache.org/licenses/LICENSE-2.0.html"
         )
@@ -41,11 +41,11 @@ struct PetstoreInfo: InfoRepresentable {
         - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
         """
     }
-    var termsOfService: any LocationRepresentable? {
+    var termsOfService: (any LocationRepresentable)? {
         PetstoreLocation(location: "https://swagger.io/terms/")
     }
-    var contact: any OpenAPIContactRepresentable? { PetstoreContact() }
-    var license: any OpenAPILicenseRepresentable? { PetstoreLicense() }
+    var contact: (any OpenAPIContactRepresentable)? { PetstoreContact() }
+    var license: (any OpenAPILicenseRepresentable)? { PetstoreLicense() }
     var version: String { "1.0.27" }
 }
 
@@ -141,7 +141,9 @@ struct PetstoreDocument: DocumentRepresentable {
     var info: any OpenAPIInfoRepresentable { PetstoreInfo() }
     var servers: [any OpenAPIServerRepresentable] { [PetstoreServer()] }
 
-    var externalDocs: any ExternalDocsRepresentable? { PetstoreExternalDocs() }
+    var externalDocs: (any ExternalDocsRepresentable)? {
+        PetstoreExternalDocs()
+    }
 
     var paths: PathMap { collection.pathMap }
     var components: any OpenAPIComponentsRepresentable {

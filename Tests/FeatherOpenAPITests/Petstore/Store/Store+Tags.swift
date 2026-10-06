@@ -12,7 +12,7 @@ extension Petstore.Store {
     struct StoreTag: TagRepresentable {
         var name: String { "store" }
         var description: String? { "Access to Petstore orders" }
-        var externalDocs: any ExternalDocsRepresentable? {
+        var externalDocs: (any ExternalDocsRepresentable)? {
             StoreTagExternalDocs()
         }
     }

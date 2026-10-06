@@ -36,7 +36,7 @@ extension Petstore.Store {
         var summary: String? { "Place an order for a pet." }
         var description: String? { "Place a new order in the store." }
         var operationId: String? { "placeOrder" }
-        var requestBody: any RequestBodyRepresentable? {
+        var requestBody: (any RequestBodyRepresentable)? {
             PlaceOrderRequestBody()
         }
         var responseMap: ResponseMap {

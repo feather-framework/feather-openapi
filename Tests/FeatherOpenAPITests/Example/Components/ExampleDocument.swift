@@ -13,7 +13,7 @@ struct ExampleLocation: LocationRepresentable {
 
 struct ExampleContact: ContactRepresentable {
     var name: String? { "Binary Birds" }
-    var url: any LocationRepresentable? {
+    var url: (any LocationRepresentable)? {
         ExampleLocation(location: "https://binarybirds.com")
     }
     var email: String? { "info@binarybirds.com" }
@@ -26,7 +26,7 @@ struct ExampleInfo: InfoRepresentable {
         Example API description
         """
     }
-    var contact: any OpenAPIContactRepresentable? { ExampleContact() }
+    var contact: (any OpenAPIContactRepresentable)? { ExampleContact() }
     var version: String { "1.0.0" }
 }
 

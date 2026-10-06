@@ -12,7 +12,7 @@ extension Petstore.Pet {
     struct PetTag: TagRepresentable {
         var name: String { "pet" }
         var description: String? { "Everything about your Pets" }
-        var externalDocs: any ExternalDocsRepresentable? {
+        var externalDocs: (any ExternalDocsRepresentable)? {
             PetTagExternalDocs()
         }
     }

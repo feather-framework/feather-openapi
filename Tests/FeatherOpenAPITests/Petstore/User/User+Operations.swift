@@ -17,7 +17,7 @@ extension Petstore.User {
             "This can only be done by the logged in user."
         }
         var operationId: String? { "createUser" }
-        var requestBody: any RequestBodyRepresentable? { CreateRequestBody() }
+        var requestBody: (any RequestBodyRepresentable)? { CreateRequestBody() }
         var responseMap: ResponseMap {
             [
                 200: UserResponse(description: "successful operation"),
@@ -34,7 +34,7 @@ extension Petstore.User {
             "Creates list of users with given input array."
         }
         var operationId: String? { "createUsersWithListInput" }
-        var requestBody: any RequestBodyRepresentable? {
+        var requestBody: (any RequestBodyRepresentable)? {
             CreateWithListRequestBody()
         }
         var responseMap: ResponseMap {
@@ -116,7 +116,7 @@ extension Petstore.User {
                 UpdateUsernameParameter()
             ]
         }
-        var requestBody: any RequestBodyRepresentable? { UpdateRequestBody() }
+        var requestBody: (any RequestBodyRepresentable)? { UpdateRequestBody() }
         var responseMap: ResponseMap {
             [
                 200: EmptyResponse(description: "successful operation"),

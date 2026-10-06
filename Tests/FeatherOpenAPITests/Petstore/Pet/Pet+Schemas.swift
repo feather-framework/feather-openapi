@@ -23,12 +23,12 @@ extension Petstore.Pet {
     }
 
     struct PhotoUrlsSchema: ArraySchemaRepresentable {
-        var items: any SchemaRepresentable? { PhotoUrlItemSchema() }
+        var items: (any SchemaRepresentable)? { PhotoUrlItemSchema() }
     }
 
     struct TagsSchema: ArraySchemaRepresentable {
         var required: Bool { false }
-        var items: any SchemaRepresentable? {
+        var items: (any SchemaRepresentable)? {
             Petstore.Tag.TagSchema().reference()
         }
     }
@@ -61,7 +61,7 @@ extension Petstore.Pet {
     }
 
     struct PetListSchema: ArraySchemaRepresentable {
-        var items: any SchemaRepresentable? { PetSchema().reference() }
+        var items: (any SchemaRepresentable)? { PetSchema().reference() }
     }
 
     struct StatusQuerySchema: StringSchemaRepresentable {
@@ -79,7 +79,7 @@ extension Petstore.Pet {
     }
 
     struct TagsQuerySchema: ArraySchemaRepresentable {
-        var items: any SchemaRepresentable? { TagsQueryItemSchema() }
+        var items: (any SchemaRepresentable)? { TagsQueryItemSchema() }
     }
 
     struct UpdateNameSchema: StringSchemaRepresentable {

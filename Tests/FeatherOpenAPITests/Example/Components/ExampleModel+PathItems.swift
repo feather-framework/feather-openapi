@@ -9,10 +9,10 @@ import FeatherOpenAPI
 extension Example.Model {
 
     struct MainPathItem: PathItemRepresentable {
-        var post: any OperationRepresentable? { CreateOperation() }
+        var post: (any OperationRepresentable)? { CreateOperation() }
     }
 
     struct IdentifiedPathItem: PathItemRepresentable {
-        var get: any OperationRepresentable? { GetOperation() }
+        var get: (any OperationRepresentable)? { GetOperation() }
     }
 }

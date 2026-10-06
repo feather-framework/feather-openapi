@@ -136,7 +136,7 @@ struct TodoCreateOperation: OperationRepresentable {
         ]
     }
 
-    var requestBody: any RequestBodyRepresentable? {
+    var requestBody: (any RequestBodyRepresentable)? {
         TodoCreateRequestBody().reference()
     }
 
@@ -161,7 +161,7 @@ struct TodoCreateOperation: OperationRepresentable {
 }
 
 struct TodoPathItems: PathItemRepresentable {
-    var post: any OperationRepresentable? = TodoCreateOperation()
+    var post: (any OperationRepresentable)? = TodoCreateOperation()
 }
 
 struct OAuthSecurityScheme: SecuritySchemeRepresentable {
@@ -212,8 +212,8 @@ struct TagDedupPaths: PathCollectionRepresentable {
 }
 
 struct TagDedupDogPathItem: PathItemRepresentable {
-    var get: any OperationRepresentable? { TagDedupListDogsOperation() }
-    var post: any OperationRepresentable? { TagDedupCreateDogOperation() }
+    var get: (any OperationRepresentable)? { TagDedupListDogsOperation() }
+    var post: (any OperationRepresentable)? { TagDedupCreateDogOperation() }
 }
 
 struct TagDedupDogTag: TagRepresentable {
@@ -270,10 +270,10 @@ struct SecurityRequirementDedupPaths: PathCollectionRepresentable {
 }
 
 struct SecurityRequirementDedupCatPathItem: PathItemRepresentable {
-    var get: any OperationRepresentable? {
+    var get: (any OperationRepresentable)? {
         SecurityRequirementDedupListCatsOperation()
     }
-    var post: any OperationRepresentable? {
+    var post: (any OperationRepresentable)? {
         SecurityRequirementDedupCreateCatOperation()
     }
 }
