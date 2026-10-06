@@ -5,14 +5,14 @@
 //  Created by Tibor Bödecs on 2026. 01. 23.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// A type that exposes a referenced parameter.
 public protocol ParameterReferenceRepresentable {
     /// The identifier for the parameter reference.
     var id: ParameterID { get }
     /// The underlying parameter object.
-    var object: ParameterRepresentable { get }
+    var object: any ParameterRepresentable { get }
 }
 
 /// Wrapper that exposes a parameter as a reusable reference.
@@ -30,7 +30,7 @@ public struct ParameterReference<T: ParameterRepresentable>:
     public var schema: any OpenAPISchemaRepresentable { object.schema }
 
     /// The underlying parameter object.
-    public var object: ParameterRepresentable {
+    public var object: any ParameterRepresentable {
         _object
     }
 

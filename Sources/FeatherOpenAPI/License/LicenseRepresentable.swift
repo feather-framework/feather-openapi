@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 21.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Describes an OpenAPI license.
 public protocol LicenseRepresentable:
@@ -15,7 +15,7 @@ public protocol LicenseRepresentable:
     /// License name.
     var name: String { get }
     /// License URL.
-    var url: LocationRepresentable? { get }
+    var url: (any LocationRepresentable)? { get }
 }
 
 extension LicenseRepresentable {

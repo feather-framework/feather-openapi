@@ -5,13 +5,13 @@
 //  Created by Tibor Bödecs on 2026. 01. 23.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Exposes referenced schemas.
 public protocol ReferencedSchemaMapRepresentable {
     /// Map of referenced schemas.
     var referencedSchemaMap:
-        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+        OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     { get }
 }
 
@@ -19,7 +19,7 @@ public protocol ReferencedSchemaMapRepresentable {
 public protocol ReferencedParameterMapRepresentable {
     /// Map of referenced parameters.
     var referencedParameterMap:
-        OrderedDictionary<ParameterID, OpenAPIParameterRepresentable>
+        OrderedDictionary<ParameterID, any OpenAPIParameterRepresentable>
     { get }
 }
 
@@ -27,7 +27,7 @@ public protocol ReferencedParameterMapRepresentable {
 public protocol ReferencedRequestBodyMapRepresentable {
     /// Map of referenced request bodies.
     var referencedRequestBodyMap:
-        OrderedDictionary<RequestBodyID, OpenAPIRequestBodyRepresentable>
+        OrderedDictionary<RequestBodyID, any OpenAPIRequestBodyRepresentable>
     { get }
 }
 
@@ -35,7 +35,7 @@ public protocol ReferencedRequestBodyMapRepresentable {
 public protocol ReferencedHeaderMapRepresentable {
     /// Map of referenced headers.
     var referencedHeaderMap:
-        OrderedDictionary<HeaderID, OpenAPIHeaderRepresentable>
+        OrderedDictionary<HeaderID, any OpenAPIHeaderRepresentable>
     { get }
 }
 
@@ -43,14 +43,14 @@ public protocol ReferencedHeaderMapRepresentable {
 public protocol ReferencedResponseMapRepresentable {
     /// Map of referenced responses.
     var referencedResponseMap:
-        OrderedDictionary<ResponseID, OpenAPIResponseRepresentable>
+        OrderedDictionary<ResponseID, any OpenAPIResponseRepresentable>
     { get }
 }
 
 /// Exposes referenced security requirements.
 public protocol ReferencedSecuritySchemeMapRepresentable {
     /// List of referenced security requirements.
-    var referencedSecurityRequirements: [SecurityRequirementRepresentable] {
+    var referencedSecurityRequirements: [any SecurityRequirementRepresentable] {
         get
     }
 }
@@ -58,5 +58,5 @@ public protocol ReferencedSecuritySchemeMapRepresentable {
 /// Exposes referenced tags.
 public protocol ReferencedTagMapRepresentable {
     /// List of referenced tags.
-    var referencedTags: [OpenAPITagRepresentable] { get }
+    var referencedTags: [any OpenAPITagRepresentable] { get }
 }

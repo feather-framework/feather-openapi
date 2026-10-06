@@ -5,14 +5,14 @@
 //  Created by Tibor Bödecs on 2026. 01. 24.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// A type that exposes a referenced example.
 public protocol ExampleReferenceRepresentable {
     /// The identifier for the example reference.
     var id: ExampleID { get }
     /// The underlying example object.
-    var object: ExampleRepresentable { get }
+    var object: any ExampleRepresentable { get }
 }
 
 /// Wrapper that exposes an example as a reusable reference.
@@ -32,7 +32,7 @@ public struct ExampleReference<T: ExampleRepresentable>:
     }
 
     /// The underlying example object.
-    public var object: ExampleRepresentable {
+    public var object: any ExampleRepresentable {
         _object
     }
 

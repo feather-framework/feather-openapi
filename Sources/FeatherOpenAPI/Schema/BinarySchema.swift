@@ -16,7 +16,7 @@ struct BinarySchema: SchemaRepresentable {
     }
 
     var referencedSchemaMap:
-        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+        OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
         [:]
     }

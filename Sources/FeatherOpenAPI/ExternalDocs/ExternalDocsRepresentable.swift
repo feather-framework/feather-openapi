@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 21.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Describes external documentation for the API.
 public protocol ExternalDocsRepresentable:
@@ -14,7 +14,7 @@ public protocol ExternalDocsRepresentable:
     VendorExtensionsProperty
 {
     /// The external documentation URL.
-    var url: LocationRepresentable { get }
+    var url: any LocationRepresentable { get }
 }
 
 extension ExternalDocsRepresentable {

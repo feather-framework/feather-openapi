@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 21.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Describes an OpenAPI header with defaults.
 public protocol HeaderRepresentable:
@@ -19,7 +19,7 @@ public protocol HeaderRepresentable:
     ReferencedSchemaMapRepresentable
 {
     /// The schema describing the header value.
-    var schema: OpenAPISchemaRepresentable { get }
+    var schema: any OpenAPISchemaRepresentable { get }
 }
 
 extension HeaderRepresentable {
@@ -48,9 +48,9 @@ extension HeaderRepresentable {
 
     /// Referenced schemas used by the header.
     public var referencedSchemaMap:
-        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+        OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
-        guard let schema = schema as? SchemaRepresentable else {
+        guard let schema = schema as? any SchemaRepresentable else {
             return [:]
         }
         return schema.allReferencedSchemaMap()

@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 23.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Describes the OpenAPI document info section.
 public protocol InfoRepresentable:
@@ -16,11 +16,11 @@ public protocol InfoRepresentable:
     /// Display title of the API.
     var title: String { get }
     /// Terms of service URL.
-    var termsOfService: LocationRepresentable? { get }
+    var termsOfService: (any LocationRepresentable)? { get }
     /// Contact information for the API.
-    var contact: OpenAPIContactRepresentable? { get }
+    var contact: (any OpenAPIContactRepresentable)? { get }
     /// License information for the API.
-    var license: OpenAPILicenseRepresentable? { get }
+    var license: (any OpenAPILicenseRepresentable)? { get }
     /// Version string for the API.
     var version: String { get }
 }
@@ -28,11 +28,11 @@ public protocol InfoRepresentable:
 extension InfoRepresentable {
 
     /// Default terms of service is `nil`.
-    public var termsOfService: LocationRepresentable? { nil }
+    public var termsOfService: (any LocationRepresentable)? { nil }
     /// Default contact is `nil`.
-    public var contact: OpenAPIContactRepresentable? { nil }
+    public var contact: (any OpenAPIContactRepresentable)? { nil }
     /// Default license is `nil`.
-    public var license: OpenAPILicenseRepresentable? { nil }
+    public var license: (any OpenAPILicenseRepresentable)? { nil }
 
     /// Builds an OpenAPI document info object.
     /// - Returns: The OpenAPI info.

@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 21.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Describes an OpenAPI parameter with defaults.
 public protocol ParameterRepresentable:
@@ -23,7 +23,7 @@ public protocol ParameterRepresentable:
     /// The parameter context (path, query, header, cookie).
     var context: OpenAPI.Parameter.Context { get }
     /// The schema describing the parameter value.
-    var schema: OpenAPISchemaRepresentable { get }
+    var schema: any OpenAPISchemaRepresentable { get }
 
 }
 
@@ -54,9 +54,9 @@ extension ParameterRepresentable {
 
     /// Referenced schemas used by the parameter.
     public var referencedSchemaMap:
-        OrderedDictionary<SchemaID, OpenAPISchemaRepresentable>
+        OrderedDictionary<SchemaID, any OpenAPISchemaRepresentable>
     {
-        guard let schema = schema as? SchemaRepresentable else {
+        guard let schema = schema as? any SchemaRepresentable else {
             return [:]
         }
         return schema.allReferencedSchemaMap()

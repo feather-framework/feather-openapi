@@ -5,7 +5,7 @@
 //  Created by Tibor Bödecs on 2026. 01. 22.
 //
 
-import OpenAPIKit30
+public import OpenAPIKit30
 
 /// Provides an example value for schemas.
 public protocol ExampleProperty {
