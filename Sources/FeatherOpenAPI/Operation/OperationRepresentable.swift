@@ -95,7 +95,18 @@ extension OperationRepresentable {
         tags.isEmpty ? nil : tags.map { $0.name }
     }
 
-    private var openAPISecurityRequirements: [OpenAPI.SecurityRequirement]? {
+    private func openAPIResponses(
+        _ responseMap: ResponseMap
+    ) -> OrderedDictionary<
+        OpenAPI.Response.StatusCode,
+        Either<JSONReference<OpenAPI.Response>, OpenAPI.Response>
+    > {
+        responseMap.openAPIResponseMap
+    }
+
+    private func openAPISecurityRequirements(
+        _ security: [any SecurityRequirementRepresentable]?
+    ) -> [OpenAPI.SecurityRequirement]? {
         guard let security, !security.isEmpty else {
             return nil
         }
@@ -106,6 +117,14 @@ extension OperationRepresentable {
     /// Builds an OpenAPI operation.
     /// - Returns: The OpenAPI operation.
     public func openAPIOperation() -> OpenAPI.Operation {
+        openAPIOperation(responseMap: responseMap, security: security)
+    }
+
+    /// Builds an OpenAPI operation using custom responses and security.
+    public func openAPIOperation(
+        responseMap: ResponseMap,
+        security: [any SecurityRequirementRepresentable]?
+    ) -> OpenAPI.Operation {
         if let requestBody {
             return .init(
                 tags: openAPITags,
@@ -115,10 +134,10 @@ extension OperationRepresentable {
                 operationId: operationId,
                 parameters: parameters.map { $0.openAPIParameter() },
                 requestBody: requestBody.openAPIRequestBody(),
-                responses: responseMap.mapValues { $0.openAPIResponse() },
+                responses: openAPIResponses(responseMap),
                 callbacks: [:],
                 deprecated: deprecated,
-                security: openAPISecurityRequirements,
+                security: openAPISecurityRequirements(security),
                 servers: servers?.map { $0.openAPIServer() },
                 vendorExtensions: vendorExtensions
             )
@@ -130,10 +149,10 @@ extension OperationRepresentable {
             externalDocs: nil,
             operationId: operationId,
             parameters: parameters.map { $0.openAPIParameter() },
-            responses: responseMap.mapValues { $0.openAPIResponse() },
+            responses: openAPIResponses(responseMap),
             callbacks: [:],
             deprecated: deprecated,
-            security: openAPISecurityRequirements,
+            security: openAPISecurityRequirements(security),
             servers: servers?.map { $0.openAPIServer() },
             vendorExtensions: vendorExtensions
         )

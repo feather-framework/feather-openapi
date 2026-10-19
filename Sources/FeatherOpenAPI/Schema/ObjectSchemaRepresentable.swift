@@ -35,7 +35,9 @@ extension ObjectSchemaRepresentable {
             externalDocs: nil,
             minProperties: nil,
             maxProperties: nil,
-            properties: propertyMap.mapValues { $0.openAPISchema() },
+            properties: propertyMap.orderedDictionary.mapValues {
+                $0.openAPISchema()
+            },
             additionalProperties: nil,
             allowedValues: nil,
             defaultValue: nil,

@@ -38,13 +38,17 @@ extension ResponseRepresentable {
         JSONReference<OpenAPI.Response>, OpenAPI.Response
     > {
         let responseHeaders: OpenAPI.Header.Map? =
-            headerMap.isEmpty ? nil : headerMap.mapValues { $0.openAPIHeader() }
+            headerMap.isEmpty
+            ? nil
+            : headerMap.orderedDictionary.mapValues {
+                $0.openAPIHeader()
+            }
 
         return .init(
             .init(
                 description: description,
                 headers: responseHeaders,
-                content: contentMap.mapValues { $0.openAPIContent() },
+                content: contentMap.openAPIContentMap,
                 links: [:],
                 vendorExtensions: vendorExtensions
             )
