@@ -5,8 +5,6 @@
 //  Created by Tibor Bödecs on 2026. 01. 22.
 //
 
-public import OpenAPIKit30
-
 /// Request body with JSON content.
 public protocol JSONRequestBodyRepresentable: RequestBodyRepresentable {
     /// The JSON schema type used in the request body.

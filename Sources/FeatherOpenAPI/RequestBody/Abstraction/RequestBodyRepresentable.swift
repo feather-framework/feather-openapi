@@ -37,7 +37,7 @@ extension RequestBodyRepresentable {
         .init(
             .init(
                 description: description,
-                content: contentMap.mapValues { $0.openAPIContent() },
+                content: contentMap.openAPIContentMap,
                 required: `required`,
                 vendorExtensions: vendorExtensions
             )

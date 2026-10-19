@@ -79,7 +79,7 @@ extension DocumentRepresentable {
             openAPIVersion: .v3_0_0,
             info: info.openAPIInfo(),
             servers: servers.map { $0.openAPIServer() },
-            paths: paths.mapValues { .init($0.openAPIPathItem()) },
+            paths: openAPIPaths,
             components: components.openAPIComponents(),
             security: referencedSecurityRequirements.map {
                 $0.openAPISecurityRequirement()
@@ -88,5 +88,24 @@ extension DocumentRepresentable {
             externalDocs: externalDocs?.openAPIExternalDocs(),
             vendorExtensions: vendorExtensions
         )
+    }
+
+    private var openAPIPaths:
+        OrderedDictionary<
+            OpenAPI.Path,
+            Either<JSONReference<OpenAPI.PathItem>, OpenAPI.PathItem>
+        >
+    {
+        var results:
+            OrderedDictionary<
+                OpenAPI.Path,
+                Either<JSONReference<OpenAPI.PathItem>, OpenAPI.PathItem>
+            > = [:]
+        for (path, item) in paths {
+            results[OpenAPI.Path(rawValue: path)] = .init(
+                item.openAPIPathItem()
+            )
+        }
+        return results
     }
 }

@@ -10,6 +10,7 @@ public import OpenAPIKit30
 /// Describes an OpenAPI schema with common properties.
 public protocol SchemaRepresentable:
     OpenAPISchemaRepresentable,
+    Sendable,
     Identifiable,
     ReferencedSchemaMapRepresentable,
     // shared properties

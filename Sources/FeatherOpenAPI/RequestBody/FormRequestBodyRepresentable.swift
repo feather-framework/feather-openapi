@@ -5,8 +5,6 @@
 //  Created by Tibor Bödecs on 2026. 01. 22.
 //
 
-public import OpenAPIKit30
-
 /// Request body with form-encoded content.
 public protocol FormRequestBodyRepresentable: RequestBodyRepresentable {
     /// The schema type used in the form content.
